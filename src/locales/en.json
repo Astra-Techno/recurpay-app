@@ -1,0 +1,23 @@
+{
+  "dashboard": "Dashboard",
+
+  "propertymanager": "Property Manager",
+  "landlord": "Landlord",
+  "tenant": "Tenant",
+  "tradie": "Tradie",
+
+  "Managers": "Property Manager",
+  "Landlords": "Landlord(s)",
+  "Tenants": "Tenant(s)",
+  "StrataOwners": "Owner(s) / Committee chairman(s)",
+
+  "All Jobs": "All Jobs",
+  "NewMaintenanceRequest": "New Maintenance Request",
+
+  "Email Address": "Email Address",
+  "Password": "Password",
+  "Login": "Login",
+  "Forget your password?": "Forget your password?",
+  "There are no maintenance items at the moment": "There are no maintenance items at the moment",
+  "No more records found": "No more records found"
+}
