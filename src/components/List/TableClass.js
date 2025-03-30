@@ -6,7 +6,7 @@ export default class session
     static ivKey = import.meta.env.VITE_CRYPTO_IV_KEY
 
     static getKey(key) {
-        return `${import.meta.env.VITE_STORE_KEY}`+ '_'+ `${key}`.toUpperCase();
+        return `${import.meta.env.VITE_STORE_KEY}`+ `${import.meta.env.VITE_PROJECT_BASE}` + '_'+ `${key}`.toUpperCase();
     }
 
     static objToStr(obj)

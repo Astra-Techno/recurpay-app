@@ -1,85 +1,140 @@
 <template>
-    <!-- screen loader -->
-    <div>
-       	<div v-show="PageComp == null" class="fixed inset-0 bg-[#fafafa] dark:bg-[#060818] z-[1] grid place-content-center animate__animated">
-			<img src="/assets/images/loader.gif"/>
+	<!-- Screen loader -->
+	<div>
+		<div v-if="isLoading"
+			class="fixed inset-0 bg-[#fafafa] dark:bg-[#060818] z-[1] grid place-content-center animate__animated">
+			<SimpleLoader></SimpleLoader>
 		</div>
 
-		<component v-show="PageComp != null" :is="PageComp"></component>
-    </div>
+		<component v-if="PageComp" :is="PageComp" />
+	</div>
 </template>
+
 <script lang="ts" setup>
-    import { watch, ref, shallowRef } from 'vue';
-    import { useAppStore } from '@/stores/index';
-    import { useMeta } from '@/composables/use-meta';
-    import { useRoute, useRouter } from 'vue-router';
-    import useApiRequest from '@/composables/request';
+import { watch, ref, shallowRef, provide } from 'vue';
+import { useAppStore } from '@/stores/index';
+import { useMeta } from '@/composables/use-meta';
+import { useRoute, useRouter } from 'vue-router';
+import useApiRequest from '@/composables/request';
+import SimpleLoader from '@/components/elements/SimpleLoader.vue'
 
-    const route = useRoute();
-    const router = useRouter();
-    const PageComp = shallowRef();
-    const store = useAppStore();
-    const request = useApiRequest();
-    let moduleCache = {};
-    let isLoading = ref(false);
+const route = useRoute();
+const router = useRouter();
+const store = useAppStore();
+const request = useApiRequest();
 
-    const views = import.meta.glob('../views/**/*.vue');
-console.log('views', views)
-    watch(
-        () => route.params.pageName,
-        async pageName => {
-            try {
-            	PageComp.value = null;
-                //pageName = (pageName == null) ? '' : pageName.toString().replace(/-/g, "_").replace(/\/$/, '');
-                pageName = (pageName == null) ? '' : pageName.toString().replace(/\/$/, '');
-                if (store.user.token != null) {
-	                if (pageName == '' || pageName == 'login')
-                		pageName = 'dashboard';
-                } else if (store.userPages.indexOf(pageName) == -1) {
-                	if (store.guestPages.indexOf(pageName) == -1) {
-                		router.push('/login')
-                		return;
-                	}
+const PageComp = shallowRef<Component | null>(null);
+const isLoading = ref(false);
+const moduleCache = new Map<string, Component>(); // Use Map for better caching
+const views = import.meta.glob('../views/**/*.vue');
 
-					let response = await request.post('/guest-token');
-					if (response.error) {
-						router.push('/login')
-						return;
-					}
+// Create a reactive query params variable & provide globally
+const queryParamsRef = ref<string[]>([]);
+provide('QueryParams', queryParamsRef);
 
-					store.setUser(response.data.user);
-					store.setToken(response.data.token);
-					store.setGuest('1');
-				}
+// Function to extract path and query parameters (IDs) from URL
+const normalizePageName = (pageName: string | null): { path: string; queryParams: string[] } => {
+	if (!pageName) return { path: '', queryParams: [] };
 
-				if (store.user.guest == '1' && store.guestPages.indexOf(pageName) == -1 && pageName != 'login') {
-					store.setUser(null);
-					store.setToken(null);
-					router.push('/login')
-                	return;
-				}
+	const segments = pageName.split('/');
+	const pathSegments: string[] = [];
+	const queryParams: string[] = [];
 
-                pageName = `./${pageName}.vue`;
-                console.log('StartLoading.. ', pageName);
-                isLoading.value = true;
+	segments.forEach((segment) => {
+		if (/^\d+$/.test(segment)) {
+			queryParams.push(segment); // Store numbers as query params
+		} else {
+			pathSegments.push(segment); // Store other segments as path
+		}
+	});
 
-				if (!views.hasOwnProperty(pageName))
-					pageName = `./error404.vue`;
+	return { path: pathSegments.join('/'), queryParams };
+};
 
-				moduleCache[pageName] = await views[pageName]();  // Cache the loaded component
-				PageComp.value = moduleCache[pageName].default
+// Function to handle guest token generation
+const handleGuestToken = async () => {
+	const response = await request.post('/guest-token');
+	if (response.error) {
+		router.push('/login');
+		return false;
+	}
+	store.setUser(response.data.user);
+	store.setToken(response.data.token);
+	store.setGuest('1');
+	return true;
+};
 
-                isLoading.value = false;
+// Function to load components dynamically (with caching)
+const loadComponent = async (pageName: string, queryParams: string[]) => {
+	try {
+		PageComp.value = null;
+		isLoading.value = true;
 
-                setTimeout(() => {
-                    store.toggleComponent(true);
-                }, 500)
-            } catch (error) {
-                console.log('pageError:', error);
-                router.push('/error404')
-            }
-        },
-        { immediate: true }
-    )
-    useMeta({ title: 'RecurPay' });
+		// Generate a unique cache key using path + query params
+		const cacheKey = `${pageName}?${queryParams.join('&')}`;
+
+		// Check if the component is already cached
+		if (moduleCache.has(cacheKey)) {
+			PageComp.value = moduleCache.get(cacheKey);
+			return;
+		}
+
+		// Dynamically load component
+		const componentPath = `./${pageName}.vue`;
+		if (!views[componentPath]) {
+			console.warn(`Component not found: ${componentPath}`);
+			router.push('/error404');
+			return;
+		}
+
+		const module = await views[componentPath]();
+		moduleCache.set(cacheKey, module.default); // Cache the component
+		PageComp.value = module.default;
+	} catch (error) {
+		console.error('Error loading component:', error);
+		router.push('/error404');
+	} finally {
+		store.isShowMainLoader = false
+		isLoading.value = false;
+		setTimeout(() => store.toggleComponent(true), 500); // Smooth transition
+	}
+};
+
+// Watch for full route path changes
+watch(
+	() => route.fullPath, // Watch full path (includes IDs in URL)
+	async () => {
+		const pageName = route.params.pageName as string;
+		const { path, queryParams } = normalizePageName(pageName);
+
+		// Update queryParamsRef (reactive)
+		queryParamsRef.value = queryParams;
+
+		// Redirect to dashboard if logged in and trying to access login
+		if (store.user.guest != '1' && store.user.token && (!path || path === 'login')) {
+			router.push('/dashboard');
+			return;
+		}
+
+		// Handle guest users
+		if (!store.user.token && store.guestPages.indexOf(path) === -1) {
+			const tokenGenerated = await handleGuestToken();
+			if (!tokenGenerated) return;
+		}
+
+		// Prevent guests from accessing restricted pages
+		if (store.user.guest === '1' && store.guestPages.indexOf(path) === -1 && path !== 'login') {
+			store.setUser(null);
+			store.setToken(null);
+			router.push('/login');
+			return;
+		}
+
+		// Load the component dynamically
+		await loadComponent(path, queryParams);
+	},
+	{ immediate: true }
+);
+
+useMeta({ title: 'MyProperties' });
 </script>

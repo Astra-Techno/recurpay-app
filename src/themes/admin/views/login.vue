@@ -1,110 +1,89 @@
 <template>
-    <div>
-        <div class="absolute inset-0">
-            <img src="/assets/images/auth/bg-gradient.png" alt="image" class="h-full w-full object-cover" />
-        </div>
-        <div
-            class="relative flex min-h-screen items-center justify-center bg-[url(/assets/images/auth/map.png)] bg-cover bg-center bg-no-repeat px-6 py-10 dark:bg-[#060818] sm:px-16">
+	<div class="flex flex-col items-center justify-center min-h-screen accent-splash">
+		<img src="@/assets/images/logo.svg" alt="MyProperties Logo" class="mb-12" />
+		<div v-show="!appStore.isShowMainLoader"
+			class="w-auto max-w-md min-w-94 p-8 space-y-4 bg-primaryBg rounded shadow-md flex flex-col">
+			<form @submit.prevent="handleLogin" class="space-y-4">
+				<div>
+					<label for="email" class="font-bold">{{
+						$t('Email Address')
+					}}</label>
+					<input id="email" v-model="email" type="email" :placeholder="$t('Email Address')"
+						class="w-full p-2 mt-2 border rounded" required />
+				</div>
+				<div>
+					<label for="password" class="font-bold">{{
+						$t('Password')
+					}}</label>
+					<input id="password" v-model="password" type="password" :placeholder="$t('Password')"
+						class="w-full p-2 mt-2 border rounded" required />
+				</div>
 
-            <div
-                class="relative flex w-full max-w-[1502px] flex-col justify-between overflow-hidden rounded-md lg:min-h-[758px] lg:flex-row lg:gap-10 xl:gap-0">
-
-                <div  class="relative flex w-full flex-col items-center justify-center gap-6 px-4 pb-16 pt-6 sm:px-6 ">
-                    
-                    <div class="md:w-1/2  w-full bg-white/60 backdrop-blur-lg dark:bg-black/50 p-10 md:p-20">
-
-                        <div class=" w-full">
-                            <div class="mb-10">
-                                <img src="/assets/images/logo.png" alt="Logo" class="mx-auto" />
-                            </div>
-
-                            <FormKit type="form" #default="{ value }" @submit="login" submit-label="Sign In"
-		                        :config="{
-									classes: {
-									  outer: '$remove:max-w-[20em] w-[none]',
-									},
-								  }"
-                            >
-                                <FormKit v-model="user.email" class="relative text-black-dark"
-                                    type="email"
-                                    label="Email"
-                                    validation="required|email"
-                                    prefix-icon="email"
-                                />
-                                
-                                <FormKit v-model="user.password"
-                                    type="password"
-                                    label="Password"
-                                    validation="required"
-                                    validation-visibility="live"
-                                    prefix-icon="password"
-                                />
-
-								<!--
-                                <FormKit v-model="user.remember"
-                                    type="checkbox"
-                                    label="Remember me"
-                                    validation-visibility="dirty"
-                                />
-                                -->
-                            </FormKit>
-                        </div>
-                    </div>
-                    <p class="absolute bottom-6 w-full text-center dark:text-white">© {{ new Date().getFullYear()
-                        }}.RecurPay All Rights
-                        Reserved.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="w-full flex flex-col items-center justify-center">
+					<button type="submit" class="my-6 px-6 py-2 text-white font-bold bg-primary rounded">
+						Login
+					</button>
+				</div>
+				
+				<p class="mt-4 text-center">
+					Don't have an account?
+					<router-link to="/register" class="text-blue-500 hover:underline">Register</router-link>
+				</p>
+			</form>
+		</div>
+	</div>
 </template>
-<script lang="ts" setup>
-import { computed, reactive, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import appSetting from '../app-setting';
-import { useAppStore } from '@/stores/index';
-import { useRouter } from 'vue-router';
-import { useMeta } from '@/composables/use-meta';
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useAppStore } from '@/stores/index'
+import { useRouter, useRoute } from 'vue-router'
+import { useMeta } from '@/composables/use-meta'
+import useApiRequest from '@/composables/request'
+import Signal from '@/composables/signal'
+import { isEmpty } from '@/composables/helper'
 
-import IconMail from '@/components/icon/icon-mail.vue';
-import IconLockDots from '@/components/icon/icon-lock-dots.vue';
+useMeta({ title: 'MyProperties Admin' })
 
-import useApiRequest from '@/composables/request';
-import Signal from "@/composables/signal";
+const { VITE_PROJECT_BASE, VITE_API_BASE_URL } = import.meta.env;
 
-useMeta({ title: 'Login' });
-const router = useRouter();
-const store = useAppStore();
-const request = useApiRequest();
+const route = useRoute();
+const router = useRouter()
+const request = useApiRequest()
+const appStore = useAppStore()
 
-// multi language
-const i18n = reactive(useI18n());
-const changeLanguage = (item: any) => {
-    i18n.locale = item.code;
-    appSetting.toggleLanguage(item);
-};
+const email = ref('')
+const password = ref('')
 
-let loading = ref(false);
+const handleLogin = async () => {
+	appStore.isShowMainLoader = true
+	try {
+		const payload: Record<string, any> = {
+			email: email.value,
+			password: password.value
+		}
 
-const user = {
-    email: '',
-    password: '',
-    remember: false
-}
+		let response = await request.post('/login', payload);
+		if (response.error || isEmpty(response.data)) {
+			Signal.error(isEmpty(response.message) ? 'Login failed!' : response.message);
+			appStore.isShowMainLoader = false
+			return;
+		}
 
-async function login() {
-    loading.value = true;
-    let response = await request.post('/login', user);
-    if (response.error) {
-        Signal.error(response.message);
-        return;
-    }
+		appStore.setToken(response.data.token)
+		appStore.setGuest('0')
+		appStore.setUser(response.data.user);
+		Signal.success('Logged in successfully')
+		// Redirect to the intended route or fallback to /dashboard
+		const redirectTo =
+			typeof router.currentRoute.value.query.redirect === 'string'
+				? router.currentRoute.value.query.redirect
+				: '/dashboard'
+		router.push(redirectTo)
 
-    store.setUser(response.data.user);
-    store.setToken(response.data.token);
-    store.setGuest('0');
-    store.isShowMainLoader = true;
-
-    router.push('/dashboard');
+	} catch (error) {
+		// No need to handle toast here for errors, as it's managed in the interceptor
+		console.error('Login failed', error)
+		appStore.isShowMainLoader = false // Hide loader after login attempt
+	}
 }
 </script>

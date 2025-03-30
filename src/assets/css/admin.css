@@ -1,0 +1,469 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-size: 16px;
+    font-family: sans-serif;
+    color: var(--ui-text);
+    background-color: var(--general-text-background);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--general-text-heading);
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 25px;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  :focus {
+    outline: 1px solid var(--ui-focus-outline);
+  }
+
+  label {
+    color: var(--ui-label);
+  }
+
+  input {
+    border: 1px solid var(--ui-outline);
+    background-color: var(--ui-background);
+  }
+
+  input:disabled {
+    color: var(--ui-disabled-text);
+    border: 1px solid var(--ui-disabled-outline);
+    background-color: var(--ui-disabled-background);
+  }
+
+  input:focus {
+    color: var(--ui-focus-text);
+    background-color: var(--ui-focus-background);
+  }
+
+  /* Primary Button */
+  button {
+    color: var(--button-primary-text);
+    background-color: var(--button-primary-background);
+    border: 1px solid var(--button-primary-outline);
+    font-weight: bold;
+    border-radius: 0.25rem;
+  }
+
+  button:focus:not(.formkit-selector),
+  button:hover:not(.formkit-selector) {
+    color: var(--button-primary-focus-text);
+    background-color: var(--button-primary-focus-background);
+    outline: 1px solid var(--button-primary-focus-outline);
+  }
+
+  button:disabled {
+    color: var(--button-primary-disabled-text);
+    background-color: var(--button-primary-disabled-background);
+    border-color: var(--button-primary-disabled-outline);
+    outline: none;
+  }
+
+  /* Secondary Button */
+  button.secondary {
+    color: var(--button-secondary-text);
+    background-color: var(--button-secondary-background);
+    border: 1px solid var(--button-secondary-outline);
+    font-weight: bold;
+  }
+
+  button.secondary:focus,
+  button.secondary:hover {
+    color: var(--button-secondary-focus-text);
+    background-color: var(--button-secondary-focus-background);
+    border: 1px solid var(--button-secondary-focus-outline);
+    outline: 1px solid var(--button-secondary-focus-outline);
+  }
+
+  button.secondary:disabled {
+    color: var(--button-secondary-disabled-text);
+    background-color: var(--button-secondary-disabled-background);
+    border-color: var(--button-secondary-disabled-outline);
+  }
+
+  /* Secondary(normal) Button */
+  button.normal {
+    color: var(--button-secondary-text);
+    background-color: var(--button-secondary-background);
+    border: none;
+  }
+
+  button.normal:focus,
+  button.normal:hover {
+    color: var(--button-secondary-focus-text);
+    background-color: var(--button-secondary-focus-background);
+    outline: none;
+  }
+
+  button.normal:focus-visible {
+    color: var(--button-secondary-focus-text);
+    outline: 1px solid var(--button-secondary-focus-outline);
+  }
+
+  button.normal:disabled {
+    color: var(--button-secondary-disabled-text);
+    background-color: var(--button-secondary-disabled-background);
+    border: none;
+  }
+
+  /* Success Button */
+  button.success {
+    color: var(--button-success-text);
+    background-color: var(--button-success-background);
+    border: 1px solid var(--button-success-outline);
+    font-weight: bold;
+  }
+
+  button.success:focus,
+  button.success:hover {
+    color: var(--button-success-focus-text);
+    background-color: var(--button-success-focus-background);
+    outline: 1px solid var(--button-success-focus-outline);
+  }
+
+  button.success:disabled {
+    color: var(--button-success-disabled-text);
+    background-color: var(--button-success-disabled-background);
+    border-color: var(--button-success-disabled-outline);
+  }
+
+  .accent-splash {
+    position: relative;
+    overflow: visible;
+    background: var(--accent-splash-gradient);
+    background-size: 500% 500%;
+    animation: swirl 20s ease infinite;
+  }
+
+  @keyframes swirl {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* p dataview */
+  .landlord .p-dataview,
+  .landlord .p-dataview-content,
+  .landlord .p-dataview-paginator-bottom {
+    border: none !important;
+  }
+
+  /* p paginator */
+  .landlord .p-paginator {
+    justify-content: end;
+    margin: 32px 0;
+  }
+
+  .landlord .p-paginator button.p-paginator-page:hover,
+  .landlord .p-paginator button.p-paginator-first:hover,
+  .landlord .p-paginator button.p-paginator-prev:hover,
+  .landlord .p-paginator button.p-paginator-next:hover,
+  .landlord .p-paginator button.p-paginator-last:hover {
+    color: var(--button-secondary-focus-text);
+    background-color: var(--button-secondary-focus-background);
+    outline: 1px solid var(--button-secondary-focus-outline);
+  }
+
+  .landlord .p-paginator-page {
+    padding: 10px;
+  }
+
+  .landlord .p-paginator-first,
+  .landlord .p-paginator-last,
+  .landlord .p-paginator-prev,
+  .landlord .p-paginator-next,
+  .landlord .p-paginator-page {
+    color: var(--button-secondary-text);
+    margin: 0 5px;
+  }
+
+  .landlord .p-paginator-content .p-icon {
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+  }
+
+  .landlord .p-paginator-first,
+  .landlord .p-paginator-last,
+  .landlord .p-paginator-prev,
+  .landlord .p-paginator-next {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    margin: 0 5px;
+  }
+
+  .landlord .p-paginator-first.p-disabled,
+  .landlord .p-paginator-last.p-disabled,
+  .landlord .p-paginator-prev.p-disabled,
+  .landlord .p-paginator-next.p-disabled,
+  .landlord .p-paginator-page.p-disabled {
+    color: var(--button-secondary-disabled-text);
+    background-color: var(--button-secondary-disabled-background);
+    border-color: var(--button-secondary-disabled-outline);
+  }
+
+  .btn {
+    @apply flex rounded-[5px] px-2 py-1 border;
+  }
+  /* Tag Component */
+  .tag-box,.tag-badge{
+    @apply flex font-bold rounded-md gap-2 py-2 px-4 border leading-6;    
+  }
+  .tag-badge{
+    @apply inline-block;
+  }
+  .tag-box {
+    @apply bg-[var(--tags-general-background)] border-[var(--tags-general-outline)] text-[var(--tags-general-text)]
+  }
+
+  /* Pagination for Maintenance List  Page Start*/
+  .bh-pagination {
+    @apply flex justify-end items-end gap-4 text-base leading-6 py-8;
+  }
+
+  .bh-flex {
+    @apply flex-row;
+  }
+  .bh-pagination .bh-page-item svg{
+    @apply w-[30px] h-[30px] p-1;
+  }
+  .bh-pagination .bh-page-item {
+    @apply rounded-sm px-2 bg-transparent border-0 text-[var(--button-secondary-text)] font-bold;
+  }
+  .bh-pagination .bh-page-item:hover{
+    @apply bg-[var(--button-secondary-focus-background)] text-[var(--button-secondary-focus-text)] border-[var(--button-secondary-focus-outline)];
+  }
+
+  .bh-pagination .bh-page-item.next-page,.bh-pagination .bh-page-item.previous-page,
+  .bh-pagination .bh-page-item.first-page,.bh-pagination .bh-page-item.last-page
+  {
+    @apply border p-0 rounded-md mx-0 rounded;
+  }
+  .bh-pagination .bh-page-item.bh-active,.bh-pagination .bh-page-item.bh-active:hover,
+  .bh-pagination .previous-page.disabled,.bh-pagination .previous-page.disabled:hover,
+  .bh-pagination .bh-page-item.next-page.disabled,.bh-pagination .bh-page-item.next-page.disabled:hover,
+  .bh-pagination .first-page.disabled,.bh-pagination .first-page.disabled:hover,
+  .bh-pagination .last-page.disabled,.bh-pagination .last-page.disabled:hover
+  {
+    @apply text-[var(--button-secondary-disabled-text)] bg-[var(--button-secondary-disabled-background)] border-[var(--button-secondary-disabled-outline)] !important;
+  }
+
+  .bh-pagination-number {
+    @apply flex gap-4 py-2;
+  }
+
+
+  /* Pagination for Maintenance List  Page End*/
+
+  /* Grouped List */
+  .group-header {
+    @apply text-xl pb-2 border-b mb-4 mt-5;
+  }
+  .list-row {
+    @apply border rounded-[5px] p-4 mb-4;
+  }
+
+  /*Detail Page Section Header*/
+  .section-header {
+    @apply text-xl leading-[27.24px] my-4 font-semibold;
+  }
+
+  .section-wrapper {
+    @apply flex flex-row my-4;
+  }
+
+  .m-section {
+    @apply w-full flex-col justify-start gap-4 mb-8 flex;
+  }
+
+  .m-section-header {
+    @apply text-xl font-semibold leading-7 border-b pr-3 pb-2 border-[#c6cad3] text-[#3f4e6a];
+  }
+
+  .m-section-detail {
+    @apply flex flex-col text-base leading-6 text-[#3f4e6a];
+  }
+
+  .m-section-subheader {
+    @apply flex-1 font-bold;
+  }
+
+  .job-title {
+    @apply flex flex-row py-2 text-[#3f4e6a] text-2xl font-semibold;
+  }
+
+  .action-button {
+    @apply py-2 px-7 rounded-md font-bold border;
+  }
+
+  .action-button.active {
+    @apply bg-primary text-white;
+  }
+
+  /* Table CSS for reports pages*/
+  .t-col-before {
+    @apply inline-flex font-semibold w-1/2;
+  }
+
+  .t-col-md-before {
+    @apply content-[''] w-0;
+  }
+
+  tr.t-head {
+    @apply border-b-2 border-b-black after:mb-2;
+  }
+
+  .t-head th {
+    @apply font-bold;
+  }
+
+  .t-head {
+    @apply absolute -top-full opacity-0 md:relative md:top-0 md:opacity-100 first:border-t-2 md:last:border-t-0 bg-[#FFF];
+  }
+
+  tr.t-row {
+    @apply block border-b-[0.85rem] border-b-transparent sm:table-row;
+    border-bottom-color: white !important;
+  }
+
+  .t-col span a {
+    @apply no-underline hover:underline;
+  }
+
+  .t-col {
+    @apply p-4 text-balance block p-3 sm:table-cell border-b-white before:t-col-before md:before:t-col-md-before last:border-b-2 md:last:border-b-0 bg-[#F7F7F7];
+  }
+
+  .bg-statementShade{
+    background-color: var(--statement-shade);
+  }
+  .bg-statementTitle{
+    background-color: var(--statement-title);
+  }
+}
+
+.apexcharts-selected svg {
+  fill: var(--accent-text-accent) !important;
+}
+.apexcharts-pan-icon.apexcharts-selected svg{
+  stroke: var(--accent-text-accent) !important;
+  fill:none !important;
+}
+@layer components {  
+  /*label.formkit-label {
+    font-size: 16px;
+    line-height: inherit;
+    color: var(--ui-label);
+  }*/
+
+  .formkit-inner input,
+  .formkit-inner input:disabled,
+  .formkit-inner input:focus {
+    border: initial;    
+  }
+
+  /* Apply styles to .formkit-inner, but avoid applying them if it contains a .formkit-selector & .formkit-decorator childs */  
+ 
+ /* .formkit-options .formkit-inner {
+    background-color: transparent;
+  }*/
+  /*.formkit-track {
+    border: 0 !important;
+  }*/
+  /*.formkit-input:focus-visible ~ .formkit-track,
+  .formkit-input:focus-visible ~ .formkit-decorator {
+    box-shadow: none !important;
+  }*/
+  /*.formkit-input:checked ~ .formkit-decorator {
+    border-color: var(--ui-focus-outline)!important;
+    color: var(--ui-focus-outline) !important;
+    background-color: transparent !important;
+  }*/
+
+  /*.formkit-inner button,
+  .formkit-selectionWrapper button,
+  .formkit-inner button:hover,
+  .formkit-inner button:focus,
+  .formkit-selectionWrapper button:hover,
+  .formkit-selectionWrapper button:focus {
+    background-color: inherit;
+    border: initial;
+    border-radius: inherit;
+    outline: inherit;
+    color: inherit;
+    font-weight:inherit;
+  }*/
+
+  /* .formkit-inner {
+    padding: 0 !important;
+  }
+
+  .formkit-input {
+    border: 1px solid var(--ui-outline) !important;
+    border-radius: 0.25rem;
+    background-color: var(--ui-background) !important;
+    padding: 0.5rem !important;
+  }
+
+  .formkit-input:focus {
+    border: 1px solid var(--ui-focus-outline) !important;
+    border-radius: 0.25rem;
+    background-color: var(--ui-background) !important;
+    padding: 0.5rem !important;
+  } */
+
+  /* div.formkit-inner {
+    border: 1px solid var(--ui-outline);
+    background-color: var(--ui-background);
+  }
+  div.formkit-inner:focus {
+    border: 1px solid var(--ui-outline);
+    background-color: var(--ui-background);
+  }
+  .formkit-input[type='radio']:checked + .formkit-decorator {
+    border-color: var(--primary-color);
+  }
+  .formkit-input[type='radio']:checked + .formkit-decorator svg {
+    color: var(--primary-color);
+  } */
+}

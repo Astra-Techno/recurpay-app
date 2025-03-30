@@ -1,0 +1,807 @@
+/* ========================= */
+/* Root Variables (Light)    */
+/* ========================= */
+:root {
+  /* General Text & Page */
+  --general-text-heading: #32324d;
+  --general-text-paragraph: #3c3c5d;
+  --general-text-subtext: #3c3c5d;
+  --general-text-disclaimer: #666681;
+  --general-text-background: #ffffff;
+  --general-text-modal-background: #ffffff;
+  --general-text-modal-outline: #32324d;
+  --general-text-link-unvisited: #6600ee;
+  --general-text-link-hover: #d21dcb;
+  --general-text-link-visited: #6b49a8;
+
+  /* General UI */
+  --ui-label: #32324d;
+  --ui-text: #3c3c5d;
+  --ui-outline: #9090a5;
+  --ui-background: #f7f7f7;
+  --ui-nav-controls: #6600ee;
+  --ui-focus-text: #3c3c5d;
+  --ui-focus-outline: #6600ee;
+  --ui-focus-background: #f7f7f7;
+  --ui-warning-text: #775613;
+  --ui-warning-outline: #ffcb33;
+  --ui-warning-background: #ffefc2;
+  --ui-error-text: #7a1212;
+  --ui-error-outline: #b71a1a;
+  --ui-error-background: #fdeaea;
+  --ui-suggested-text: #666681;
+  --ui-disabled-label: #666681;
+  --ui-disabled-text: #3c3c5d;
+  --ui-disabled-outline: #666681;
+  --ui-disabled-background: #c6cad3;
+  --ui-star-rating-foreground: #ffcb33;
+  --ui-star-rating-background: #9090a5;
+  --ui-slider-toggle-on-text: #3c3c5d;
+  --ui-slider-toggle-off-background: #f7f7f7;
+  --ui-slider-toggle-off-thumb: #8c52ff;
+  --ui-slider-toggle-on-background: #8c52ff;
+  --ui-slider-toggle-on-thumb: #f7f7f7;
+  --ui-slider-toggle-outline: #8c52ff;
+  --ui-datepicker-selected-date-background: #bb99ff;
+  --ui-datepicker-selected-date-text: #ffffff;
+
+  /* Buttons */
+  --button-primary-text: #ffffff;
+  --button-primary-background: #8c52ff;
+  --button-primary-outline: #6b49a8;
+  --button-primary-focus-text: #ffffff;
+  --button-primary-focus-outline: #72176f;
+  --button-primary-focus-background: #d21dcb;
+  --button-primary-disabled-text: #ffffff;
+  --button-primary-disabled-background: #666681;
+  --button-primary-disabled-outline: #9090a5;
+
+  --button-secondary-text: #6600ee;
+  --button-secondary-background: transparent;
+  --button-secondary-outline: #8c52ff;
+  --button-secondary-focus-text: #d21dcb;
+  --button-secondary-focus-outline: #d21dcb;
+  --button-secondary-focus-background: transparent;
+  --button-secondary-disabled-text: #666681;
+  --button-secondary-disabled-background: transparent;
+  --button-secondary-disabled-outline: #666681;
+
+  --button-success-text: #ffffff;
+  --button-success-background: #53bc81;
+  --button-success-outline: #226740;
+  --button-success-focus-text: #547906;
+  --button-success-focus-outline: #547906;
+  --button-success-focus-background: #a7e02e;
+  --button-success-disabled-text: #ffffff;
+  --button-success-disabled-background: #666681;
+  --button-success-disabled-outline: #9090a5;
+
+  --button-icon-large: #8c52ff;
+  --button-icon-small: #6600ee;
+  --button-icon-menu: #8c52ff;
+
+  --button-radio-outline: #8c52ff;
+  --button-radio-selected-fill: #8c52ff;
+  --button-radio-disabled-outline: #9090a5;
+  --button-radio-disabled-fill: #9090a5;
+
+  /* Notifications */
+  --notification-general-text: #3e2b6f;
+  --notification-general-outline: #6b49a8;
+  --notification-general-background: #c5b5e3;
+  --notification-success-text: #226740;
+  --notification-success-outline: #53bc81;
+  --notification-success-background: #eef9f2;
+  --notification-error-text: #7a1212;
+  --notification-error-outline: #b71a1a;
+  --notification-error-background: #fdeaea;
+  --notification-warning-text: #775613;
+  --notification-warning-outline: #ffcb33;
+  --notification-warning-background: #ffefc2;
+
+  /* Graphs */
+  --graph-financial-income: #53bc81;
+  --graph-financial-expense: #b71a1a;
+  --graph-financial-cashflow: #9090a5;
+  --graph-financial-assets: #0c9cfc;
+  --graph-financial-liabilities: #ffcb33;
+
+  --graph-generic-1st: #8c52ff;
+  --graph-generic-2nd: #53bc81;
+  --graph-generic-3rd: #0c9cfc;
+  --graph-generic-4th: #b71a1a;
+  --graph-generic-5th: #ffcb33;
+  --graph-generic-6th: #d21dcb;
+  --graph-generic-7th: #a7e02e;
+  --graph-generic-8th: #e56a00;
+  --graph-generic-9th: #7fffff;
+  --graph-generic-10th: #226740;
+  --graph-generic-11th: #775613;
+  --graph-generic-12th: #3e2b6f;
+  --graph-generic-13th: #154e75;
+  --graph-generic-14th: #666681;
+  --graph-generic-15th: #5b6029;
+
+  /* Tags */
+  --tags-general-text: #32324d;
+  --tags-general-outline: #32324d;
+  --tags-general-background: #f7f7f7;
+  --tags-general-icon: #666681;
+
+  --tags-progression-initial-text: #3c3c5d;
+  --tags-progression-initial-outline: #c6cad3;
+  --tags-progression-initial-background: #f7f7f7;
+  --tags-progression-cancelled-text: #32324d;
+  --tags-progression-cancelled-outline: #666681;
+  --tags-progression-cancelled-background: #c6cad3;
+  --tags-progression-waiting-on-you-text: #3e2b6f;
+  --tags-progression-waiting-on-you-outline: #6b49a8;
+  --tags-progression-waiting-on-you-background: #c5b5e3;
+  --tags-progression-waiting-on-me-text: #775613;
+  --tags-progression-waiting-on-me-outline: #ffcb33;
+  --tags-progression-waiting-on-me-background: #ffefc2;
+  --tags-progression-in-progress-text: #154e75;
+  --tags-progression-in-progress-outline: #0c9cfc;
+  --tags-progression-in-progress-background: #cdeafe;
+  --tags-progression-completed-text: #226740;
+  --tags-progression-completed-outline: #53bc81;
+  --tags-progression-completed-background: #eef9f2;
+  --tags-progression-error-text: #7a1212;
+  --tags-progression-error-outline: #b71a1a;
+  --tags-progression-error-background: #fdeaea;
+
+  /* Misc */
+  --accent-large-area-splash: #80729d;
+  --accent-small-area-splash: #8c52ff;
+  --accent-text-accent: #6600ee;
+  --transparent: #ffffff00;
+  --accent-splash-gradient: linear-gradient(
+    45deg,
+    #cc8bf1,
+    #6b49a8,
+    #7145c5,
+    #c97af6,
+    #8c52ff
+  );
+  --p-skeleton-background:#e2e8f0;
+  --p-skeleton-border-radius:6px;
+  --p-skeleton-animation-background: rgba(255, 255, 255, 0.4); 
+}
+
+/* ========================= */
+/* Dark Theme Variables      */
+/* ========================= */
+[data-theme='dark'] {
+  /* General Text & Page */
+  --general-text-heading: #ffffff;
+  --general-text-paragraph: #f7f7f7;
+  --general-text-subtext: #f7f7f7;
+  --general-text-disclaimer: #c6cad3;
+  --general-text-background: #32324d;
+  --general-text-modal-background: #32324d;
+  --general-text-modal-outline: #ffffff;
+  --general-text-link-unvisited: #bb99ff;
+  --general-text-link-hover: #f9d2f7;
+  --general-text-link-visited: #c5b5e3;
+
+  /* General UI */
+  --ui-label: #ffffff;
+  --ui-text: #f7f7f7;
+  --ui-outline: #c6cad3;
+  --ui-background: #3c3c5d;
+  --ui-nav-controls: #bb99ff;
+  --ui-focus-text: #f7f7f7;
+  --ui-focus-outline: #bb99ff;
+  --ui-focus-background: #3c3c5d;
+  --ui-warning-text: #ffffff;
+  --ui-warning-outline: #ffcb33;
+  --ui-warning-background: #775613;
+  --ui-error-text: #ffffff;
+  --ui-error-outline: #b71a1a;
+  --ui-error-background: #7a1212;
+  --ui-suggested-text: #c6cad3;
+  --ui-disabled-label: #c6cad3;
+  --ui-disabled-text: #f7f7f7;
+  --ui-disabled-outline: #c6cad3;
+  --ui-disabled-background: #666681;
+  --ui-star-rating-foreground: #ffcb33;
+  --ui-star-rating-background: #9090a5;
+  --ui-slider-toggle-on-text: #f7f7f7;
+  --ui-slider-toggle-off-background: #6b49a8;
+  --ui-slider-toggle-off-thumb: #bb99ff;
+  --ui-slider-toggle-on-background: #bb99ff;
+  --ui-slider-toggle-on-thumb: #8c52ff;
+  --ui-slider-toggle-outline: #8c52ff;
+  --ui-datepicker-selected-date-background: #8c52ff;
+  --ui-datepicker-selected-date-text: #1a1a1f;
+
+  /* Buttons */
+  --button-primary-text: #ffffff;
+  --button-primary-background: #8c52ff;
+  --button-primary-outline: #6b49a8;
+  --button-primary-focus-text: #ffffff;
+  --button-primary-focus-outline: #d21dcb;
+  --button-primary-focus-background: #72176f;
+  --button-primary-disabled-text: #ffffff;
+  --button-primary-disabled-background: #666681;
+  --button-primary-disabled-outline: #9090a5;
+
+  --button-secondary-text: #bb99ff;
+  --button-secondary-background: transparent;
+  --button-secondary-outline: #bb99ff;
+  --button-secondary-focus-text: #f9d2f7;
+  --button-secondary-focus-outline: #f9d2f7;
+  --button-secondary-focus-background: transparent;
+  --button-secondary-disabled-text: #c6cad3;
+  --button-secondary-disabled-background: transparent;
+  --button-secondary-disabled-outline: #c6cad3;
+
+  --button-success-text: #ffffff;
+  --button-success-background: #53bc81;
+  --button-success-outline: #226740;
+  --button-success-focus-text: #a7e02e;
+  --button-success-focus-outline: #ecf8d3;
+  --button-success-focus-background: #547906;
+  --button-success-disabled-text: #ffffff;
+  --button-success-disabled-background: #666681;
+  --button-success-disabled-outline: #9090a5;
+
+  --button-icon-large: #8c52ff;
+  --button-icon-small: #bb99ff;
+  --button-icon-menu: #8c52ff;
+
+  --button-radio-outline: #8c52ff;
+  --button-radio-selected-fill: #8c52ff;
+  --button-radio-disabled-outline: #9090a5;
+  --button-radio-disabled-fill: #9090a5;
+
+  /* Notifications */
+  --notification-general-text: #ffffff;
+  --notification-general-outline: #6b49a8;
+  --notification-general-background: #3e2b6f;
+  --notification-success-text: #ffffff;
+  --notification-success-outline: #53bc81;
+  --notification-success-background: #226740;
+  --notification-error-text: #ffffff;
+  --notification-error-outline: #b71a1a;
+  --notification-error-background: #7a1212;
+  --notification-warning-text: #ffffff;
+  --notification-warning-outline: #ffcb33;
+  --notification-warning-background: #775613;
+
+  /* Graphs */
+  --graph-financial-income: #53bc81;
+  --graph-financial-expense: #b71a1a;
+  --graph-financial-cashflow: #9090a5;
+  --graph-financial-assets: #0c9cfc;
+  --graph-financial-liabilities: #ffcb33;
+
+  --graph-generic-1st: #8c52ff;
+  --graph-generic-2nd: #53bc81;
+  --graph-generic-3rd: #0c9cfc;
+  --graph-generic-4th: #b71a1a;
+  --graph-generic-5th: #ffcb33;
+  --graph-generic-6th: #d21dcb;
+  --graph-generic-7th: #a7e02e;
+  --graph-generic-8th: #e56a00;
+  --graph-generic-9th: #7fffff;
+  --graph-generic-10th: #226740;
+  --graph-generic-11th: #775613;
+  --graph-generic-12th: #3e2b6f;
+  --graph-generic-13th: #154e75;
+  --graph-generic-14th: #666681;
+  --graph-generic-15th: #5b6029;
+
+  /* Tags */
+  --tags-general-text: #ffffff;
+  --tags-general-outline: #ffffff;
+  --tags-general-background: #3c3c5d;
+  --tags-general-icon: #c6cad3;
+
+  --tags-progression-initial-text: #c6cad3;
+  --tags-progression-initial-outline: #666681;
+  --tags-progression-initial-background: #3c3c5d;
+  --tags-progression-cancelled-text: #c6cad3;
+  --tags-progression-cancelled-outline: #666681;
+  --tags-progression-cancelled-background: #3c3c5d;
+  --tags-progression-waiting-on-you-text: #c5b5e3;
+  --tags-progression-waiting-on-you-outline: #6b49a8;
+  --tags-progression-waiting-on-you-background: #3e2b6f;
+  --tags-progression-waiting-on-me-text: #ffcb33;
+  --tags-progression-waiting-on-me-outline: #775613;
+  --tags-progression-waiting-on-me-background: #3c3c5d;
+  --tags-progression-in-progress-text: #0c9cfc;
+  --tags-progression-in-progress-outline: #154e75;
+  --tags-progression-in-progress-background: #3c3c5d;
+  --tags-progression-completed-text: #53bc81;
+  --tags-progression-completed-outline: #226740;
+  --tags-progression-completed-background: #3c3c5d;
+  --tags-progression-error-text: #b71a1a;
+  --tags-progression-error-outline: #7a1212;
+  --tags-progression-error-background: #3c3c5d;
+
+  /* Misc */
+  --accent-large-area-splash: #80729d;
+  --accent-small-area-splash: #8c52ff;
+  --accent-text-accent: #bb99ff;
+  --transparent: #1a1a1f00;
+}
+
+/* ============================= */
+/* High Contrast Theme Variables */
+/* ============================= */
+[data-theme='highContrast'] {
+  /* General Text & Page */
+  --general-text-heading: #ffffff;
+  --general-text-paragraph: #ffffff;
+  --general-text-subtext: #ffffff;
+  --general-text-disclaimer: #ffffff;
+  --general-text-background: #1a1a1f;
+  --general-text-modal-background: #1a1a1f;
+  --general-text-modal-outline: #ffffff;
+  --general-text-link-unvisited: #a7e02e;
+  --general-text-link-hover: #ecf8d3;
+  --general-text-link-visited: #cc8bf1;
+
+  /* General UI */
+  --ui-label: #ffffff;
+  --ui-text: #ffffff;
+  --ui-outline: #ffffff;
+  --ui-background: #32324d;
+  --ui-nav-controls: #a7e02e;
+  --ui-focus-text: #ffffff;
+  --ui-focus-outline: #a7e02e;
+  --ui-focus-background: #32324d;
+  --ui-warning-text: #ffffff;
+  --ui-warning-outline: #ffcb33;
+  --ui-warning-background: #32324d;
+  --ui-error-text: #ffffff;
+  --ui-error-outline: #b71a1a;
+  --ui-error-background: #32324d;
+  --ui-suggested-text: #ffffff;
+  --ui-disabled-label: #ffffff;
+  --ui-disabled-text: #ffffff;
+  --ui-disabled-outline: #32324d;
+  --ui-disabled-background: #32324d;
+  --ui-star-rating-foreground: #ffcb33;
+  --ui-star-rating-background: #9090a5;
+  --ui-slider-toggle-on-text: #ffffff;
+  --ui-slider-toggle-off-background: #666681;
+  --ui-slider-toggle-off-thumb: #a7e02e;
+  --ui-slider-toggle-on-background: #a7e02e;
+  --ui-slider-toggle-on-thumb: #ffffff;
+  --ui-slider-toggle-outline: #a7e02e;
+  --ui-datepicker-selected-date-background: #8c52ff;
+  --ui-datepicker-selected-date-text: #ffffff;
+
+  /* Buttons */
+  --button-primary-text: #ffffff;
+  --button-primary-background: #3e2b6f;
+  --button-primary-outline: #c5b5e3;
+  --button-primary-focus-text: #f9d2f7;
+  --button-primary-focus-outline: #d21dcb;
+  --button-primary-focus-background: #1a1a1f;
+  --button-primary-disabled-text: #ffffff;
+  --button-primary-disabled-background: #3c3c5d;
+  --button-primary-disabled-outline: #3c3c5d;
+
+  --button-secondary-text: #ffffff;
+  --button-secondary-background: transparent;
+  --button-secondary-outline: #ffffff;
+  --button-secondary-focus-text: #f9d2f7;
+  --button-secondary-focus-outline: #f9d2f7;
+  --button-secondary-focus-background: transparent;
+  --button-secondary-disabled-text: #ffffff;
+  --button-secondary-disabled-background: transparent;
+  --button-secondary-disabled-outline: #666681;
+
+  --button-success-text: #ffffff;
+  --button-success-background: #226740;
+  --button-success-outline: #53bc81;
+  --button-success-focus-text: #ecf8d3;
+  --button-success-focus-outline: #a7e02e;
+  --button-success-focus-background: #1a1a1f;
+  --button-success-disabled-text: #ffffff;
+  --button-success-disabled-background: #666681;
+  --button-success-disabled-outline: #9090a5;
+
+  --button-icon-large: #8c52ff;
+  --button-icon-small: #6600ee;
+  --button-icon-menu: #8c52ff;
+
+  --button-radio-outline: #8c52ff;
+  --button-radio-selected-fill: #8c52ff;
+  --button-radio-disabled-outline: #9090a5;
+  --button-radio-disabled-fill: #9090a5;
+
+  /* Notifications */
+  --notification-general-text: #1a1a1f;
+  --notification-general-outline: #6b49a8;
+  --notification-general-background: #c5b5e3;
+  --notification-success-text: #1a1a1f;
+  --notification-success-outline: #53bc81;
+  --notification-success-background: #eef9f2;
+  --notification-error-text: #1a1a1f;
+  --notification-error-outline: #b71a1a;
+  --notification-error-background: #fdeaea;
+  --notification-warning-text: #1a1a1f;
+  --notification-warning-outline: #ffcb33;
+  --notification-warning-background: #ffefc2;
+
+  /* Graphs */
+  --graph-financial-income: #1a1a1f;
+  --graph-financial-expense: #1a1a1f;
+  --graph-financial-cashflow: #1a1a1f;
+  --graph-financial-assets: #1a1a1f;
+  --graph-financial-liabilities: #1a1a1f;
+
+  --graph-generic-1st: #1a1a1f;
+  --graph-generic-2nd: #1a1a1f;
+  --graph-generic-3rd: #1a1a1f;
+  --graph-generic-4th: #1a1a1f;
+  --graph-generic-5th: #1a1a1f;
+  --graph-generic-6th: #1a1a1f;
+  --graph-generic-7th: #1a1a1f;
+  --graph-generic-8th: #1a1a1f;
+  --graph-generic-9th: #1a1a1f;
+  --graph-generic-10th: #1a1a1f;
+  --graph-generic-11th: #1a1a1f;
+  --graph-generic-12th: #1a1a1f;
+  --graph-generic-13th: #1a1a1f;
+  --graph-generic-14th: #1a1a1f;
+  --graph-generic-15th: #1a1a1f;
+
+  /* Tags */
+  --tags-general-text: #ffffff;
+  --tags-general-outline: #ffffff;
+  --tags-general-background: #32324d;
+  --tags-general-icon: #ffffff;
+
+  --tags-progression-initial-text: #ffffff;
+  --tags-progression-initial-outline: #32324d;
+  --tags-progression-initial-background: #32324d;
+  --tags-progression-cancelled-text: #ffffff;
+  --tags-progression-cancelled-outline: #32324d;
+  --tags-progression-cancelled-background: #32324d;
+  --tags-progression-waiting-on-you-text: #ffffff;
+  --tags-progression-waiting-on-you-outline: #32324d;
+  --tags-progression-waiting-on-you-background: #32324d;
+  --tags-progression-waiting-on-me-text: #ffffff;
+  --tags-progression-waiting-on-me-outline: #32324d;
+  --tags-progression-waiting-on-me-background: #32324d;
+  --tags-progression-in-progress-text: #ffffff;
+  --tags-progression-in-progress-outline: #32324d;
+  --tags-progression-in-progress-background: #32324d;
+  --tags-progression-completed-text: #ffffff;
+  --tags-progression-completed-outline: #32324d;
+  --tags-progression-completed-background: #32324d;
+  --tags-progression-error-text: #ffffff;
+  --tags-progression-error-outline: #32324d;
+  --tags-progression-error-background: #32324d;
+
+  /* Misc */
+  --accent-large-area-splash: #80729d;
+  --accent-small-area-splash: #8c52ff;
+  --accent-text-accent: #6600ee;
+  --transparent: #1a1a1f00;
+}
+
+/* ============================= */
+/* Red-Green Theme Variables     */
+/* ============================= */
+[data-theme='redGreen'] {
+  /* General Text & Page */
+  --general-text-heading: #32324d;
+  --general-text-paragraph: #3c3c5d;
+  --general-text-subtext: #3c3c5d;
+  --general-text-disclaimer: #3c3c5d;
+  --general-text-background: #ffffff;
+  --general-text-modal-background: #ffffff;
+  --general-text-modal-outline: #32324d;
+  --general-text-link-unvisited: #6600ee;
+  --general-text-link-hover: #d21dcb;
+  --general-text-link-visited: #6b49a8;
+
+  /* General UI */
+  --ui-label: #32324d;
+  --ui-text: #3c3c5d;
+  --ui-outline: #9090a5;
+  --ui-background: #f7f7f7;
+  --ui-nav-controls: #6600ee;
+  --ui-focus-text: #3c3c5d;
+  --ui-focus-outline: #6600ee;
+  --ui-focus-background: #f7f7f7;
+  --ui-warning-text: #775613;
+  --ui-warning-outline: #ffcb33;
+  --ui-warning-background: #ffefc2;
+  --ui-error-text: #7a1212;
+  --ui-error-outline: #b71a1a;
+  --ui-error-background: #fdeaea;
+  --ui-suggested-text: #666681;
+  --ui-disabled-label: #666681;
+  --ui-disabled-text: #3c3c5d;
+  --ui-disabled-outline: #666681;
+  --ui-disabled-background: #c6cad3;
+  --ui-star-rating-foreground: #ffcb33;
+  --ui-star-rating-background: #9090a5;
+  --ui-slider-toggle-on-text: #3c3c5d;
+  --ui-slider-toggle-off-background: #f7f7f7;
+  --ui-slider-toggle-off-thumb: #8c52ff;
+  --ui-slider-toggle-on-background: #8c52ff;
+  --ui-slider-toggle-on-thumb: #f7f7f7;
+  --ui-slider-toggle-outline: #8c52ff;
+  --ui-datepicker-selected-date-background: #bb99ff;
+  --ui-datepicker-selected-date-text: #ffffff;
+
+  /* Buttons */
+  --button-primary-text: #ffffff;
+  --button-primary-background: #8c52ff;
+  --button-primary-outline: #6b49a8;
+  --button-primary-focus-text: #ffffff;
+  --button-primary-focus-outline: #72176f;
+  --button-primary-focus-background: #d21dcb;
+  --button-primary-disabled-text: #ffffff;
+  --button-primary-disabled-background: #666681;
+  --button-primary-disabled-outline: #9090a5;
+
+  --button-secondary-text: #6600ee;
+  --button-secondary-background: transparent;
+  --button-secondary-outline: #8c52ff;
+  --button-secondary-focus-text: #d21dcb;
+  --button-secondary-focus-outline: #d21dcb;
+  --button-secondary-focus-background: transparent;
+  --button-secondary-disabled-text: #666681;
+  --button-secondary-disabled-background: transparent;
+  --button-secondary-disabled-outline: #666681;
+
+  --button-success-text: #ffffff;
+  --button-success-background: #53bc81;
+  --button-success-outline: #226740;
+  --button-success-focus-text: #547906;
+  --button-success-focus-outline: #547906;
+  --button-success-focus-background: #a7e02e;
+  --button-success-disabled-text: #ffffff;
+  --button-success-disabled-background: #666681;
+  --button-success-disabled-outline: #9090a5;
+
+  --button-icon-large: #8c52ff;
+  --button-icon-small: #6600ee;
+  --button-icon-menu: #8c52ff;
+
+  --button-radio-outline: #8c52ff;
+  --button-radio-selected-fill: #8c52ff;
+  --button-radio-disabled-outline: #9090a5;
+  --button-radio-disabled-fill: #9090a5;
+
+  /* Notifications */
+  --notification-general-text: #3e2b6f;
+  --notification-general-outline: #6b49a8;
+  --notification-general-background: #c5b5e3;
+  --notification-success-text: #226740;
+  --notification-success-outline: #53bc81;
+  --notification-success-background: #eef9f2;
+  --notification-error-text: #7a1212;
+  --notification-error-outline: #b71a1a;
+  --notification-error-background: #fdeaea;
+  --notification-warning-text: #775613;
+  --notification-warning-outline: #ffcb33;
+  --notification-warning-background: #ffefc2;
+
+  /* Graphs */
+  --graph-financial-income: #1a1a1f;
+  --graph-financial-expense: #1a1a1f;
+  --graph-financial-cashflow: #1a1a1f;
+  --graph-financial-assets: #1a1a1f;
+  --graph-financial-liabilities: #1a1a1f;
+
+  --graph-generic-1st: #1a1a1f;
+  --graph-generic-2nd: #1a1a1f;
+  --graph-generic-3rd: #1a1a1f;
+  --graph-generic-4th: #1a1a1f;
+  --graph-generic-5th: #1a1a1f;
+  --graph-generic-6th: #1a1a1f;
+  --graph-generic-7th: #1a1a1f;
+  --graph-generic-8th: #1a1a1f;
+  --graph-generic-9th: #1a1a1f;
+  --graph-generic-10th: #1a1a1f;
+  --graph-generic-11th: #1a1a1f;
+  --graph-generic-12th: #1a1a1f;
+  --graph-generic-13th: #1a1a1f;
+  --graph-generic-14th: #1a1a1f;
+  --graph-generic-15th: #1a1a1f;
+
+  /* Tags */
+  --tags-general-text: #32324d;
+  --tags-general-outline: #32324d;
+  --tags-general-background: #f7f7f7;
+  --tags-general-icon: #666681;
+
+  --tags-progression-initial-text: #3c3c5d;
+  --tags-progression-initial-outline: #c6cad3;
+  --tags-progression-initial-background: #f7f7f7;
+  --tags-progression-cancelled-text: #32324d;
+  --tags-progression-cancelled-outline: #666681;
+  --tags-progression-cancelled-background: #c6cad3;
+  --tags-progression-waiting-on-you-text: #3e2b6f;
+  --tags-progression-waiting-on-you-outline: #6b49a8;
+  --tags-progression-waiting-on-you-background: #c5b5e3;
+  --tags-progression-waiting-on-me-text: #775613;
+  --tags-progression-waiting-on-me-outline: #ffcb33;
+  --tags-progression-waiting-on-me-background: #ffefc2;
+  --tags-progression-in-progress-text: #154e75;
+  --tags-progression-in-progress-outline: #0c9cfc;
+  --tags-progression-in-progress-background: #cdeafe;
+  --tags-progression-completed-text: #226740;
+  --tags-progression-completed-outline: #53bc81;
+  --tags-progression-completed-background: #eef9f2;
+  --tags-progression-error-text: #7a1212;
+  --tags-progression-error-outline: #b71a1a;
+  --tags-progression-error-background: #fdeaea;
+
+  /* Misc */
+  --accent-large-area-splash: #80729d;
+  --accent-small-area-splash: #8c52ff;
+  --accent-text-accent: #6600ee;
+  --transparent: #ffffff00;
+}
+[data-theme='admin'] {
+  /* General Text & Page */
+  --general-text-heading: #1e293b; /* Dark gray-blue */
+  --general-text-paragraph: #334155; /* Slightly lighter gray */
+  --general-text-subtext: #475569;
+  --general-text-disclaimer: #64748b;
+  --general-text-background: #f8fafc; /* Light gray */
+  --general-text-modal-background: #ffffff;
+  --general-text-modal-outline: #1e293b;
+  --general-text-link-unvisited: #2563eb; /* Admin blue */
+  --general-text-link-hover: #1e40af;
+  --general-text-link-visited: #4f46e5;
+
+  /* General UI */
+  --ui-label: #1e293b;
+  --ui-text: #334155;
+  --ui-outline: #94a3b8;
+  --ui-background: #e2e8f0;
+  --ui-nav-controls: #2563eb;
+  --ui-focus-text: #334155;
+  --ui-focus-outline: #2563eb;
+  --ui-focus-background: #e2e8f0;
+  --ui-warning-text: #b45309;
+  --ui-warning-outline: #facc15;
+  --ui-warning-background: #fef9c3;
+  --ui-error-text: #b91c1c;
+  --ui-error-outline: #dc2626;
+  --ui-error-background: #fee2e2;
+  --ui-suggested-text: #64748b;
+  --ui-disabled-label: #64748b;
+  --ui-disabled-text: #94a3b8;
+  --ui-disabled-outline: #cbd5e1;
+  --ui-disabled-background: #e2e8f0;
+  --ui-star-rating-foreground: #facc15;
+  --ui-star-rating-background: #cbd5e1;
+  --ui-slider-toggle-on-text: #1e293b;
+  --ui-slider-toggle-off-background: #e2e8f0;
+  --ui-slider-toggle-off-thumb: #2563eb;
+  --ui-slider-toggle-on-background: #2563eb;
+  --ui-slider-toggle-on-thumb: #ffffff;
+  --ui-slider-toggle-outline: #2563eb;
+  --ui-datepicker-selected-date-background: #1e40af;
+  --ui-datepicker-selected-date-text: #ffffff;
+
+  /* Buttons */
+  --button-primary-text: #ffffff;
+  --button-primary-background: #2563eb;
+  --button-primary-outline: #1e40af;
+  --button-primary-focus-text: #ffffff;
+  --button-primary-focus-outline: #1e40af;
+  --button-primary-focus-background: #1e40af;
+  --button-primary-disabled-text: #ffffff;
+  --button-primary-disabled-background: #64748b;
+  --button-primary-disabled-outline: #94a3b8;
+
+  --button-secondary-text: #2563eb;
+  --button-secondary-background: transparent;
+  --button-secondary-outline: #2563eb;
+  --button-secondary-focus-text: #1e40af;
+  --button-secondary-focus-outline: #1e40af;
+  --button-secondary-focus-background: transparent;
+  --button-secondary-disabled-text: #64748b;
+  --button-secondary-disabled-background: transparent;
+  --button-secondary-disabled-outline: #64748b;
+
+  --button-success-text: #ffffff;
+  --button-success-background: #16a34a;
+  --button-success-outline: #166534;
+  --button-success-focus-text: #ffffff;
+  --button-success-focus-outline: #15803d;
+  --button-success-focus-background: #15803d;
+  --button-success-disabled-text: #ffffff;
+  --button-success-disabled-background: #64748b;
+  --button-success-disabled-outline: #94a3b8;
+
+  --button-icon-large: #2563eb;
+  --button-icon-small: #1e40af;
+  --button-icon-menu: #2563eb;
+
+  --button-radio-outline: #2563eb;
+  --button-radio-selected-fill: #2563eb;
+  --button-radio-disabled-outline: #94a3b8;
+  --button-radio-disabled-fill: #cbd5e1;
+
+  /* Notifications */
+  --notification-general-text: #1e293b;
+  --notification-general-outline: #2563eb;
+  --notification-general-background: #dbeafe;
+  --notification-success-text: #166534;
+  --notification-success-outline: #16a34a;
+  --notification-success-background: #dcfce7;
+  --notification-error-text: #b91c1c;
+  --notification-error-outline: #dc2626;
+  --notification-error-background: #fee2e2;
+  --notification-warning-text: #b45309;
+  --notification-warning-outline: #facc15;
+  --notification-warning-background: #fef9c3;
+
+  /* Graphs */
+  --graph-financial-income: #2563eb;
+  --graph-financial-expense: #b91c1c;
+  --graph-financial-cashflow: #16a34a;
+  --graph-financial-assets: #facc15;
+  --graph-financial-liabilities: #b91c1c;
+
+  --graph-generic-1st: #2563eb;
+  --graph-generic-2nd: #16a34a;
+  --graph-generic-3rd: #facc15;
+  --graph-generic-4th: #b91c1c;
+  --graph-generic-5th: #9333ea;
+  --graph-generic-6th: #0ea5e9;
+  --graph-generic-7th: #f59e0b;
+  --graph-generic-8th: #dc2626;
+  --graph-generic-9th: #059669;
+  --graph-generic-10th: #9333ea;
+  --graph-generic-11th: #4f46e5;
+  --graph-generic-12th: #a3e635;
+  --graph-generic-13th: #22d3ee;
+  --graph-generic-14th: #d946ef;
+  --graph-generic-15th: #f472b6;
+
+  /* Tags */
+  --tags-general-text: #1e293b;
+  --tags-general-outline: #1e293b;
+  --tags-general-background: #f1f5f9;
+  --tags-general-icon: #64748b;
+
+  --tags-progression-initial-text: #334155;
+  --tags-progression-initial-outline: #94a3b8;
+  --tags-progression-initial-background: #f1f5f9;
+  --tags-progression-cancelled-text: #1e293b;
+  --tags-progression-cancelled-outline: #64748b;
+  --tags-progression-cancelled-background: #e2e8f0;
+  --tags-progression-waiting-on-you-text: #2563eb;
+  --tags-progression-waiting-on-you-outline: #1e40af;
+  --tags-progression-waiting-on-you-background: #dbeafe;
+  --tags-progression-waiting-on-me-text: #b45309;
+  --tags-progression-waiting-on-me-outline: #facc15;
+  --tags-progression-waiting-on-me-background: #fef9c3;
+  --tags-progression-in-progress-text: #0ea5e9;
+  --tags-progression-in-progress-outline: #0284c7;
+  --tags-progression-in-progress-background: #e0f2fe;
+  --tags-progression-completed-text: #166534;
+  --tags-progression-completed-outline: #16a34a;
+  --tags-progression-completed-background: #dcfce7;
+  --tags-progression-error-text: #b91c1c;
+  --tags-progression-error-outline: #dc2626;
+  --tags-progression-error-background: #fee2e2;
+
+  /* Misc */
+  --accent-large-area-splash: #475569;
+  --accent-small-area-splash: #2563eb;
+  --accent-text-accent: #1e40af;
+  --transparent: #ffffff00;
+
+  --accent-splash-gradient: linear-gradient(
+    45deg,
+    #2563eb, 
+    #1e40af
+  );
+}
