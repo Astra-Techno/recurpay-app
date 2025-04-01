@@ -14,7 +14,7 @@ import FullLayout from './layouts/FullViewLayout.vue'
 import DefaultLayout from './layouts/DefaultLayout.vue'
 
 const { VITE_PROJECT_BASE } = import.meta.env;
-document.documentElement.setAttribute('data-theme', VITE_PROJECT_BASE)
+document.documentElement.setAttribute('data-theme', 'admin')
 
 const store = useAppStore();
 const layoutComponent = computed(() => {

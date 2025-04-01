@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col items-center justify-center min-h-screen accent-splash">
-		<img src="@/assets/images/logo.svg" alt="MyProperties Logo" class="mb-12" />
+		<img src="@/assets/images/logo.svg" alt="Rentify" class="mb-12" />
 		<div v-show="!appStore.isShowMainLoader"
 			class="w-auto max-w-md min-w-94 p-8 space-y-4 bg-primaryBg rounded shadow-md flex flex-col">
 			<form @submit.prevent="handleLogin" class="space-y-4">

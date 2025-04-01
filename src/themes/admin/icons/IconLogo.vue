@@ -32,7 +32,7 @@
 	},
 	fill: {
 	  type: String,
-	  default: '#2563EB'
+	  default: 'var(--ui-background)'
 	}
   })
   </script>

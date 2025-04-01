@@ -5,7 +5,7 @@
 			<Icon name="IconLogo" class="cursor-pointer mr-2" v-if="!isMiniSidebar" @click="toggleMiniSidebar" />
 
 			<h3 class="flex-1 text-l font-semibold cursor-pointer" @click="toggleMiniSidebar" v-if="!isMiniSidebar">
-				MyProperties</h3>
+				Rentify</h3>
 
 			<Icon name="IconLogo" class="cursor-pointer" v-if="isMiniSidebar" @click="toggleMiniSidebar" />
 
