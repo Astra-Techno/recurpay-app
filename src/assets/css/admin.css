@@ -98,6 +98,10 @@
     font-weight: bold;
   }
 
+  button.secondary.noborder,button.secondary.noborder:hover,button.secondary.noborder:focus {
+    @apply border-0;
+  }
+
   button.secondary:focus,
   button.secondary:hover {
     color: var(--button-secondary-focus-text);

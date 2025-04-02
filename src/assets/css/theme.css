@@ -647,24 +647,24 @@
 [data-theme='admin'] {
   /* General Text & Page */
   --general-text-heading: #1e293b;
-  --general-text-paragraph: #334155;
+  --general-text-paragraph: #44475B;
   --general-text-subtext: #475569;
   --general-text-disclaimer: #64748b;
   --general-text-background: #f8fafc;
   --general-text-modal-background: #ffffff;
   --general-text-modal-outline: #1e293b;
-  --general-text-link-unvisited: #328B64; /* Updated primary */
-  --general-text-link-hover: #26684B;
+  --general-text-link-unvisited: #04b488; /* Updated primary */
+  --general-text-link-hover: #00F3BB;
   --general-text-link-visited: #41A57C;
 
   /* General UI */
   --ui-label: #1e293b;
-  --ui-text: #334155;
+  --ui-text: #44475B;
   --ui-outline: #94a3b8;
-  --ui-background: #328B64;
-  --ui-nav-controls: #328B64; 
-  --ui-focus-text: #334155;
-  --ui-focus-outline: #328B64;
+  --ui-background: #04b488;
+  --ui-nav-controls: #04b488; 
+  --ui-focus-text: #44475B;
+  --ui-focus-outline: #04b488;
   --ui-focus-background: #e2e8f0;
   --ui-warning-text: #B45309;
   --ui-warning-outline: #FACC15;
@@ -682,20 +682,20 @@
 
   /* Buttons */
   --button-primary-text: #ffffff;
-  --button-primary-background: #328B64;
-  --button-primary-outline: #26684B;
+  --button-primary-background: #04b488;
+  --button-primary-outline: #00F3BB;
   --button-primary-focus-text: #ffffff;
-  --button-primary-focus-outline: #26684B;
-  --button-primary-focus-background: #26684B;
+  --button-primary-focus-outline: #00F3BB;
+  --button-primary-focus-background: #00F3BB;
   --button-primary-disabled-text: #ffffff;
   --button-primary-disabled-background: #64748b;
   --button-primary-disabled-outline: #94a3b8;
 
-  --button-secondary-text: #328B64;
+  --button-secondary-text: #04b488;
   --button-secondary-background: transparent;
-  --button-secondary-outline: #328B64;
-  --button-secondary-focus-text: #26684B;
-  --button-secondary-focus-outline: #26684B;
+  --button-secondary-outline: #04b488;
+  --button-secondary-focus-text: #00F3BB;
+  --button-secondary-focus-outline: #00F3BB;
   --button-secondary-focus-background: transparent;
   --button-secondary-disabled-text: #64748B;
   --button-secondary-disabled-background: transparent;
@@ -711,18 +711,18 @@
   --button-success-disabled-background: #64748b;
   --button-success-disabled-outline: #94a3b8;
 
-  --button-icon-large: #328B64;
-  --button-icon-small: #26684B;
-  --button-icon-menu: #328B64;
+  --button-icon-large: #04b488;
+  --button-icon-small: #00F3BB;
+  --button-icon-menu: #04b488;
 
-  --button-radio-outline: #328B64;
-  --button-radio-selected-fill: #328B64;
+  --button-radio-outline: #04b488;
+  --button-radio-selected-fill: #04b488;
   --button-radio-disabled-outline: #94a3b8;
   --button-radio-disabled-fill: #cbd5e1;
 
   /* Notifications */
   --notification-general-text: #1e293b;
-  --notification-general-outline: #328B64;
+  --notification-general-outline: #04b488;
   --notification-general-background: #D1EAE0;
   --notification-success-text: #166534;
   --notification-success-outline: #16A34A;
@@ -735,13 +735,13 @@
   --notification-warning-background: #FEF9C3;
 
   /* Graphs */
-  --graph-financial-income: #328B64;
+  --graph-financial-income: #04b488;
   --graph-financial-expense: #B91C1C;
   --graph-financial-cashflow: #16A34A;
   --graph-financial-assets: #FACC15;
   --graph-financial-liabilities: #B91C1C;
 
-  --graph-generic-1st: #328B64;
+  --graph-generic-1st: #04b488;
   --graph-generic-2nd: #16A34A;
   --graph-generic-3rd: #FACC15;
   --graph-generic-4th: #B91C1C;
@@ -763,14 +763,14 @@
   --tags-general-background: #F1F5F9;
   --tags-general-icon: #64748B;
 
-  --tags-progression-initial-text: #334155;
+  --tags-progression-initial-text: #44475B;
   --tags-progression-initial-outline: #94A3B8;
   --tags-progression-initial-background: #F1F5F9;
   --tags-progression-cancelled-text: #1e293b;
   --tags-progression-cancelled-outline: #64748B;
   --tags-progression-cancelled-background: #E2E8F0;
-  --tags-progression-waiting-on-you-text: #328B64;
-  --tags-progression-waiting-on-you-outline: #26684B;
+  --tags-progression-waiting-on-you-text: #04b488;
+  --tags-progression-waiting-on-you-outline: #00F3BB;
   --tags-progression-waiting-on-you-background: #D1EAE0;
   --tags-progression-waiting-on-me-text: #B45309;
   --tags-progression-waiting-on-me-outline: #FACC15;
@@ -787,33 +787,33 @@
 
   /* Misc */
   --accent-large-area-splash: #475569;
-  --accent-small-area-splash: #328B64;
-  --accent-text-accent: #26684B;
+  --accent-small-area-splash: #04b488;
+  --accent-text-accent: #00F3BB;
   --transparent: #ffffff00;
 
-  --accent-splash-gradient: linear-gradient(45deg, #328B64, #26684B);
+  --accent-splash-gradient: linear-gradient(45deg, #04b488, #00F3BB);
 }
 [data-theme='client'] {
   /* General Text & Page */
   --general-text-heading: #1e293b;
-  --general-text-paragraph: #334155;
+  --general-text-paragraph: #44475B;
   --general-text-subtext: #475569;
   --general-text-disclaimer: #64748b;
   --general-text-background: #f8fafc;
   --general-text-modal-background: #ffffff;
   --general-text-modal-outline: #1e293b;
-  --general-text-link-unvisited: #328B64; /* Updated primary */
-  --general-text-link-hover: #26684B;
+  --general-text-link-unvisited: #04b488; /* Updated primary */
+  --general-text-link-hover: #00F3BB;
   --general-text-link-visited: #41A57C;
 
   /* General UI */
   --ui-label: #1e293b;
-  --ui-text: #334155;
+  --ui-text: #44475B;
   --ui-outline: #94a3b8;
-  --ui-background: #328B64;
-  --ui-nav-controls: #328B64; 
-  --ui-focus-text: #334155;
-  --ui-focus-outline: #328B64;
+  --ui-background: #04b488;
+  --ui-nav-controls: #04b488; 
+  --ui-focus-text: #44475B;
+  --ui-focus-outline: #04b488;
   --ui-focus-background: #e2e8f0;
   --ui-warning-text: #B45309;
   --ui-warning-outline: #FACC15;
@@ -831,20 +831,20 @@
 
   /* Buttons */
   --button-primary-text: #ffffff;
-  --button-primary-background: #328B64;
-  --button-primary-outline: #26684B;
+  --button-primary-background: #04b488;
+  --button-primary-outline: #00F3BB;
   --button-primary-focus-text: #ffffff;
-  --button-primary-focus-outline: #26684B;
-  --button-primary-focus-background: #26684B;
+  --button-primary-focus-outline: #00F3BB;
+  --button-primary-focus-background: #00F3BB;
   --button-primary-disabled-text: #ffffff;
   --button-primary-disabled-background: #64748b;
   --button-primary-disabled-outline: #94a3b8;
 
-  --button-secondary-text: #328B64;
+  --button-secondary-text: #04b488;
   --button-secondary-background: transparent;
-  --button-secondary-outline: #328B64;
-  --button-secondary-focus-text: #26684B;
-  --button-secondary-focus-outline: #26684B;
+  --button-secondary-outline: #04b488;
+  --button-secondary-focus-text: #00F3BB;
+  --button-secondary-focus-outline: #00F3BB;
   --button-secondary-focus-background: transparent;
   --button-secondary-disabled-text: #64748B;
   --button-secondary-disabled-background: transparent;
@@ -860,18 +860,18 @@
   --button-success-disabled-background: #64748b;
   --button-success-disabled-outline: #94a3b8;
 
-  --button-icon-large: #328B64;
-  --button-icon-small: #26684B;
-  --button-icon-menu: #328B64;
+  --button-icon-large: #04b488;
+  --button-icon-small: #00F3BB;
+  --button-icon-menu: #04b488;
 
-  --button-radio-outline: #328B64;
-  --button-radio-selected-fill: #328B64;
+  --button-radio-outline: #04b488;
+  --button-radio-selected-fill: #04b488;
   --button-radio-disabled-outline: #94a3b8;
   --button-radio-disabled-fill: #cbd5e1;
 
   /* Notifications */
   --notification-general-text: #1e293b;
-  --notification-general-outline: #328B64;
+  --notification-general-outline: #04b488;
   --notification-general-background: #D1EAE0;
   --notification-success-text: #166534;
   --notification-success-outline: #16A34A;
@@ -884,13 +884,13 @@
   --notification-warning-background: #FEF9C3;
 
   /* Graphs */
-  --graph-financial-income: #328B64;
+  --graph-financial-income: #04b488;
   --graph-financial-expense: #B91C1C;
   --graph-financial-cashflow: #16A34A;
   --graph-financial-assets: #FACC15;
   --graph-financial-liabilities: #B91C1C;
 
-  --graph-generic-1st: #328B64;
+  --graph-generic-1st: #04b488;
   --graph-generic-2nd: #16A34A;
   --graph-generic-3rd: #FACC15;
   --graph-generic-4th: #B91C1C;
@@ -912,14 +912,14 @@
   --tags-general-background: #F1F5F9;
   --tags-general-icon: #64748B;
 
-  --tags-progression-initial-text: #334155;
+  --tags-progression-initial-text: #44475B;
   --tags-progression-initial-outline: #94A3B8;
   --tags-progression-initial-background: #F1F5F9;
   --tags-progression-cancelled-text: #1e293b;
   --tags-progression-cancelled-outline: #64748B;
   --tags-progression-cancelled-background: #E2E8F0;
-  --tags-progression-waiting-on-you-text: #328B64;
-  --tags-progression-waiting-on-you-outline: #26684B;
+  --tags-progression-waiting-on-you-text: #04b488;
+  --tags-progression-waiting-on-you-outline: #00F3BB;
   --tags-progression-waiting-on-you-background: #D1EAE0;
   --tags-progression-waiting-on-me-text: #B45309;
   --tags-progression-waiting-on-me-outline: #FACC15;
@@ -936,9 +936,9 @@
 
   /* Misc */
   --accent-large-area-splash: #475569;
-  --accent-small-area-splash: #328B64;
-  --accent-text-accent: #26684B;
+  --accent-small-area-splash: #04b488;
+  --accent-text-accent: #00F3BB;
   --transparent: #ffffff00;
 
-  --accent-splash-gradient: linear-gradient(45deg, #328B64, #26684B);
+  --accent-splash-gradient: linear-gradient(45deg, #04b488, #00F3BB);
 }
