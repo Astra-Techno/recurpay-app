@@ -5,10 +5,17 @@
 			class="w-auto max-w-md min-w-94 p-8 space-y-4 bg-primaryBg rounded shadow-md flex flex-col">
 			<form @submit.prevent="handleLogin" class="space-y-4">
 				<div>
-					<label for="name" class="font-bold">{{
-						$t('Name')
+					<label for="first_name" class="font-bold">{{
+						$t('First Name')
 					}}</label>
-					<input id="name" v-model="name" type="text" :placeholder="$t('Name')"
+					<input id="first_name" v-model="first_name" type="text" :placeholder="$t('First Name')"
+						class="w-full p-2 mt-2 border rounded" required />
+				</div>
+				<div>
+					<label for="name" class="font-bold">{{
+						$t('Last Name')
+					}}</label>
+					<input id="last_name" v-model="last_name" type="text" :placeholder="$t('Last Name')"
 						class="w-full p-2 mt-2 border rounded" required />
 				</div>
 				<div>
@@ -41,7 +48,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useAppStore } from '@/stores/index'
 import { useRouter, useRoute } from 'vue-router'
 import { useMeta } from '@/composables/use-meta'
@@ -58,7 +65,8 @@ const router = useRouter()
 const request = useApiRequest()
 const appStore = useAppStore()
 
-const name = ref('')
+const first_name = ref('')
+const last_name = ref('')
 const email = ref('')
 const password = ref('')
 
@@ -66,7 +74,8 @@ const handleLogin = async () => {
 	appStore.isShowMainLoader = true
 	try {
 		const payload: Record<string, any> = {
-			name: name.value,
+			first_name: first_name.value,
+			last_name: last_name.value,
 			email: email.value,
 			password: password.value
 		}
