@@ -26,6 +26,8 @@ const store = useAppStore()
 <script setup>
 import { ref } from 'vue';
 import { Home, Users, DollarSign, Bell, Plus } from 'lucide-vue-next';
+import { useMeta } from '@/composables/use-meta';
+useMeta({ title: 'Dashboard' })
 
 const stats = ref([
   { label: 'Total Properties', value: 12, icon: Home },

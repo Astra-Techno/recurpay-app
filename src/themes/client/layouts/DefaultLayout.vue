@@ -58,8 +58,8 @@
 							<IconRightArrow class="text-white" />
 						</button>
 					</div>
-					<div class="flex-1">
-
+					<div class="flex-1 text-center sm:text-left font-bold">
+						{{ title }}
 					</div>
 					<div class="flex-none w-8">
 						<button class="text-white opacity-50">
@@ -90,6 +90,7 @@ import IconBell from '../icons/IconBell.vue'
 import IconOPWhite from '../icons/IconOPWhite.vue'
 import IconRightArrow from '../icons/IconRightArrow.vue'
 import { useRoute } from 'vue-router'
+import { useCurrentTitle } from '@/composables/use-meta';
 
 const route = useRoute()
 const appStore = useAppStore()
@@ -99,6 +100,8 @@ const prefStore = useUIPreferencesStore()
 const isMiniSidebar = ref(prefStore.isMiniSidebar)
 const drawerOpen = ref(false)
 const showBackButton = computed(() => route.path !== "/dashboard")
+
+const title = useCurrentTitle()
 
 const toggleMiniSidebar = () => {
 	isMiniSidebar.value = !isMiniSidebar.value

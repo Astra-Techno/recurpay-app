@@ -1,8 +1,9 @@
 <template>
+	<!--
 	<div class="flex items-center justify-between mb-4">
 		<h1 class="text-2xl font-bold">My Properties</h1>
-		
 	</div>
+	-->
 	<list class="w-full" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'" :filter-toggle="false"
 		:messages="{ empty: 'There are no properties added!' }" :page-limit="10" :search="false">
 
@@ -95,7 +96,7 @@
 import { useMeta } from '@/composables/use-meta'
 import List from '@/components/List/List.vue'
 
-useMeta({ title: 'My Rental Properties' })
+useMeta({ title: 'My Properties' })
 
 const formatCurrency = (value) => {
 	return new Intl.NumberFormat('en-IN', {

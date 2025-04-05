@@ -1,19 +1,25 @@
 import { useHead } from '@unhead/vue'
-import { unref, computed } from 'vue'
+import { unref, computed, ref } from 'vue'
 
 let siteTitle = ''
 let separator = '|'
+const currentTitle = ref('')
 
-export const usePageTitle = pageTitle =>
-	useHead(
-		computed(() => ({
-			title: `${unref(pageTitle)} ${separator} ${siteTitle}`,
-		})),
-	)
+export const usePageTitle = pageTitle => {
+  const title = computed(() => `${unref(pageTitle)} ${separator} ${siteTitle}`)
+  currentTitle.value = pageTitle
+  return useHead({
+    title: title
+  })
+}
 
 export const useMeta = data => {
-	return useHead({
-		...data,
-		title: `${data.title}`,
-	})
+  const title = `${data.title} ${separator} ${siteTitle}`
+  currentTitle.value = data.title
+  return useHead({
+    ...data,
+    title: title,
+  })
 }
+
+export const useCurrentTitle = () => currentTitle
