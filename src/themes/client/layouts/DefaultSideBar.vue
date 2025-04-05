@@ -4,8 +4,8 @@
 		<div class="flex items-center mb-6">
 			<Icon name="IconLogo" class="cursor-pointer mr-2" v-if="!isMiniSidebar" @click="toggleMiniSidebar" />
 
-			<h3 class="flex-1 text-l font-semibold cursor-pointer" @click="toggleMiniSidebar" v-if="!isMiniSidebar">
-				MyProperties</h3>
+			<h3 class="flex-1 text-l font-semibold cursor-pointer font-bold" @click="toggleMiniSidebar" v-if="!isMiniSidebar">
+				MyProps</h3>
 
 			<Icon name="IconLogo" class="cursor-pointer" v-if="isMiniSidebar" @click="toggleMiniSidebar" />
 
@@ -146,7 +146,8 @@ onUnmounted(() => {
 const routes = [
 	{ path: '/dashboard', label: 'Dashboard', icon: 'IconDashboard' },
 	{ path: '/users', label: 'Users', icon: 'IconToDo' },
-	{ path: '/templates', label: 'Templates', icon: 'IconMaintenance' },
+	{ path: '/properties', label: 'Properties', icon: 'IconMaintenance' },
+	{ path: '/tenants', label: 'Tenants', icon: 'IconMaintenance' },
 	{ path: '/logout', label: 'Logout', icon: 'IconLogout' },
 ]
 

@@ -796,149 +796,149 @@
 [data-theme='client'] {
   /* General Text & Page */
   --general-text-heading: #1e293b;
-  --general-text-paragraph: #44475B;
-  --general-text-subtext: #475569;
-  --general-text-disclaimer: #64748b;
+  --general-text-paragraph: #475569;
+  --general-text-subtext: #64748b;
+  --general-text-disclaimer: #94a3b8;
   --general-text-background: #f8fafc;
   --general-text-modal-background: #ffffff;
-  --general-text-modal-outline: #1e293b;
-  --general-text-link-unvisited: #04b488; /* Updated primary */
-  --general-text-link-hover: #00F3BB;
-  --general-text-link-visited: #41A57C;
+  --general-text-modal-outline: #e2e8f0;
+  --general-text-link-unvisited: #4F46E5; /* Indigo-600 */
+  --general-text-link-hover: #6366F1; /* Indigo-500 */
+  --general-text-link-visited: #4338CA; /* Indigo-700 */
 
   /* General UI */
   --ui-label: #1e293b;
-  --ui-text: #44475B;
-  --ui-outline: #94a3b8;
-  --ui-background: #04b488;
-  --ui-nav-controls: #04b488; 
-  --ui-focus-text: #44475B;
-  --ui-focus-outline: #04b488;
-  --ui-focus-background: #e2e8f0;
-  --ui-warning-text: #B45309;
-  --ui-warning-outline: #FACC15;
-  --ui-warning-background: #FEF9C3;
+  --ui-text: #334155;
+  --ui-outline: #cbd5e1;
+  --ui-background: #4F46E5; /* Indigo-600 */
+  --ui-nav-controls: #4F46E5;
+  --ui-focus-text: #334155;
+  --ui-focus-outline: #4F46E5;
+  --ui-focus-background: #f1f5f9;
+  --ui-warning-text: #92400E; /* Amber-800 */
+  --ui-warning-outline: #F59E0B; /* Amber-500 */
+  --ui-warning-background: #FEF3C7; /* Amber-100 */
   --ui-error-text: #B91C1C;
   --ui-error-outline: #DC2626;
   --ui-error-background: #FEE2E2;
   --ui-suggested-text: #64748B;
-  --ui-disabled-label: #64748B;
-  --ui-disabled-text: #94A3B8;
-  --ui-disabled-outline: #CBD5E1;
-  --ui-disabled-background: #E2E8F0;
-  --ui-star-rating-foreground: #FACC15;
-  --ui-star-rating-background: #CBD5E1;
+  --ui-disabled-label: #94a3b8;
+  --ui-disabled-text: #cbd5e1;
+  --ui-disabled-outline: #e2e8f0;
+  --ui-disabled-background: #f1f5f9;
+  --ui-star-rating-foreground: #F59E0B; /* Amber-500 */
+  --ui-star-rating-background: #e2e8f0;
 
   /* Buttons */
   --button-primary-text: #ffffff;
-  --button-primary-background: #04b488;
-  --button-primary-outline: #00F3BB;
+  --button-primary-background: #4F46E5; /* Indigo-600 */
+  --button-primary-outline: #6366F1; /* Indigo-500 */
   --button-primary-focus-text: #ffffff;
-  --button-primary-focus-outline: #00F3BB;
-  --button-primary-focus-background: #00F3BB;
+  --button-primary-focus-outline: #818CF8; /* Indigo-400 */
+  --button-primary-focus-background: #6366F1;
   --button-primary-disabled-text: #ffffff;
-  --button-primary-disabled-background: #64748b;
-  --button-primary-disabled-outline: #94a3b8;
+  --button-primary-disabled-background: #94a3b8;
+  --button-primary-disabled-outline: #cbd5e1;
 
-  --button-secondary-text: #04b488;
+  --button-secondary-text: #4F46E5;
   --button-secondary-background: transparent;
-  --button-secondary-outline: #04b488;
-  --button-secondary-focus-text: #00F3BB;
-  --button-secondary-focus-outline: #00F3BB;
-  --button-secondary-focus-background: transparent;
-  --button-secondary-disabled-text: #64748B;
+  --button-secondary-outline: #4F46E5;
+  --button-secondary-focus-text: #6366F1;
+  --button-secondary-focus-outline: #6366F1;
+  --button-secondary-focus-background: #EEF2FF; /* Indigo-50 */
+  --button-secondary-disabled-text: #94a3b8;
   --button-secondary-disabled-background: transparent;
-  --button-secondary-disabled-outline: #64748B;
+  --button-secondary-disabled-outline: #94a3b8;
 
   --button-success-text: #ffffff;
-  --button-success-background: #16A34A;
-  --button-success-outline: #166534;
+  --button-success-background: #10B981; /* Emerald-500 */
+  --button-success-outline: #059669; /* Emerald-600 */
   --button-success-focus-text: #ffffff;
-  --button-success-focus-outline: #15803D;
-  --button-success-focus-background: #15803D;
+  --button-success-focus-outline: #059669;
+  --button-success-focus-background: #059669;
   --button-success-disabled-text: #ffffff;
-  --button-success-disabled-background: #64748b;
-  --button-success-disabled-outline: #94a3b8;
+  --button-success-disabled-background: #94a3b8;
+  --button-success-disabled-outline: #cbd5e1;
 
-  --button-icon-large: #04b488;
-  --button-icon-small: #00F3BB;
-  --button-icon-menu: #04b488;
+  --button-icon-large: #4F46E5;
+  --button-icon-small: #6366F1;
+  --button-icon-menu: #4F46E5;
 
-  --button-radio-outline: #04b488;
-  --button-radio-selected-fill: #04b488;
-  --button-radio-disabled-outline: #94a3b8;
-  --button-radio-disabled-fill: #cbd5e1;
+  --button-radio-outline: #4F46E5;
+  --button-radio-selected-fill: #4F46E5;
+  --button-radio-disabled-outline: #cbd5e1;
+  --button-radio-disabled-fill: #e2e8f0;
 
   /* Notifications */
   --notification-general-text: #1e293b;
-  --notification-general-outline: #04b488;
-  --notification-general-background: #D1EAE0;
-  --notification-success-text: #166534;
-  --notification-success-outline: #16A34A;
-  --notification-success-background: #DCFCE7;
+  --notification-general-outline: #4F46E5;
+  --notification-general-background: #EEF2FF; /* Indigo-50 */
+  --notification-success-text: #065F46; /* Emerald-800 */
+  --notification-success-outline: #10B981; /* Emerald-500 */
+  --notification-success-background: #D1FAE5; /* Emerald-100 */
   --notification-error-text: #B91C1C;
   --notification-error-outline: #DC2626;
   --notification-error-background: #FEE2E2;
-  --notification-warning-text: #B45309;
-  --notification-warning-outline: #FACC15;
-  --notification-warning-background: #FEF9C3;
+  --notification-warning-text: #92400E;
+  --notification-warning-outline: #F59E0B;
+  --notification-warning-background: #FEF3C7;
 
   /* Graphs */
-  --graph-financial-income: #04b488;
-  --graph-financial-expense: #B91C1C;
-  --graph-financial-cashflow: #16A34A;
-  --graph-financial-assets: #FACC15;
-  --graph-financial-liabilities: #B91C1C;
+  --graph-financial-income: #4F46E5;
+  --graph-financial-expense: #DC2626;
+  --graph-financial-cashflow: #10B981;
+  --graph-financial-assets: #F59E0B;
+  --graph-financial-liabilities: #9333EA; /* Purple-600 */
 
-  --graph-generic-1st: #04b488;
-  --graph-generic-2nd: #16A34A;
-  --graph-generic-3rd: #FACC15;
-  --graph-generic-4th: #B91C1C;
+  --graph-generic-1st: #4F46E5;
+  --graph-generic-2nd: #10B981;
+  --graph-generic-3rd: #F59E0B;
+  --graph-generic-4th: #DC2626;
   --graph-generic-5th: #9333EA;
   --graph-generic-6th: #0EA5E9;
-  --graph-generic-7th: #F59E0B;
-  --graph-generic-8th: #DC2626;
+  --graph-generic-7th: #F97316;
+  --graph-generic-8th: #EC4899;
   --graph-generic-9th: #059669;
-  --graph-generic-10th: #9333EA;
-  --graph-generic-11th: #4F46E5;
-  --graph-generic-12th: #A3E635;
-  --graph-generic-13th: #22D3EE;
+  --graph-generic-10th: #8B5CF6;
+  --graph-generic-11th: #6366F1;
+  --graph-generic-12th: #84CC16;
+  --graph-generic-13th: #06B6D4;
   --graph-generic-14th: #D946EF;
   --graph-generic-15th: #F472B6;
 
   /* Tags */
   --tags-general-text: #1e293b;
-  --tags-general-outline: #1e293b;
-  --tags-general-background: #F1F5F9;
+  --tags-general-outline: #cbd5e1;
+  --tags-general-background: #f1f5f9;
   --tags-general-icon: #64748B;
 
-  --tags-progression-initial-text: #44475B;
-  --tags-progression-initial-outline: #94A3B8;
-  --tags-progression-initial-background: #F1F5F9;
-  --tags-progression-cancelled-text: #1e293b;
-  --tags-progression-cancelled-outline: #64748B;
-  --tags-progression-cancelled-background: #E2E8F0;
-  --tags-progression-waiting-on-you-text: #04b488;
-  --tags-progression-waiting-on-you-outline: #00F3BB;
-  --tags-progression-waiting-on-you-background: #D1EAE0;
-  --tags-progression-waiting-on-me-text: #B45309;
-  --tags-progression-waiting-on-me-outline: #FACC15;
-  --tags-progression-waiting-on-me-background: #FEF9C3;
-  --tags-progression-in-progress-text: #0EA5E9;
-  --tags-progression-in-progress-outline: #0284C7;
+  --tags-progression-initial-text: #475569;
+  --tags-progression-initial-outline: #cbd5e1;
+  --tags-progression-initial-background: #f1f5f9;
+  --tags-progression-cancelled-text: #64748B;
+  --tags-progression-cancelled-outline: #e2e8f0;
+  --tags-progression-cancelled-background: #f8fafc;
+  --tags-progression-waiting-on-you-text: #4F46E5;
+  --tags-progression-waiting-on-you-outline: #C7D2FE; /* Indigo-200 */
+  --tags-progression-waiting-on-you-background: #EEF2FF;
+  --tags-progression-waiting-on-me-text: #D97706; /* Amber-700 */
+  --tags-progression-waiting-on-me-outline: #FCD34D; /* Amber-300 */
+  --tags-progression-waiting-on-me-background: #FEF3C7;
+  --tags-progression-in-progress-text: #0EA5E9; /* Sky-500 */
+  --tags-progression-in-progress-outline: #7DD3FC; /* Sky-300 */
   --tags-progression-in-progress-background: #E0F2FE;
-  --tags-progression-completed-text: #166534;
-  --tags-progression-completed-outline: #16A34A;
-  --tags-progression-completed-background: #DCFCE7;
+  --tags-progression-completed-text: #059669; /* Emerald-600 */
+  --tags-progression-completed-outline: #6EE7B7; /* Emerald-300 */
+  --tags-progression-completed-background: #D1FAE5;
   --tags-progression-error-text: #B91C1C;
-  --tags-progression-error-outline: #DC2626;
+  --tags-progression-error-outline: #FCA5A5;
   --tags-progression-error-background: #FEE2E2;
 
   /* Misc */
-  --accent-large-area-splash: #475569;
-  --accent-small-area-splash: #04b488;
-  --accent-text-accent: #00F3BB;
+  --accent-large-area-splash: #1e293b;
+  --accent-small-area-splash: #4F46E5;
+  --accent-text-accent: #6366F1;
   --transparent: #ffffff00;
 
-  --accent-splash-gradient: linear-gradient(45deg, #04b488, #00F3BB);
+  --accent-splash-gradient: linear-gradient(45deg, #4F46E5, #6366F1);
 }

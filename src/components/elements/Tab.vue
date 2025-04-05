@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full pt-4">
+  <div class="w-full">
     <div class="flex border-b">
       <span
         v-for="(tab, index) in tabs"

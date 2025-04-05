@@ -53,10 +53,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
 import { useMeta } from '@/composables/use-meta'
 import List from '@/components/List/List.vue'
 
-useMeta({ title: 'Lease Listing' })
+useMeta({ title: 'Properties' })
 </script>
