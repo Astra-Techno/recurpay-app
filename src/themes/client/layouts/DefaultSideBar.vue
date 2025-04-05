@@ -2,12 +2,12 @@
 	<div class="text-lg select-none">
 		<!-- Logo and Toggle button -->
 		<div class="flex items-center mb-6">
-			<Icon name="IconLogo" class="cursor-pointer mr-2" v-if="!isMiniSidebar" @click="toggleMiniSidebar" />
+			<Icon name="IconMinimal" class="cursor-pointer mr-2" v-if="!isMiniSidebar" @click="toggleMiniSidebar" />
 
-			<h3 class="flex-1 text-l font-semibold cursor-pointer font-bold" @click="toggleMiniSidebar" v-if="!isMiniSidebar">
-				MyProps</h3>
+			<h1 class="flex-1 text-l font-black italic pt-1 cursor-pointer " @click="toggleMiniSidebar" v-if="!isMiniSidebar">
+				MyProps<span class="text-[8px] flex relative right-[-50px] leading-none w-full text-right">Rent.Pay.Go.</span></h1>
 
-			<Icon name="IconLogo" class="cursor-pointer" v-if="isMiniSidebar" @click="toggleMiniSidebar" />
+			<Icon name="IconMinimal" class="cursor-pointer" v-if="isMiniSidebar" @click="toggleMiniSidebar" />
 
 			<button @click="toggleMiniSidebar" class="text-xl normal ml-auto p-1">
 				<IconLeftArrow v-if="!isMiniSidebar" />
