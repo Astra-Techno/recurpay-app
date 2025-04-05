@@ -7,7 +7,7 @@
 			'ease-in-out',
 			'border-r',
 			'p-5',
-			'flex-shrink-0 z-1',
+			'flex-shrink-0 z-1 shadow-md',
 			'overflow-x-hidden',
 			'overflow-y-auto',
 			isMiniSidebar ? 'w-20' : 'w-64',

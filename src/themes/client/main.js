@@ -15,6 +15,7 @@ app.use(router)
 // app css
 import '@/assets/css/theme.css'
 import '@/assets/css/admin.css'
+import '@/assets/css/client.css'
 
 // perfect scrollbar
 import { PerfectScrollbarPlugin } from 'vue3-perfect-scrollbar'

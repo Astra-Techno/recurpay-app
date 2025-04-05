@@ -103,7 +103,7 @@
 				</thead>
 
 				<tbody>
-					<tr class="t-row" v-if="!rows.length">
+					<tr class="t-row" v-if="!rows.length && !isLoading">
 						<td :colspan="headers.length + ((editable && displayMode !== 'edit-display') ? 1 : 0)"
 							class="!text-center">
 							{{ $t(messages.empty ?? 'No more records found') }}
@@ -183,7 +183,7 @@
 			<li class="list-row" v-for="(item, i) in visibleRows" :key="i">
 				<slot name="li-item" :item="item"></slot>
 			</li>
-			<li class="p-4 mb-4" v-if="!rows.length">
+			<li class="p-4 mb-4" v-if="!rows.length && !isLoading">
 				<h2 class="text-base text-center">
 					{{ $t(messages.empty) }}
 				</h2>

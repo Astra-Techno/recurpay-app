@@ -42,8 +42,7 @@ const activities = ref([
 </script>
 
 <template>
-  <div class="p-4  min-h-screen">
-    
+  <div class="p-4  min-h-screen">    
 
     <div class="grid grid-cols-2 gap-4 mb-6">
       <div v-for="stat in stats" :key="stat.label" class="p-4 bg-white rounded-xl shadow-md flex items-center">
