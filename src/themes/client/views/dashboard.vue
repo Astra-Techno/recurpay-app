@@ -1,28 +1,4 @@
-<!--<template>
-	<div class="pt-5">
-		<DailyMessage class="mb-4" />
-		<Tabs :tabs="tabs" />
-	</div>
-</template>
-<script lang="ts" setup>
-import { useAppStore } from '@/stores/index'
-import { useMeta } from '@/composables/use-meta'
-import Tabs from '@/components/elements/Tab.vue';
-import Properties from '@/components/common/Properties.vue'
-import Transactions from '@/components/common/Transactions.vue'
-import DailyMessage from '@/components/elements/DailyNotification.vue';
 
-const tabs = [
-  { label: 'Properties', component: Properties },
-  { label: 'Transactions', component: Transactions }
-  
-];
-
-useMeta({ title: 'Dashboard' })
-const store = useAppStore()
-
-</script>
--->
 <script setup>
 import { ref } from 'vue';
 import { Home, Users, DollarSign, Bell, Plus } from 'lucide-vue-next';
@@ -45,13 +21,14 @@ const activities = ref([
 
 <template>
   <div class="p-4  min-h-screen">    
-
+    <h1 class="text-2xl font-semibold mb-4">Welcome back, [User]!</h1>
+    <p class=" mb-6">Here’s a quick overview of your properties and activities.</p>
     <div class="grid grid-cols-2 gap-4 mb-6">
       <div v-for="stat in stats" :key="stat.label" class="p-4 bg-white rounded-xl shadow-md flex items-center">
         <component :is="stat.icon" class="w-6 h-6  mr-3" />
         <div>
           <p class="text-lg font-semibold">{{ stat.value }}</p>
-          <p class="text-sm text-gray-500">{{ stat.label }}</p>
+          <p class="text-sm ">{{ stat.label }}</p>
         </div>
       </div>
     </div>
@@ -61,7 +38,7 @@ const activities = ref([
       <ul>
         <li v-for="activity in activities" :key="activity.message" class="border-b last:border-b-0 py-2">
           <p class="text-sm">{{ activity.message }}</p>
-          <p class="text-xs text-gray-400">{{ activity.time }}</p>
+          <p class="text-xs ">{{ activity.time }}</p>
         </li>
       </ul>
     </div>

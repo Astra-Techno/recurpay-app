@@ -1,7 +1,7 @@
 <template>
 	
-	<div class="flex space-x-2 mb-4">
-		<Icon name="IconMinimal"></Icon><h1 class="text-2xl font-bold">My Properties</h1>
+	<div class="flex items-center justify-between mb-4">
+		<h1 class="text-2xl font-bold pt-2">Transactions</h1>
 	</div>
 	
 	<list class="w-full" tmpl="custom" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'" :filter-toggle="false"

@@ -2,6 +2,9 @@ import { defineStore } from 'pinia'
 import i18n from '@/i18n'
 import session from '@/stores/session'
 
+function isMobileDevice() {
+	return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent)
+}
 export const useAppStore = defineStore('app', {
 	state: () => ({
 		user: {
@@ -27,7 +30,7 @@ export const useAppStore = defineStore('app', {
 		guestPages: ['login', 'register', 'request-password', 'reset-password'],
 		theme: import.meta.env.VITE_PROJECT_BASE || 'client',
 		headers: JSON.parse(session.getItem('headers')) || {},
-		verticalLayout:true
+		verticalLayout: !isMobileDevice(), // true if not mobile device
 	}),
 
 	actions: {
