@@ -1,38 +1,15 @@
 <template>
-	<div class="flex h-screen">
-		<!-- Main Content -->
-		<div class="flex-1 flex flex-col" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
-			<!-- Navigation Bar -->
-			<NavigationBar>
-				<template #flex-items>
-					<div v-if="deviceStore.isMobile" class="flex-none w-11">
-						<button @click="toggleDrawer" class="flex items-center normal">
-							<IconOPWhite />
-							<IconRightArrow class="text-white" />
-						</button>
-					</div>
-					<div class="flex-1">
-
-					</div>
-					<div class="flex-none w-8">
-						<button class="text-white opacity-50">
-							<IconBell />
-						</button>
-					</div>
-				</template>
-			</NavigationBar>
-
-			<!-- Main content -->
-			<div class="container px-12 sm:px-6 lg:px-8 main relative"
-				>
-				<slot />
-			</div>
-
-			<!-- Footer -->
-			 <Footer />
-		</div>
+	<div class="min-h-screen flex flex-col bg-white">
+	  <NavigationBar />
+  
+	  <main class="flex-1 container mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 py-6">
+		<slot />
+	  </main>
+  
+	  <Footer />
 	</div>
-</template>
+  </template>
+  
 
 <script setup>
 import { onMounted, onUnmounted, ref, watch, computed } from 'vue'

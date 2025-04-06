@@ -1,6 +1,6 @@
 <template>
     <header class="bg-white border-b z-50">
-      <div class="container  px-4 sm:px-6 lg:px-8" >
+      <div class="flex-1 container mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 py-2" >
         <div class="flex justify-between items-center h-16">
           <!-- Left: Logo -->
           <div class="flex items-center space-x-2 px-2">
