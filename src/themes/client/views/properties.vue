@@ -1,10 +1,10 @@
 <template>
-	<!--
+	
 	<div class="flex items-center justify-between mb-4">
-		<h1 class="text-2xl font-bold">My Properties</h1>
+		<h1 class="text-2xl font-bold pt-2">My Properties</h1>
 	</div>
-	-->
-	<list class="w-full" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'" :filter-toggle="false"
+	
+	<list class="w-full" tmpl="custom" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'" :filter-toggle="false"
 		:messages="{ empty: 'There are no properties added!' }" :page-limit="10" :search="false">
 
 		<template #body="{ rows }">

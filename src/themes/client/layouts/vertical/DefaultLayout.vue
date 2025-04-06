@@ -24,9 +24,12 @@
 
 			<!-- Main content -->
 			<div class="container px-12 sm:px-6 lg:px-8 main relative"
-				:class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
+				>
 				<slot />
 			</div>
+
+			<!-- Footer -->
+			 <Footer />
 		</div>
 	</div>
 </template>
@@ -40,6 +43,7 @@ import { useUIPreferencesStore } from '../../stores/uiPreferences'
 import { useDeviceStore } from '../../stores/useDeviceStore'
 
 import NavigationBar from './NavigationBar.vue'
+import Footer from './FooterNav.vue'
 import IconBell from '../../icons/IconBell.vue'
 import IconOPWhite from '../../icons/IconOPWhite.vue'
 import IconRightArrow from '../../icons/IconRightArrow.vue'
