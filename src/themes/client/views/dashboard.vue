@@ -44,9 +44,14 @@ const activities = ref([
     </div>
 
     <div class="flex justify-between">
-      <button class="flex items-center px-4 py-2 rounded-xl shadow-md">
-        <Plus class="w-5 h-5 mr-2" /> Add Property
-      </button>
+      <RouterLink
+        to="/property/basic"
+        class="flex items-center px-4 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
+      >
+        <Plus class="w-5 h-5 mr-2" />
+        Add Property
+      </RouterLink>
+
       <button class="flex items-center px-4 py-2  rounded-xl shadow-md">
         <Bell class="w-5 h-5 mr-2" /> Notifications
       </button>
