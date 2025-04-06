@@ -19,6 +19,7 @@
     "@formkit/pro": "latest",
     "@formkit/themes": "latest",
     "@formkit/vue": "latest",
+    "@heroicons/vue": "^2.2.0",
     "@unhead/vue": "^1.9.10",
     "apexcharts": "^3.35.5",
     "autoprefixer": "latest",

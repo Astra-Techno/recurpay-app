@@ -1,52 +1,5 @@
 <template>
-	<div class="flex h-screen">		
-		<!-- Sidebar -->
-		<div v-if="!deviceStore.isMobile" :class="[
-			'side-bar',
-			'duration-300',
-			'ease-in-out',
-			'border-r',
-			'p-5',
-			'flex-shrink-0 z-1 shadow-md',
-			'overflow-x-hidden',
-			'overflow-y-auto',
-			isMiniSidebar ? 'w-20' : 'w-64',
-		]" style="scrollbar-width: thin;">
-			<DefaultSideBar :isMiniSidebar="isMiniSidebar" :toggleMiniSidebar="toggleMiniSidebar" />
-		</div>
-
-		<!-- Drawer for Mobile -->
-		<transition name="slide" v-if="deviceStore.isMobile">
-			<div v-if="drawerOpen" class="relative z-[1000]">
-				<div :class="[
-					'fixed',
-					'top-0',
-					'left-0',
-					'h-full',
-					'w-56',
-					'bg-white',
-					'shadow-lg',
-					'z-50',
-					'border-r-2',
-					'p-5',
-					'overflow-x-hidden',
-					'overflow-y-auto',
-					'transition-transform', // Ensure smooth transition for transform
-					drawerOpen
-						? 'translate-x-0 opacity-100'
-						: '-translate-x-full opacity-0',
-				]">
-					<DefaultSideBar :isMiniSidebar="false" :toggleMiniSidebar="toggleDrawer"
-						:toggleDrawer="toggleDrawer" />
-				</div>
-				<div class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ease-in-out"
-					:class="{
-						'opacity-100': drawerOpen,
-						'opacity-0': !drawerOpen,
-					}" @click="toggleDrawer"></div>
-			</div>
-		</transition>
-
+	<div class="flex h-screen">
 		<!-- Main Content -->
 		<div class="flex-1 flex flex-col" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
 			<!-- Navigation Bar -->
@@ -58,8 +11,8 @@
 							<IconRightArrow class="text-white" />
 						</button>
 					</div>
-					<div class="flex-1 text-center sm:text-left font-bold">
-						{{ title }}
+					<div class="flex-1">
+
 					</div>
 					<div class="flex-none w-8">
 						<button class="text-white opacity-50">
@@ -70,7 +23,8 @@
 			</NavigationBar>
 
 			<!-- Main content -->
-			<div class="pt-6 px-6 flex-1 main relative" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
+			<div class="container px-12 sm:px-6 lg:px-8 main relative"
+				:class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
 				<slot />
 			</div>
 		</div>
@@ -80,17 +34,16 @@
 <script setup>
 import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
 import { useAppStore } from '@/stores/index'
-import { useExtendedStore } from '../stores/extendedStore'
+import { useExtendedStore } from '../../stores/extendedStore'
 import { storeToRefs } from 'pinia'
-import { useUIPreferencesStore } from '../stores/uiPreferences'
-import { useDeviceStore } from '../stores/useDeviceStore'
-import DefaultSideBar from './DefaultSideBar.vue'
-import NavigationBar from '../layouts/NavigationBar.vue'
-import IconBell from '../icons/IconBell.vue'
-import IconOPWhite from '../icons/IconOPWhite.vue'
-import IconRightArrow from '../icons/IconRightArrow.vue'
+import { useUIPreferencesStore } from '../../stores/uiPreferences'
+import { useDeviceStore } from '../../stores/useDeviceStore'
+
+import NavigationBar from './NavigationBar.vue'
+import IconBell from '../../icons/IconBell.vue'
+import IconOPWhite from '../../icons/IconOPWhite.vue'
+import IconRightArrow from '../../icons/IconRightArrow.vue'
 import { useRoute } from 'vue-router'
-import { useCurrentTitle } from '@/composables/use-meta';
 
 const route = useRoute()
 const appStore = useAppStore()
@@ -100,8 +53,6 @@ const prefStore = useUIPreferencesStore()
 const isMiniSidebar = ref(prefStore.isMiniSidebar)
 const drawerOpen = ref(false)
 const showBackButton = computed(() => route.path !== "/dashboard")
-
-const title = useCurrentTitle()
 
 const toggleMiniSidebar = () => {
 	isMiniSidebar.value = !isMiniSidebar.value

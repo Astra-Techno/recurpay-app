@@ -8,7 +8,7 @@
 		:messages="{ empty: 'There are no properties added!' }" :page-limit="10" :search="false">
 
 		<template #body="{ rows }">
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 				<div v-for="property in rows" :key="property.id"
 					class="bg-white group rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer border"
 					@click="viewProperty(property.id)">
