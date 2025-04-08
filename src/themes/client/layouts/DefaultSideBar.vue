@@ -144,10 +144,10 @@ onUnmounted(() => {
 
 // Define the routes array with path, label, and component
 const routes = [
-	{ path: '/dashboard', label: 'Dashboard', icon: 'IconDashboard' },
-	{ path: '/users', label: 'Users', icon: 'IconToDo' },
-	{ path: '/properties', label: 'Properties', icon: 'IconMaintenance' },
-	{ path: '/tenants', label: 'Tenants', icon: 'IconMaintenance' },
+	{ path: '/dashboard', label: 'Dashboard', icon: 'IconDashboard' },	
+	{ path: '/properties', label: 'Properties', icon: 'IconMinimal' },
+	{ path: '/Tenant/List', label: 'Tenants', icon: 'IconTenant' },
+	{ path: '/Transaction/List', label: 'Transactions', icon: 'IconTransaction' },
 	{ path: '/logout', label: 'Logout', icon: 'IconLogout' },
 ]
 

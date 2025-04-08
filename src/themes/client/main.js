@@ -55,4 +55,6 @@ app.component('Tag', Tag) // Register globally
 import defaultImage from '@/directives/defaultImage'
 app.directive('default-image', defaultImage)
 
+
+
 app.mount('#app')

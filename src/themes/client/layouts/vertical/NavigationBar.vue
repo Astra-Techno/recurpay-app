@@ -25,13 +25,14 @@
               :class="getLinkClass('/properties')"
             >Properties</RouterLink>
             <RouterLink
-              to="/tenants"
-              :class="getLinkClass('/tenants')"
+              to="/Tenant/List"
+              :class="getLinkClass('/Tenant/List')"
             >Tenants</RouterLink>
             <RouterLink
-              to="/transactions"
-              :class="getLinkClass('/transactions')"
+              to="/Transaction/List"
+              :class="getLinkClass('/Transaction/List')"
             >Transactions</RouterLink>
+           
           </nav>
   
           <!-- Search + Icons -->
