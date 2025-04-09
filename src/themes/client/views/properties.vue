@@ -28,7 +28,7 @@
 
 					<!-- Content Section -->
 					<div class="p-4">
-						<h3 class="font-bold text-xl truncate mb-2">{{ property.name }}</h3>
+						<h3 class="font-black italic  truncate mb-2">{{ property.name }}</h3>
 
 						<!-- Address -->
 						<div class="flex gap-2 items-start mb-4">
