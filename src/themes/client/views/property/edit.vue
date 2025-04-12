@@ -5,38 +5,43 @@
       <div class="fixed inset-0 flex items-center justify-center sm:bg-black/50 sm:backdrop-blur-sm">
         <div class="w-full h-full sm:w-[80%] sm:max-w-lg bg-white rounded-lg sm:rounded-xl overflow-y-auto sm:h-auto">
           <!-- Modal Content -->
-          <TransitionChild
-            enter="transform transition ease-in-out duration-300"
-            enter-from="translate-y-full"
-            enter-to="translate-y-0"
-            leave="transform transition ease-in-out duration-200"
-            leave-from="translate-y-0"
-            leave-to="translate-y-full"
-          >
+          <TransitionChild enter="transform transition ease-in-out duration-300" enter-from="translate-y-full"
+            enter-to="translate-y-0" leave="transform transition ease-in-out duration-200" leave-from="translate-y-0"
+            leave-to="translate-y-full">
             <DialogPanel class="w-full h-full p-4 sm:p-6 overflow-y-auto">
               <!-- Header -->
               <div class="flex justify-between items-center border-b pb-4">
                 <DialogTitle class="text-xl font-bold text-gray-900">Edit Property</DialogTitle>
-                <button @click="close" class="text-gray-600 hover:text-black transition-all">
+                <button @click="close" class="bg-transparent border-none text-gray-600 hover:text-black transition-all">
                   <X class="w-6 h-6" />
                 </button>
               </div>
 
               <!-- Content (Form Fields) -->
               <div class="space-y-4 py-4 overflow-y-auto">
-                <FormKit type="text" v-model="property.name" label="Property Name" />
-                <FormKit type="text" v-model="property.address1" label="Address Line 1" />
-                <FormKit type="text" v-model="property.address2" label="Address Line 2" />
-                <FormKit type="number" v-model="property.price" label="Price" />
+                <FormKit type="text" name="address1" v-model="property.address1" label="Address Line 1"
+                  placeholder="Enter street address" validation="required" />
+                <FormKit type="text" name="address2" v-model="property.address2" label="Address Line 2"
+                  placeholder="Apartment, suite, etc. (optional)" />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormKit type="text" name="city" v-model="property.city" label="City" validation="required" />
+                  <FormKit type="text" name="state" v-model="property.state" label="State" validation="required" />
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormKit type="text" name="postal_code" v-model="property.postal_code" label="Postal Code"
+                    validation="required" />
+                  <FormKit type="select" name="country" label="Country" v-model="property.country"
+                    :options="[{ value: 1, label: 'India' }, { value: 2, label: 'USA' }]" validation="required" />
+                </div>
                 <!-- Add more fields as needed -->
               </div>
 
               <!-- Footer -->
-              <div class="py-4 border-t flex gap-4 justify-between">
-                <button @click="close" class="w-full sm:w-auto bg-gray-300 text-gray-700 p-3 rounded-md text-center">
+              <div class="py-4 border-t flex gap-4 justify-between ">
+                <button @click="close" class="sm:w-auto secondary p-2 min-w-[100px]">
                   Cancel
                 </button>
-                <button @click="submit" class="w-full sm:w-auto bg-blue-600 text-white p-3 rounded-md text-center">
+                <button @click="submit" class="sm:w-auto primary p-2 min-w-[100px] ">
                   Save
                 </button>
               </div>

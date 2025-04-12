@@ -17,7 +17,7 @@
 				<!-- Price Badge -->
 				<div class="flex flex-col items-left space-y-2">
 					<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}
-						<button @click="showEdit(property.id)" class="transition-all">
+						<button @click="showEdit(property.id)" class="transition-all" v-if="property.id>0">
 							<Pencil class="w-5 h-5" />
 						</button>
 						<EditPropertyModal ref="editRef" @updated="reloadList()" />
@@ -108,12 +108,18 @@ const formatCurrency = (value) =>
 	}).format(value || 0)
 
 onMounted(async () => {
-	const res = await request.fetch(`/entity/Property/${route.params.id}`)
-	property.value = res.data || {}
-	if (!property.value.images?.length) {
-		property.value.images = [fallbackImage]
-	}
+	loadData()
 })
+
+const loadData = async () => {
+	const id = route.params.id
+	if (!id) return
+
+	const res = await request.fetch(`/entity/Property/${id}`)
+	if (res.error) return
+
+	property.value = res.data
+}
 
 const editRef = ref(null)
 
