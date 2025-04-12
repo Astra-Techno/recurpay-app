@@ -39,7 +39,7 @@
 				<section>
 					<h2 class="text-xl font-semibold mb-4">Basic Info</h2>
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm sm:text-base">
-						<div><strong>Type:</strong> {{ property.type ?? 'Rental Home' }}</div>
+						<div><strong>Type:</strong> {{ property.property_type ?? 'Rental Home' }}</div>
 						<div><strong>Bedrooms:</strong> {{ property.bedrooms }}</div>
 						<div><strong>Bathrooms:</strong> {{ property.bathrooms }}</div>
 						<div><strong>Square Footage:</strong> {{ property.square_footage }} sqft</div>
