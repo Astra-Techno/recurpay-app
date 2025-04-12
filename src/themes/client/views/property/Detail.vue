@@ -1,5 +1,5 @@
 <template>
-	<div >
+	<div>
 		<!-- Full-Width Hero Image -->
 		<div class="w-full h-[300px] sm:h-[420px] relative -top-20 ">
 			<img :src="property.cover || fallbackImage" alt="Property Cover" class="w-full h-full object-cover" />
@@ -16,7 +16,12 @@
 
 				<!-- Price Badge -->
 				<div class="flex flex-col items-left space-y-2">
-					<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}</h2>
+					<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}
+						<button @click="showEdit(property.id)" class="transition-all">
+							<Pencil class="w-5 h-5" />
+						</button>
+						<EditPropertyModal ref="editRef" @updated="reloadList()" />
+					</h2>
 					<h4 class="text-gray-500 mt-1">{{ fullAddress }}</h4>
 					<h5 class="text-xl sm:text-2xl font-semibold text-green-600">
 						{{ formatCurrency(property.price) }} / Month
@@ -67,7 +72,7 @@
 		</div>
 	</div>
 
-	
+
 </template>
 
 
@@ -75,7 +80,9 @@
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import useApiRequest from '@/composables/request'
+import { Pencil } from 'lucide-vue-next'
 
+import EditPropertyModal from './edit.vue';
 
 
 const property = ref({
@@ -108,6 +115,11 @@ onMounted(async () => {
 	}
 })
 
+const editRef = ref(null)
 
+const showEdit = (id) => {
+	console.log(editRef.value);
+	editRef.value?.open(id)
+}
 
 </script>
