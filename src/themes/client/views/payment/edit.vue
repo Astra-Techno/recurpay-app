@@ -7,16 +7,16 @@
           <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">
             🏠
           </span>
-          <h2 class="text-3xl font-black italic">Add Payment</h2>
+          <h2 class="text-3xl font-black italic">edit Payment</h2>
         </div>
-        <p class="text-gray-500 text-sm mt-1">to {{ property.name || 'Property' }}</p>
+        <p class="text-gray-500 text-sm mt-1">to {{ payment.property || 'Property' }}</p>
       </div>
   
       <!-- Form Card -->
       <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
         <!-- Section Title -->
         <div class="space-y-1 ">
-          <h1 class="text-2xl font-black italic ">Let’s Add a New Payment </h1>
+          <h1 class="text-2xl font-black italic ">Let’s Edit Payment </h1>
           <p class="text-gray-500 text-sm">Provide the basic details to list this property under your landlord profile.
           </p>
         </div>
@@ -115,7 +115,7 @@
   
   
   <script setup>
-  import { ref, onMounted, inject, computed } from "vue";
+  import { ref, onMounted, inject } from "vue";
   import { useRouter } from "vue-router";
   import { FormKit } from "@formkit/vue";
   import useApiRequest from '@/composables/request'
@@ -123,11 +123,9 @@
   import SelectBox from '@/components/elements/SelectBox.vue'
   
   import { useMeta } from '@/composables/use-meta';
-  useMeta({ title: 'Add Tenant' })
+  useMeta({ title: 'Add Payment' })
   
   const router = useRouter();
-  const property = ref({});
-  const payment = ref({});
   const loading = ref(true);
   // Country codes for phone input
   const countryCodes = ref([
@@ -140,21 +138,22 @@
   const request = useApiRequest();
   
   const QueryParams = inject('QueryParams'); // Inject global params
-  const PropertyId = QueryParams.value[0] ?? 0;
+  const PaymentId = QueryParams.value[0] ?? 0;
+  const payment = ref({});
   
   onMounted(async () => {
     loading.value = false;
-    if (PropertyId == 0)
+    if (PaymentId == 0)
       return;
   
-    const response = await request.post('entity/Property/' + PropertyId)
+    const response = await request.post('entity/Payment/' + PaymentId + '?attrib=PaymentUserIds')
     if (response.error) {
       Signal.error(response.message)
       return;
     }
   
-    property.value = response.data;
-    payment.value.property_id = PropertyId;
+    payment.value = response.data;
+    payment.value.users = response.data.PaymentUserIds;
   });
   
   const submitForm = async () => {
@@ -164,11 +163,11 @@
       return;
     }
   
-    Signal.success('Payment added successfully!');
-    router.push("/payment/edit/" + response.data.id);
+    Signal.success('Payment details saved successfully!');
+    router.push("/property/additional/" + response.data.id);
   };
 
-// Payment type options
+  // Payment type options
 const paymentTypes = [
   { label: 'Rent', value: 'rent' },
   { label: 'Electricity Bill', value: 'electricity' },
@@ -204,4 +203,4 @@ const handlePaymentTypeChange = (value) => {
 const updateDueDateOptions = () => {
   
 };
-</script>
+  </script>
