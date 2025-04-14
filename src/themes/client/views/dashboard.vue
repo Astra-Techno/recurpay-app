@@ -126,6 +126,10 @@ const loadStats = async () => {
       };
     });
   }
+
+  if (response.data && response.data.occupancy) {
+    occupancyChart.series = response.data.occupancy;
+  }
 };
 
 
@@ -163,7 +167,7 @@ const rentChart = {
 };
 
 const occupancyChart = {
-  series: [10, 2],
+  series: [0, 0],
   options: {
     labels: ['Occupied', 'Vacant'],
     colors: ['#22c55e', '#ef4444'],

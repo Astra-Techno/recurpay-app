@@ -27,6 +27,18 @@ const routes = [
     props: true
   },
   {
+    path: '/tenants/',
+    name: 'TenantsList',
+    component: () => import('../views/Tenant/List.vue'),
+    props: true
+  },
+  {
+    path: '/tenants/:id',
+    name: 'TenantDetail',
+    component: () => import('../views/Tenant/Detail.vue'),
+    props: true
+  },
+  {
     path: "/:pageName(.*)",
     name: "page",
     component: HomeView

@@ -146,7 +146,7 @@ onUnmounted(() => {
 const routes = [
 	{ path: '/dashboard', label: 'Dashboard', icon: 'IconDashboard' },	
 	{ path: '/properties', label: 'Properties', icon: 'IconMinimal' },
-	{ path: '/Tenant/List', label: 'Tenants', icon: 'IconTenant' },
+	{ path: '/tenants', label: 'Tenants', icon: 'IconTenant' },
 	{ path: '/Transaction/List', label: 'Transactions', icon: 'IconTransaction' },
 	{ path: '/logout', label: 'Logout', icon: 'IconLogout' },
 ]

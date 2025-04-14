@@ -25,8 +25,8 @@
               :class="getLinkClass('/properties')"
             >Properties</RouterLink>
             <RouterLink
-              to="/Tenant/List"
-              :class="getLinkClass('/Tenant/List')"
+              to="/tenants"
+              :class="getLinkClass('/tenants')"
             >Tenants</RouterLink>
             <RouterLink
               to="/Transaction/List"
