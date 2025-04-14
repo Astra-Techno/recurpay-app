@@ -7,7 +7,7 @@
         <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">
           🏠
         </span>
-        <h2 class="text-3xl font-black italic">Add Tenat</h2>
+        <h2 class="text-3xl font-black italic">Add Tenant</h2>
       </div>
       <p class="text-gray-500 text-sm mt-1">to {{ property.name || 'Property' }}</p>
     </div>
@@ -17,7 +17,7 @@
       <!-- Section Title -->
       <div class="space-y-1 ">
         <h1 class="text-2xl font-black italic ">Let’s Add a New Tenant </h1>
-        <p class="text-gray-500 text-sm">Provide the basic details to list this property under your landlord profile.
+        <p class="text-gray-500 text-sm">Provide the basic details of the tenant to add.
         </p>
       </div>
 

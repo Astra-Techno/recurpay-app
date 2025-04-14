@@ -87,25 +87,60 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref , onMounted} from 'vue';
 import { Home, Users, DollarSign, Bell, FileText, Plus } from 'lucide-vue-next';
 import ApexCharts from 'vue3-apexcharts';
 import { useMeta } from '@/composables/use-meta';
 import { useExtendedStore } from '../stores/extendedStore'
-
+import useApiRequest from '@/composables/request'
+import Signal from '@/composables/signal'
+const request = useApiRequest();
 useMeta({ title: 'Dashboard' })
 
 const userName = 'John';
 
 const extendedStore = useExtendedStore()
 
+const loadStats = async () => {
+  // Handle form submission logic here
+  const response = await request.post('task/Dashboard/statsList')
+  if (response.error) {
+    Signal.error(response.message);
+    return;
+  }
 
-const stats = ref([
-  { label: 'Total Properties', value: 12, icon: Home, bg: 'bg-blue-100 text-blue-600' },
-  { label: 'Occupied Units', value: 10, icon: Users, bg: 'bg-green-100 text-green-600' },
-  { label: 'Pending Payments', value: 3, icon: DollarSign, bg: 'bg-yellow-100 text-yellow-600' },
-  { label: 'Revenue', value: '$7,500', icon: DollarSign, bg: 'bg-purple-100 text-purple-600' },
-]);
+  if (response.data && response.data.stats) {
+    const responseStats = response.data.stats;
+
+    stats.value = defaultStats.map(stat => {
+      let rawValue = responseStats[stat.label] ?? stat.value;
+
+      // Format "Revenue" if needed
+      if (stat.label === 'Revenue') {
+        rawValue = `$${Number(rawValue).toLocaleString()}`;
+      }
+
+      return {
+        ...stat,
+        value: rawValue
+      };
+    });
+  }
+};
+
+
+// Load property data if editing
+onMounted(async () => {
+	loadStats()
+  });
+  const defaultStats = [
+  { label: 'Total Properties', value: 0, icon: Home, bg: 'bg-blue-100 text-blue-600' },
+  { label: 'Occupied Units', value: 0, icon: Users, bg: 'bg-green-100 text-green-600' },
+  { label: 'Pending Payments', value: 0, icon: DollarSign, bg: 'bg-yellow-100 text-yellow-600' },
+  { label: 'Revenue', value: '$0', icon: DollarSign, bg: 'bg-purple-100 text-purple-600' },
+];
+  const stats = ref(defaultStats); 
+  
 
 const activities = ref([
   { message: 'John Doe paid rent for Apt 204', time: '2 hrs ago' },
