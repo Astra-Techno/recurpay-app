@@ -14,6 +14,9 @@
 
     <!-- Form Card -->
     <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
+      <!-- Mobile Stepper with Arrows -->
+      <Stepper :steps="['Basic Details', 'Bank Details', 'Location Details']" :currentStep="currentStep" />
+
       <!-- Section Title -->
       <div class="space-y-1 ">
         <h1 class="text-2xl font-black italic ">Let’s Add a New Tenant </h1>
@@ -22,29 +25,30 @@
       </div>
 
       <!-- Form -->
-      <FormKit v-if="!loading" type="form" @submit="submitForm" v-model="tenant" submit-label="Save and Continue" submit-class="btn-primary"
-        :actions="true" :config="{ classes: { form: 'space-y-4',submit:{input:'btn btn-primary'} } }">
+      <FormKit v-if="!loading" type="form" @submit="submitForm" v-model="tenant" submit-label="Save and Continue"
+        submit-class="btn-primary" :actions="true"
+        :config="{ classes: { form: 'space-y-4', submit: { input: 'btn btn-primary' } } }">
+        <!-- Step 1: Basic Details -->
+        <template v-if="currentStep === 0">
+          <FormKit type="text" name="name" label="Name" help="Please enter full name" validation="required" />
+          <FormKit type="mask" name="phone" mask="🇮🇳 +91 ##### #####" label="Phone" help="Please enter a phone number"
+            validation="required" />
+        </template>
 
-        <FormKit
-          type="text"
-          name="name"
-          label="Name"
-          help="Please enter full name"
-          validation="required"
-          />
+        <!-- Step 2: Bank Details -->
+        <template v-else-if="currentStep === 1">
+          <FormKit type="text" name="bank_name" label="Bank Name" validation="required" />
+          <FormKit type="text" name="account_number" label="Account Number" validation="required" />
+        </template>
 
-        <FormKit
-          type="mask"
-          name="phone"
-          mask="🇮🇳 +91 ##### #####"
-          label="Phone"
-          help="Please enter a phone number"
-          validation="required"
-          />
-
+        <!-- Step 3: Location Details -->
+        <template v-else-if="currentStep === 2">
+          <FormKit type="text" name="city" label="City" validation="required" />
+          <FormKit type="text" name="state" label="State" validation="required" />
+        </template>
       </FormKit>
+    </div>
   </div>
-</div>
 </template>
 
 
@@ -54,6 +58,7 @@ import { ref, onMounted, inject } from "vue";
 import { useRouter } from "vue-router";
 import { FormKit } from "@formkit/vue";
 import useApiRequest from '@/composables/request'
+import Stepper from '@/components/elements/Stepper.vue'
 import Signal from '@/composables/signal'
 
 import { useMeta } from '@/composables/use-meta';
@@ -71,10 +76,13 @@ const countryCodes = ref([
   // Add more country codes as needed
 ]);
 
+const currentStep = ref(0);
+
+
 const request = useApiRequest();
 
 const QueryParams = inject('QueryParams'); // Inject global params
-const PropertyId = QueryParams.value[0] ?? 0;
+const PropertyId = router.currentRoute.value.params.property_id || QueryParams.property_id || 0; // Get property ID from route params or global params
 
 onMounted(async () => {
   loading.value = false;
@@ -91,14 +99,22 @@ onMounted(async () => {
   tenant.value.property_id = PropertyId;
 });
 
+
 const submitForm = async () => {
-  const response = await request.post('task/Tenant/save', tenant.value)
+  const response = await request.post('task/Tenant/save', tenant.value);
   if (response.error) {
     Signal.error(response.message);
     return;
   }
 
-  Signal.success('Property basic details saved!');
-  router.push("/property/additional/" + response.data.id);
+  // Save returned ID once on first save
+  if (!tenant.value.id) tenant.value.id = response.data.id;
+
+  if (currentStep.value < 2) {
+    currentStep.value++;
+  } else {
+    Signal.success("Tenant added successfully!");
+    router.push("/properties/" + PropertyId + "/tenants");
+  }
 };
 </script>

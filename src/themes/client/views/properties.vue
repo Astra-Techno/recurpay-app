@@ -4,21 +4,17 @@
 		<h1 class="text-2xl font-bold">My Properties</h1>
 	</div>
 
-	<list class="w-full" tmpl="custom" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'" :filter-toggle="false"
-		:messages="{ empty: 'There are no properties added!' }" :page-limit="10" :search="false">
+	<list class="w-full" tmpl="custom" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'"
+		:filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="10" :search="false">
 
 		<template #body="{ rows }">
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-				<router-link
-					v-for="property in rows"
-					:key="property.id"
+				<router-link v-for="property in rows" :key="property.id"
 					:to="{ name: 'PropertyDetail', params: { id: property.id } }"
-					class="bg-white group rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border block"
-				>
+					class="bg-white group rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border block">
 					<!-- Image Section -->
 					<div class="relative">
-						<img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6"
-							:alt="property.name"
+						<img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6" :alt="property.name"
 							class="w-full h-48 sm:h-56 object-cover" />
 						<div
 							class="absolute top-3 right-6 bg-[var(--ui-background)] bg-opacity-75 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md animate-heartbeat">
@@ -28,6 +24,7 @@
 
 					<!-- Content Section -->
 					<div class="p-4">
+						
 						<h3 class="font-black italic  truncate mb-2">{{ property.name }}</h3>
 
 						<!-- Address -->
@@ -68,13 +65,23 @@
 						<!-- Tags -->
 						<div class="flex flex-wrap gap-2 mt-2">
 							<span v-for="(tag, index) in property.tags" :key="index"
-								class="px-3 py-1 text-xs font-semibold rounded-full"
-								:class="{
+								class="px-3 py-1 text-xs font-semibold rounded-full" :class="{
 									'bg-blue-600 text-white': index === 0,
 									'bg-gray-200 text-gray-900': index !== 0
 								}">
 								{{ tag }}
 							</span>
+						</div>
+
+						<div class="flex justify-between mt-4">
+							<router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }"
+								>
+								<button class="btn primary">+ Add Tenant</button>
+							</router-link>
+							<router-link :to="{ name: 'AddPayment', params: { property_id: property.id } }"
+								>
+								<button class="btn primary">+ Add Payment</button>
+							</router-link>
 						</div>
 					</div>
 				</router-link>

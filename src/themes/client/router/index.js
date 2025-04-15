@@ -27,6 +27,13 @@ const routes = [
     props: true
   },
   {
+    path: '/payment/add/:property_id',
+    name: 'AddPayment',
+    component: () => import('../views/payment/add.vue'),
+    props: true
+  },
+
+  {
     path: '/tenants/',
     name: 'TenantsList',
     component: () => import('../views/Tenant/List.vue'),
@@ -38,6 +45,19 @@ const routes = [
     component: () => import('../views/Tenant/Detail.vue'),
     props: true
   },
+  {
+    path: '/properties/:id/tenants',
+    name: 'TenantsListByProperty',
+    component: () => import('../views/Tenant/List.vue'),
+    props: true
+  },
+  {
+    path: '/properties/:property_id/add-tenant',
+    name: 'AddTenant',
+    component: () => import('../views/Tenant/add.vue'),
+    props: true
+  },
+
   {
     path: "/:pageName(.*)",
     name: "page",

@@ -43,9 +43,7 @@
     font-size: 15px;
   }
 
-  :focus {
-    outline: 1px solid var(--ui-focus-outline);
-  }
+ 
 
   label {
     color: var(--ui-label);

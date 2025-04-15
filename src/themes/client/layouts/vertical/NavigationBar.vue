@@ -42,7 +42,7 @@
               <input
                 type="text"
                 placeholder="Search MyProps..."
-                class="pl-10 pr-4 py-2 text-sm border rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+                class="pl-10 pr-4 py-2 text-sm border  rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <span class="absolute left-3 top-2.5 text-gray-400">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"

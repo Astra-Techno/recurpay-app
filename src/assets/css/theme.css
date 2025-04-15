@@ -795,151 +795,165 @@
 }
 [data-theme='client'] {
   /* General Text & Page */
-  --general-text-heading: #1e293b;
-  --general-text-paragraph: #475569;
-  --general-text-subtext: #64748b;
-  --general-text-disclaimer: #94a3b8;
-  --general-text-background: #f8fafc;
+  --general-text-heading: #1e293b; /* Dark gray-blue */
+  --general-text-paragraph: #334155; /* Slightly lighter gray */
+  --general-text-subtext: #475569;
+  --general-text-disclaimer: #64748b;
+  --general-text-background: #f8fafc; /* Light gray */
   --general-text-modal-background: #ffffff;
-  --general-text-modal-outline: #e2e8f0;
-  --general-text-link-unvisited: #1566F2; /* Green-600 */
-  --general-text-link-hover: #0060DF;     /* Green-500 */
-  --general-text-link-visited: #003EAA;   /* Green-700 */
+  --general-text-modal-outline: #1e293b;
+  --general-text-link-unvisited: #2563eb; /* Admin blue */
+  --general-text-link-hover: #1e40af;
+  --general-text-link-visited: #4f46e5;
 
   /* General UI */
   --ui-label: #1e293b;
   --ui-text: #334155;
-  --ui-outline: #cbd5e1;
-  --ui-background: #1566F2; /* Green-600 */
-  --ui-nav-controls: #1566F2;
+  --ui-outline: #94a3b8;
+  --ui-background: #2563eb;
+  --ui-nav-controls: #2563eb;
   --ui-focus-text: #334155;
-  --ui-focus-outline: #1566F2;
-  --ui-focus-background: #f1f5f9;
-  --ui-warning-text: #92400E;  /* Amber-800 */
-  --ui-warning-outline: #F59E0B; /* Amber-500 */
-  --ui-warning-background: #FEF3C7; /* Amber-100 */
-  --ui-error-text: #B91C1C;
-  --ui-error-outline: #DC2626;
-  --ui-error-background: #FEE2E2;
-  --ui-suggested-text: #64748B;
-  --ui-disabled-label: #94a3b8;
-  --ui-disabled-text: #cbd5e1;
-  --ui-disabled-outline: #e2e8f0;
-  --ui-disabled-background: #f1f5f9;
-  --ui-star-rating-foreground: #F59E0B; /* Amber-500 */
-  --ui-star-rating-background: #e2e8f0;
+  --ui-focus-outline: #2563eb;
+  --ui-focus-background: #e2e8f0;
+  --ui-warning-text: #b45309;
+  --ui-warning-outline: #facc15;
+  --ui-warning-background: #fef9c3;
+  --ui-error-text: #b91c1c;
+  --ui-error-outline: #dc2626;
+  --ui-error-background: #fee2e2;
+  --ui-suggested-text: #64748b;
+  --ui-disabled-label: #64748b;
+  --ui-disabled-text: #94a3b8;
+  --ui-disabled-outline: #cbd5e1;
+  --ui-disabled-background: #e2e8f0;
+  --ui-selected-background: #bb99ff;
+  --ui-star-rating-foreground: #facc15;
+  --ui-star-rating-background: #cbd5e1;
+  --ui-slider-toggle-on-text: #1e293b;
+  --ui-slider-toggle-off-background: #e2e8f0;
+  --ui-slider-toggle-off-thumb: #2563eb;
+  --ui-slider-toggle-on-background: #2563eb;
+  --ui-slider-toggle-on-thumb: #ffffff;
+  --ui-slider-toggle-outline: #2563eb;
+  --ui-datepicker-selected-date-background: #1e40af;
+  --ui-datepicker-selected-date-text: #ffffff;
 
   /* Buttons */
   --button-primary-text: #ffffff;
-  --button-primary-background: #1566F2; /* Green-600 */
-  --button-primary-outline: #0060DF; /* Green-500 */
+  --button-primary-background: #2563eb;
+  --button-primary-outline: #1e40af;
   --button-primary-focus-text: #ffffff;
-  --button-primary-focus-outline: #4ADE80; /* Green-400 */
-  --button-primary-focus-background: #0060DF;
+  --button-primary-focus-outline: #1e40af;
+  --button-primary-focus-background: #1e40af;
   --button-primary-disabled-text: #ffffff;
-  --button-primary-disabled-background: #94a3b8;
-  --button-primary-disabled-outline: #cbd5e1;
+  --button-primary-disabled-background: #64748b;
+  --button-primary-disabled-outline: #94a3b8;
 
-  --button-secondary-text: #1566F2;
+  --button-secondary-text: #2563eb;
   --button-secondary-background: transparent;
-  --button-secondary-outline: #1566F2;
-  --button-secondary-focus-text: #0060DF;
-  --button-secondary-focus-outline: #0060DF;
-  --button-secondary-focus-background: #ECFDF5; /* Green-50 */
-  --button-secondary-disabled-text: #94a3b8;
+  --button-secondary-outline: #2563eb;
+  --button-secondary-focus-text: #1e40af;
+  --button-secondary-focus-outline: #1e40af;
+  --button-secondary-focus-background: transparent;
+  --button-secondary-disabled-text: #64748b;
   --button-secondary-disabled-background: transparent;
-  --button-secondary-disabled-outline: #94a3b8;
+  --button-secondary-disabled-outline: #64748b;
 
   --button-success-text: #ffffff;
-  --button-success-background: #10B981; /* Emerald-500 */
-  --button-success-outline: #059669; /* Emerald-600 */
+  --button-success-background: #16a34a;
+  --button-success-outline: #166534;
   --button-success-focus-text: #ffffff;
-  --button-success-focus-outline: #059669;
-  --button-success-focus-background: #059669;
+  --button-success-focus-outline: #15803d;
+  --button-success-focus-background: #15803d;
   --button-success-disabled-text: #ffffff;
-  --button-success-disabled-background: #94a3b8;
-  --button-success-disabled-outline: #cbd5e1;
+  --button-success-disabled-background: #64748b;
+  --button-success-disabled-outline: #94a3b8;
 
-  --button-icon-large: #1566F2;
-  --button-icon-small: #0060DF;
-  --button-icon-menu: #1566F2;
+  --button-icon-large: #2563eb;
+  --button-icon-small: #1e40af;
+  --button-icon-menu: #2563eb;
 
-  --button-radio-outline: #1566F2;
-  --button-radio-selected-fill: #1566F2;
-  --button-radio-disabled-outline: #cbd5e1;
-  --button-radio-disabled-fill: #e2e8f0;
+  --button-radio-outline: #2563eb;
+  --button-radio-selected-fill: #2563eb;
+  --button-radio-disabled-outline: #94a3b8;
+  --button-radio-disabled-fill: #cbd5e1;
 
   /* Notifications */
   --notification-general-text: #1e293b;
-  --notification-general-outline: #1566F2;
-  --notification-general-background: #ECFDF5; /* Green-50 */
-  --notification-success-text: #065F46; /* Emerald-800 */
-  --notification-success-outline: #10B981; /* Emerald-500 */
-  --notification-success-background: #D1FAE5; /* Emerald-100 */
-  --notification-error-text: #B91C1C;
-  --notification-error-outline: #DC2626;
-  --notification-error-background: #FEE2E2;
-  --notification-warning-text: #92400E;
-  --notification-warning-outline: #F59E0B;
-  --notification-warning-background: #FEF3C7;
+  --notification-general-outline: #2563eb;
+  --notification-general-background: #dbeafe;
+  --notification-success-text: #166534;
+  --notification-success-outline: #16a34a;
+  --notification-success-background: #dcfce7;
+  --notification-error-text: #b91c1c;
+  --notification-error-outline: #dc2626;
+  --notification-error-background: #fee2e2;
+  --notification-warning-text: #b45309;
+  --notification-warning-outline: #facc15;
+  --notification-warning-background: #fef9c3;
 
   /* Graphs */
-  --graph-financial-income: #1566F2;
-  --graph-financial-expense: #DC2626;
-  --graph-financial-cashflow: #10B981;
-  --graph-financial-assets: #F59E0B;
-  --graph-financial-liabilities: #9333EA;
+  --graph-financial-income: #2563eb;
+  --graph-financial-expense: #b91c1c;
+  --graph-financial-cashflow: #16a34a;
+  --graph-financial-assets: #facc15;
+  --graph-financial-liabilities: #b91c1c;
 
-  --graph-generic-1st: #1566F2;
-  --graph-generic-2nd: #10B981;
-  --graph-generic-3rd: #F59E0B;
-  --graph-generic-4th: #DC2626;
-  --graph-generic-5th: #9333EA;
-  --graph-generic-6th: #0EA5E9;
-  --graph-generic-7th: #F97316;
-  --graph-generic-8th: #EC4899;
+  --graph-generic-1st: #2563eb;
+  --graph-generic-2nd: #16a34a;
+  --graph-generic-3rd: #facc15;
+  --graph-generic-4th: #b91c1c;
+  --graph-generic-5th: #9333ea;
+  --graph-generic-6th: #0ea5e9;
+  --graph-generic-7th: #f59e0b;
+  --graph-generic-8th: #dc2626;
   --graph-generic-9th: #059669;
-  --graph-generic-10th: #8B5CF6;
-  --graph-generic-11th: #0060DF;
-  --graph-generic-12th: #84CC16;
-  --graph-generic-13th: #06B6D4;
-  --graph-generic-14th: #D946EF;
-  --graph-generic-15th: #F472B6;
+  --graph-generic-10th: #9333ea;
+  --graph-generic-11th: #4f46e5;
+  --graph-generic-12th: #a3e635;
+  --graph-generic-13th: #22d3ee;
+  --graph-generic-14th: #d946ef;
+  --graph-generic-15th: #f472b6;
 
   /* Tags */
   --tags-general-text: #1e293b;
-  --tags-general-outline: #cbd5e1;
+  --tags-general-outline: #1e293b;
   --tags-general-background: #f1f5f9;
-  --tags-general-icon: #64748B;
+  --tags-general-icon: #64748b;
 
-  --tags-progression-initial-text: #475569;
-  --tags-progression-initial-outline: #cbd5e1;
+  --tags-progression-initial-text: #334155;
+  --tags-progression-initial-outline: #94a3b8;
   --tags-progression-initial-background: #f1f5f9;
-  --tags-progression-cancelled-text: #64748B;
-  --tags-progression-cancelled-outline: #e2e8f0;
-  --tags-progression-cancelled-background: #f8fafc;
-  --tags-progression-waiting-on-you-text: #1566F2;
-  --tags-progression-waiting-on-you-outline: #BBF7D0; /* Green-200 */
-  --tags-progression-waiting-on-you-background: #ECFDF5;
-  --tags-progression-waiting-on-me-text: #D97706;
-  --tags-progression-waiting-on-me-outline: #FCD34D;
-  --tags-progression-waiting-on-me-background: #FEF3C7;
-  --tags-progression-in-progress-text: #0EA5E9;
-  --tags-progression-in-progress-outline: #7DD3FC;
-  --tags-progression-in-progress-background: #E0F2FE;
-  --tags-progression-completed-text: #059669;
-  --tags-progression-completed-outline: #6EE7B7;
-  --tags-progression-completed-background: #D1FAE5;
-  --tags-progression-error-text: #B91C1C;
-  --tags-progression-error-outline: #FCA5A5;
-  --tags-progression-error-background: #FEE2E2;
+  --tags-progression-cancelled-text: #1e293b;
+  --tags-progression-cancelled-outline: #64748b;
+  --tags-progression-cancelled-background: #e2e8f0;
+  --tags-progression-waiting-on-you-text: #2563eb;
+  --tags-progression-waiting-on-you-outline: #1e40af;
+  --tags-progression-waiting-on-you-background: #dbeafe;
+  --tags-progression-waiting-on-me-text: #b45309;
+  --tags-progression-waiting-on-me-outline: #facc15;
+  --tags-progression-waiting-on-me-background: #fef9c3;
+  --tags-progression-in-progress-text: #0ea5e9;
+  --tags-progression-in-progress-outline: #0284c7;
+  --tags-progression-in-progress-background: #e0f2fe;
+  --tags-progression-completed-text: #166534;
+  --tags-progression-completed-outline: #16a34a;
+  --tags-progression-completed-background: #dcfce7;
+  --tags-progression-error-text: #b91c1c;
+  --tags-progression-error-outline: #dc2626;
+  --tags-progression-error-background: #fee2e2;
 
   /* Misc */
-  --accent-large-area-splash: #1e293b;
-  --accent-small-area-splash: #1566F2;
-  --accent-text-accent: #0060DF;
+  --accent-large-area-splash: #475569;
+  --accent-small-area-splash: #2563eb;
+  --accent-text-accent: #1e40af;
   --transparent: #ffffff00;
 
-  --accent-splash-gradient: linear-gradient(45deg, #1566F2, #0060DF);
+  --accent-splash-gradient: linear-gradient(
+    45deg,
+    #2563eb, 
+    #1e40af
+  );
+
 }
 
