@@ -15,7 +15,7 @@
     <!-- Form Card -->
     <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
       <!-- Mobile Stepper with Arrows -->
-      <Stepper :steps="['Basic Details', 'Bank Details', 'Location Details']" :currentStep="currentStep" />
+      <Stepper :steps="['Basic Details', 'Bank Details']" :currentStep="currentStep" />
 
       <!-- Section Title -->
       <div class="space-y-1 ">
@@ -41,11 +41,7 @@
           <FormKit type="text" name="account_number" label="Account Number" validation="required" />
         </template>
 
-        <!-- Step 3: Location Details -->
-        <template v-else-if="currentStep === 2">
-          <FormKit type="text" name="city" label="City" validation="required" />
-          <FormKit type="text" name="state" label="State" validation="required" />
-        </template>
+        
       </FormKit>
     </div>
   </div>
@@ -81,8 +77,8 @@ const currentStep = ref(0);
 
 const request = useApiRequest();
 
-const QueryParams = inject('QueryParams'); // Inject global params
-const PropertyId = router.currentRoute.value.params.property_id || QueryParams.property_id || 0; // Get property ID from route params or global params
+//const QueryParams = inject('QueryParams'); // Inject global params
+const PropertyId = router.currentRoute.value.params.property_id || 0; // Get property ID from route params or global params
 
 onMounted(async () => {
   loading.value = false;
@@ -110,7 +106,7 @@ const submitForm = async () => {
   // Save returned ID once on first save
   if (!tenant.value.id) tenant.value.id = response.data.id;
 
-  if (currentStep.value < 2) {
+  if (currentStep.value < 1) {
     currentStep.value++;
   } else {
     Signal.success("Tenant added successfully!");

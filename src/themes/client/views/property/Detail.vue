@@ -17,7 +17,7 @@
 				<!-- Price Badge -->
 				<div class="flex flex-col items-left space-y-2">
 					<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}
-						<button @click="showEdit(property.id)" class="transition-all" v-if="property.id>0">
+						<button @click="showEdit(property.id)" class="transition-all" v-if="property.id > 0">
 							<Pencil class="w-5 h-5" />
 						</button>
 						<EditPropertyModal ref="editRef" @updated="reloadList()" />
@@ -28,7 +28,7 @@
 					</h5>
 
 				</div>
-
+				
 				<!-- Gallery -->
 				<div v-if="property.images?.length" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
 					<img v-for="(img, i) in property.images" :key="i" :src="img"
@@ -77,14 +77,24 @@
 
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, onBeforeUnmount  } from 'vue'
 import { useRoute } from 'vue-router'
 import useApiRequest from '@/composables/request'
 import { Pencil } from 'lucide-vue-next'
 
 import EditPropertyModal from './edit.vue';
+import { EllipsisVerticalIcon } from 'lucide-vue-next'
 
-
+const menuOpen = ref(false)
+const menuRef = ref(null)
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+}
+const handleClickOutside = (event) => {
+  if (menuRef.value && !menuRef.value.contains(event.target)) {
+    menuOpen.value = false
+  }
+}
 const property = ref({
 	images: [],
 	tags: [],
@@ -109,8 +119,11 @@ const formatCurrency = (value) =>
 
 onMounted(async () => {
 	loadData()
+	document.addEventListener('click', handleClickOutside)
 })
-
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
 const loadData = async () => {
 	const id = route.params.id
 	if (!id) return

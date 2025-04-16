@@ -3,11 +3,11 @@
       <!-- Main Page Heading -->
       <div class="mb-6 ">
         <div class="flex items-center  gap-2">
-  
+  {{ payment }}
           <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">
             🏠
           </span>
-          <h2 class="text-3xl font-black italic">edit Payment</h2>
+          <h2 class="text-3xl font-black italic">Edit Payment</h2>
         </div>
         <p class="text-gray-500 text-sm mt-1">to {{ payment.property || 'Property' }}</p>
       </div>
@@ -146,7 +146,7 @@
     if (PaymentId == 0)
       return;
   
-    const response = await request.post('entity/Payment/' + PaymentId + '?attrib=PaymentUserIds')
+    const response = await request.post('entity/Payment/' + PaymentId )
     if (response.error) {
       Signal.error(response.message)
       return;

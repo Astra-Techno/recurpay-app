@@ -1,7 +1,11 @@
 <template>
     <div class="py-4">
       <!-- Main Page Heading -->
-      <div class="mb-6 ">
+     
+  
+      <!-- Form Card -->
+      <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
+        <div class="mb-6 ">
         <div class="flex items-center  gap-2">
   
           <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">
@@ -11,15 +15,6 @@
         </div>
         <p class="text-gray-500 text-sm mt-1">to {{ property.name || 'Property' }}</p>
       </div>
-  
-      <!-- Form Card -->
-      <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
-        <!-- Section Title -->
-        <div class="space-y-1 ">
-          <h1 class="text-2xl font-black italic ">Let’s Add a New Payment </h1>
-          <p class="text-gray-500 text-sm">Provide the basic details to list this property under your landlord profile.
-          </p>
-        </div>
   
         <!-- Form -->
         <FormKit 
@@ -140,7 +135,7 @@
   const request = useApiRequest();
   
   const QueryParams = inject('QueryParams'); // Inject global params
-  const PropertyId = QueryParams.value[0] ?? 0;
+  const PropertyId = router.currentRoute.value.params.property_id || 0; 
   
   onMounted(async () => {
     loading.value = false;
@@ -165,7 +160,7 @@
     }
   
     Signal.success('Payment added successfully!');
-    router.push("/payment/edit/" + response.data.id);
+    router.push("/properties/"+PropertyId);
   };
 
 // Payment type options

@@ -1,15 +1,16 @@
 <template>
   <div class="flex space-x-2 mb-4">
-    <Icon name="IconTenant" />
-    <h1 class="text-2xl font-bold">My Tenants</h1>
+    <Icon name="IconTenant" />   
+    <h1 class="text-2xl font-black italic" v-if="property_id == 0">My Tenants</h1>
+    <h1 class="text-2xl font-black italic" v-else>{{property.name}} - Tenants</h1>
   </div>
 
- 
+  
 
   <list
     class="w-full"
     tmpl="custom"
-    :data-url="'list/Tenants'"
+    :data-url="dataUrl"
     :sortBy="'pt.id'"
     :sortOrder="'desc'"
     :filter-toggle="false"
@@ -39,7 +40,7 @@
               <h3 class="text-lg font-black italic ">
                 {{ tenant.name }}
               </h3>
-              <p >{{ tenant.property }}</p>
+              <p class="font-bold">{{ tenant.property }}</p>
               <p >{{ tenant.address }}</p>
 
               <!-- Status -->
@@ -64,7 +65,37 @@
 </template>
 
 <script setup>
+import { onMounted, ref, computed } from 'vue'
 import { useMeta } from '@/composables/use-meta'
 import List from '@/components/List/List.vue'
-useMeta({ title: 'My Tenants' })
+import useApiRequest from '@/composables/request'
+import { useRoute } from 'vue-router'
+useMeta({ title: 'My Tenants' })  
+
+const router = useRoute()
+const property_id = ref(0)
+const property = ref({})
+
+property_id.value = router.params.id || 0;
+const dataUrl = computed(() => {
+  return property_id.value > 0
+    ? `list/Tenants?property_id=${property_id.value}`
+    : `list/Tenants`
+})
+
+onMounted(async () => {
+ 
+  
+  if (!property_id.value) 
+  {
+    return
+  }
+  const request = useApiRequest()
+  const  response  = await request.fetch('/item/Properties?id=' + property_id.value)
+  
+  if (response.data ) {
+    property.value = response.data;
+  }
+ 
+})
 </script>

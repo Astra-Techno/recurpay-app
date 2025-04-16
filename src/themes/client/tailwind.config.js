@@ -6,7 +6,6 @@ export default {
 		'./index.html',
 		'./src/**/*.{vue,js,ts,jsx,tsx}',
 		'./formkit.theme.mjs'
-
 	],
 	theme: {
 		extend: {
@@ -20,10 +19,6 @@ export default {
 				 statementShade: 'var(--statement-shade)', // Use the CSS variable
 				 statementTitle: 'var(--statement-title)', // Use the CSS variable
 			},
-			container: {
-				center: true, // this is what makes .container get margin auto
-				padding: "1rem",
-			  },
 		},
 	},
 	safelist: [
@@ -41,5 +36,4 @@ export default {
 		'!bg-[var(--ui-background)]',
 		'aria-selected:bg-[var(--ui-datepicker-selected-date-background)]'
 	  ]
-
 }

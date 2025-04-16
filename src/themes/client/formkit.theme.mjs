@@ -7,7 +7,6 @@
  * @variables -
  * @theme - regenesis
  **/
-
 /**
  * This is the theme function itself, it should be imported and used as the
  * config.rootClasses function. For example:
@@ -41,7 +40,6 @@ export function rootClasses(sectionName, node) {
 	}
 	return classes[memoKey] ?? { [semanticKey]: true }
 }
-
 /**
  * These classes have already been merged with globals using tailwind-merge
  * and are ready to be used directly in the theme.
@@ -89,10 +87,10 @@ const classes = {
 	},
 	'family:box__legend': {
 		block: true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'text-sm': true,
 		'font-bold': true,
-		'dark:text-neutral-300': true,
+		'dark:text-[var(--ui-text)]': true,
 		'mb-2': true,
 	},
 	'family:box__input': {
@@ -112,9 +110,9 @@ const classes = {
 	},
 	'family:box__decorator': {
 		'mr-1.5': true,
-		'bg-white': true,
-		'ring-blue-500': true,
-		'peer-checked:border-blue-600': true,
+		'bg-var[(--ui-background)]': true,
+		'ring-[var(--button-secondary-outline)]': true,
+		'peer-checked:border-[var(--button-secondary-outline)]': true,
 		relative: true,
 		block: true,
 		'text-lg': true,
@@ -123,8 +121,8 @@ const classes = {
 		border: true,
 		'border-neutral-400': true,
 		'text-transparent': true,
-		'peer-checked:bg-blue-50': true,
-		'peer-checked:text-blue-600': true,
+		'peer-checked:bg-transparent': true,
+		'peer-checked:text-[var(--button-secondary-outline)]': true,
 		'peer-focus-visible:ring-2': true,
 		'peer-focus-visible:ring-offset-1': true,
 		'select-none': true,
@@ -162,14 +160,13 @@ const classes = {
 	},
 	'family:box__label': {
 		block: true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'text-sm': true,
 		'font-bold': true,
 		'mb-1': true,
 		'!mb-0': true,
 		'!font-normal': true,
 		'!text-sm': true,
-		'dark:text-neutral-300': true,
 	},
 	'family:box__optionHelp': {
 		'text-neutral-500': true,
@@ -181,7 +178,7 @@ const classes = {
 		'left-px': true,
 	},
 	'family:box__help': {
-		'text-neutral-500': true,
+		'text-[var(--ui-text)]': true,
 		'text-xs': true,
 		'dark:text-neutral-400': true,
 		'mb-1': true,
@@ -198,10 +195,9 @@ const classes = {
 	},
 	'family:text__label': {
 		block: true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'text-sm': true,
 		'font-bold': true,
-		'dark:text-neutral-300': true,
 		'!inline-flex': true,
 		'mb-1': true,
 	},
@@ -215,9 +211,9 @@ const classes = {
 		rounded: true,
 		'border': true,
 		'border-[var(--ui-outline)]': true,
-		'group-data-[invalid]:border-red-500': true,
+		'group-data-[invalid]:border-[var(--ui-error-outline)]': true,
 		'group-data-[invalid]:ring-1': true,
-		'group-data-[invalid]:ring-red-500': true,
+		'group-data-[invalid]:ring-[var(--ui-error-outline)]': true,
 		'group-data-[disabled]:bg-neutral-100': true,
 		'group-data-[disabled]:!cursor-not-allowed': true,
 		shadow: false,
@@ -226,8 +222,6 @@ const classes = {
 		'dark:bg-transparent': true,
 		'dark:border-neutral-500': true,
 		'dark:group-data-[disabled]:bg-neutral-800/5': true,
-		'dark:group-data-[invalid]:border-red-500': true,
-		'dark:group-data-[invalid]:ring-red-500': true,
 	},
 	'family:text__input': {
 		'appearance-none': true,
@@ -236,14 +230,13 @@ const classes = {
 		'selection:text-neutral-700': true,
 		'group-data-[has-overlay]:selection:!text-transparent': true,
 		'text-base': true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'min-w-0': true,
 		'min-h-[1.5em]': true,
 		grow: true,
 		'outline-none': true,
-		'bg-transparent': true,
-		'selection:bg-blue-100': true,
-		'placeholder:text-neutral-400': true,
+		'bg-[var(--ui-background)]': true,
+		'placeholder:text-[var(--general-text-disclaimer)]': true,
 		'group-data-[disabled]:!cursor-not-allowed': true,
 		'dark:placeholder-neutral-400/50': true,
 		'dark:text-neutral-300': true,
@@ -315,7 +308,7 @@ const classes = {
 		'pr-0': true,
 		'pl-3': true,
 		'text-base': true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'text-ellipsis': true,
 		'min-w-0': true,
 		'outline-none': true,
@@ -326,7 +319,6 @@ const classes = {
 		'placeholder:text-neutral-400': true,
 		'selection:bg-blue-100': true,
 		'dark:placeholder:text-neutral-500': true,
-		'dark:text-neutral-300': true,
 		'focus:ring-0': true,
 	},
 	'family:dropdown__listboxButton': {
@@ -355,7 +347,6 @@ const classes = {
 		'hover:bg-transparent': true,
 		'hover:border-none': true,
 		'focus:!bg-transparent': true,
-
 	},
 	'family:dropdown__controlLabel': {
 		absolute: true,
@@ -406,7 +397,7 @@ const classes = {
 		'[&>svg]:w-full': true,
 		'!mr-2': true,
 		'!ml-0': true,
-		'text-neutral-600': true,
+		'text-[var(--ui-text)]': true,
 		'dark:text-neutral-300': true,
 	},
 	'family:dropdown__dropdownWrapper': {
@@ -462,7 +453,7 @@ const classes = {
 		'last:pb-2': true,
 		'text-neutral-700': true,
 		'text-base': true,
-		'data-[is-active]:bg-blue-100': true,
+		'data-[is-active]:bg-[var(--ui-datepicker-selected-date-background)]': true,
 		'dark:text-neutral-200': true,
 		'dark:data-[is-active]:text-neutral-700': true,
 		"before:content-['']": true,
@@ -474,9 +465,9 @@ const classes = {
 		'data-[is-active]:last:before:rounded-t-none': true,
 		'data-[is-active]:first:last:before:rounded': true,
 		'data-[is-active]:before:ring-1': true,
-		'data-[is-active]:before:ring-blue-500': true,
+		'data-[is-active]:before:ring-primary': true,
 		'data-[is-active]:before:ring-inset': true,
-		'data-[is-active]:before:ring-offset-blue-100': true,
+		'data-[is-active]:before:ring-offset-primary': true,
 		'group-[]/optgroup:first:before:!rounded-none': true,
 		'group-[]/optgroup:last:before:!rounded-none': true,
 	},
@@ -484,7 +475,7 @@ const classes = {
 		flex: true,
 		absolute: true,
 		'items-center': true,
-		'text-blue-600': true,
+		'text-primary': true,
 		'left-2': true,
 		'text-base': true,
 		'h-[1em]': true,
@@ -890,7 +881,7 @@ const classes = {
 		relative: true,
 		flex: true,
 		'items-center': true,
-        '!bg-[var(--ui-background)]':true,
+        '!bg-transparent':true,
 		border: true,
 		'border-[var(--ui-outline)]':true,
 		'outline-1':true,
@@ -926,7 +917,7 @@ const classes = {
 		'px-3': true,
 		'pr-[2em]': true,
 		'text-base': true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'text-ellipsis': true,
 		'min-w-0': true,
 		'outline-none': true,
@@ -946,11 +937,10 @@ const classes = {
 	select__selectIcon: {
 		absolute: true,
 		'w-[1em]': true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'pointer-events-none': true,
 		'right-2': true,
 		'group-data-[suffix-icon]:mr-[1.5em]': true,
-		'dark:text-neutral-300': true,
 	},
 	select__optGroup: {
 		'bg-white': true,
@@ -1079,9 +1069,9 @@ const classes = {
 		flex: true,
 		'items-center': true,
 		'mb-1.5': true,
-		'bg-white': true,
+		'bg-transparent': true,
 		border: true,
-		'border-neutral-400': true,
+		'border-[var(--ui-outline)]': true,
 		rounded: true,
 		'focus-within:ring-1': false,
 		'focus-within:!ring-blue-500': false,
@@ -1103,26 +1093,25 @@ const classes = {
 		'appearance-none': true,
 		'[color-scheme:light]': true,
 		'dark:[color-scheme:dark]': true,
-		'selection:text-neutral-700': true,
+		'selection:text-[var(--ui-text)]': true,
 		'group-data-[has-overlay]:selection:!text-transparent': true,
 		'text-base': true,
 		'h-24': true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'min-w-0': true,
 		grow: true,
 		shrink: true,
 		'!py-2': true,
 		'!px-3': true,
 		'outline-none': true,
-		'bg-transparent': true,
-		'selection:bg-blue-100': true,
+		'bg-[var(--ui-background)]': true,
+		'selection:bg-[var(--ui-selected-background)]': true,
 		'placeholder:text-neutral-400': true,
 		'group-data-[disabled]:!cursor-not-allowed': true,
-		'dark:placeholder-neutral-400/50': true,
-		'dark:text-neutral-300': true,
 		'p-0': true,
 		'border-none': true,
 		'focus:ring-0': true,
+		'rounded-md': true,
 	},
 	textarea__prefixIcon: {
 		flex: true,
@@ -1185,7 +1174,7 @@ const classes = {
 		'group-data-[multiple]:mt-1.5': true,
 	},
 	autocomplete__selectionWrapper: {
-		'bg-neutral-100': true,
+		'bg-transparent': true,
 		rounded: true,
 		'group-data-[multiple]:border': true,
 		'group-data-[multiple]:border-neutral-300': true,
@@ -1681,11 +1670,10 @@ const classes = {
 		'appearance-none': true,
 		'[color-scheme:light]': true,
 		'dark:[color-scheme:dark]': true,
-		'selection:bg-blue-100': true,
+		'selection:bg-[var(--ui-selected-background)]': true,
 		'selection:text-neutral-700': true,
 		'group-data-[has-overlay]:selection:!text-transparent': true,
 		'pl-3': true,
-		'placeholder:text-neutral-400': true,
 	},
 	datepicker__monthsHeader: {
 		flex: true,
@@ -1800,7 +1788,7 @@ const classes = {
 		'p-2': true,
 		rounded: true,
 		'bg-neutral-200': true,
-		'aria-selected:bg-[var(--ui-datepicker-selected-date-background)]':true,
+		'aria-selected:bg-[var(--ui-selected-background)]':true,
 		'aria-selected:text-white': true,
 		'focus:outline': true,
 		'focus:outline-2': true,
@@ -1984,7 +1972,7 @@ const classes = {
 		'focus-visible:rounded': true,
 	},
 	datepicker__calendarIcon: {
-		'text-neutral-600': true,
+		'text-[var(--ui-text)]': true,
 		'focus-visible:text-blue-600': true,
 		flex: true,
 		'w-[1em]': true,
@@ -1997,8 +1985,11 @@ const classes = {
 		'[&>svg]:max-h-[1em]': true,
 		'[&>svg]:max-w-[1em]': true,
 	},
+	dropdown__input: {
+		'text-[var(--ui-background)]' : true,
+	},
 	dropdown__placeholder: {
-		'text-neutral-400': true,
+		'text-[var(--ui-text)]': true,
 		grow: true,
 		'dark:text-neutral-400/50': true,
 	},
@@ -2024,7 +2015,7 @@ const classes = {
 		'group-data-[prefix-icon]:!pl-0': true,
 		'group-data-[suffix-icon]:!pr-0': true,
 		'data-[placeholder]:text-neutral-400': true,
-		'selection:bg-blue-100': true,
+		'selection:bg-[var(--ui-selected-background)]': true,
 		'dark:data-[placeholder]:text-neutral-400/50': true,
 		'dark:text-neutral-300': true,
 	},
@@ -2596,8 +2587,7 @@ const classes = {
 		'mb-1.5': true,
 		'font-bold': true,
 		'text-xs': true,
-		'text-neutral-700': true,
-		'dark:text-neutral-300': true,
+		'text-[var(--ui-label)]': true,
 	},
 	toggle__inner: {
 		peer: true,
@@ -2619,11 +2609,10 @@ const classes = {
 	},
 	toggle__label: {
 		block: true,
-		'text-neutral-700': true,
+		'text-[var(--ui-label)]': true,
 		'text-sm': true,
 		'font-bold': true,
 		'mb-1': true,
-		'dark:text-neutral-300': true,
 		'peer-first:font-normal': true,
 		'peer-first:mb-0': true,
 	},
@@ -2647,7 +2636,7 @@ const classes = {
 		'rounded-full': true,
 		'transition-all': true,
 		'w-[1.25em]': true,
-		'bg-neutral-50': true,
+		'bg-[var(--ui-slider-toggle-on-thumb)]': true,
 		'text-neutral-600': true,
 		'shadow-base': true,
 	},
@@ -2660,7 +2649,7 @@ const classes = {
 		'rounded-full': true,
 		'transition-all': true,
 		'bg-neutral-400': true,
-		'peer-checked:bg-blue-600': true,
+		'peer-checked:bg-[var(--ui-slider-toggle-on-background)]': true,
 		'peer-checked:[&>div:last-child]:left-full': true,
 		'peer-checked:[&>div:last-child]:-translate-x-full': true,
 		'peer-checked:[&>div:first-child:not(:last-child)]:left-0': true,
@@ -2669,13 +2658,11 @@ const classes = {
 		'peer-focus-visible:ring-2': true,
 		'peer-focus-visible:ring-blue-500': true,
 		'peer-focus-visible:ring-offset-2': true,
-		'dark:bg-neutral-500': true,
 	},
 	toggle__valueLabel: {
 		'font-bold': true,
 		'text-xs': true,
-		'text-neutral-700': true,
-		'dark:text-neutral-300': true,
+		'text-[var(--ui-label)]': true,
 	},
 	toggle__wrapper: {
 		flex: true,
@@ -3322,7 +3309,6 @@ const classes = {
 		'ml-auto': true,
 	},
 }
-
 /**
  * Globals are merged prior to generating this file — these are included for
  * any other non-matching inputs.
@@ -3343,34 +3329,40 @@ const globals = {
 		'border':true,
 		'border-[var(--ui-outline)]':true,
 		'focus-within:border-[var(--ui-focus-outline)]': true,
-		'hover:border-[var(--ui-focus-outline)]': true
+		'hover:border-[var(--ui-focus-outline)]': true,
+		'group-data-[invalid]:bg-[var(--ui-error-background)]': true,
+		'group-data-[invalid]:border-[var(--ui-error-outline)]': true,
+		'group-data-[invalid]:ring-1': true,
+		'group-data-[invalid]:ring-[var(--ui-error-outline)]': true,
+		'group-data-[invalid]:text-[var(--ui-error-text)]': true,
 	},
 	selector:{
 		'!bg-transparent':true
 	},
 	label: {
 		block: true,
-		'text-neutral-700': true,
+		'text-[var(--ui-label)]': true,
 		'text-sm': true,
 		'font-bold': true,
 		'mb-1': true,
-		'dark:text-neutral-300': true,
 	},
 	legend: {
 		block: true,
-		'text-neutral-700': true,
+		'text-[var(--ui-text)]': true,
 		'text-sm': true,
 		'font-bold': true,
-		'dark:text-neutral-300': true,
 	},
 	input: {
+		'text-[var(--ui-text)]': true,
 		'appearance-none': true,
 		'[color-scheme:light]': true,
 		'dark:[color-scheme:dark]': true,
-		'selection:bg-blue-100': true,
+		'selection:bg-[var(--ui-selected-background)]': true,
 		'selection:text-neutral-700': true,
 		'group-data-[has-overlay]:selection:!text-transparent': true,
-		'bg-inherit':true
+		'bg-inherit':true,
+		'group-data-[invalid]:bg-[var(--ui-error-background)]': true,
+		'group-data-[invalid]:text-[var(--ui-error-text)]': true,
 	},
 	prefixIcon: {
 		flex: true,
@@ -3422,10 +3414,9 @@ const globals = {
 		'dark:text-neutral-400': true,
 	},
 	message: {
-		'text-red-600': true,
+		'text-[var(--ui-error-text)]': true,
 		'mb-1.5': true,
 		'text-xs': true,
-		'dark:text-red-400': true,
 	},
 	overlay: {
 		'text-neutral-700': true,
