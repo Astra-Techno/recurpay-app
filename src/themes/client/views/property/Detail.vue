@@ -15,11 +15,9 @@
 			<div class="bg-white rounded-2xl shadow-xl max-w-6xl mx-auto p-6 sm:p-10 space-y-10">
 
 				<!-- Price Badge -->
+				 <div class="flex flex-row w-full justify-between items-center mb-4">
 				<div class="flex flex-col items-left space-y-2">
-					<div class="flex flex-col items-end relative right-0">
-							<button @click="open = true" class="text-base p-2 transition-all">+Add Tenant</button>
-							<button @click="open = true" class="text-base p-2 transition-all">+Add Payment</button>
-						</div>
+					
 					<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}
 						<button @click="showEdit(property.id)" class="transition-all" v-if="property.id > 0">
 							<Pencil class="w-5 h-5" />
@@ -36,7 +34,10 @@
 					</h5>
 
 				</div>
-
+				<div class="flex flex-col relative right-0">
+					<button @click="open = true" class="text-base p-2 transition-all">+Add Tenant</button>							
+				</div>
+			</div>
 				<!-- Gallery -->
 				<div v-if="property.images?.length" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
 					<img v-for="(img, i) in property.images" :key="i" :src="img"
