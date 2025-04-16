@@ -16,19 +16,27 @@
 
 				<!-- Price Badge -->
 				<div class="flex flex-col items-left space-y-2">
+					<div class="flex flex-col items-end relative right-0">
+							<button @click="open = true" class="text-base p-2 transition-all">+Add Tenant</button>
+							<button @click="open = true" class="text-base p-2 transition-all">+Add Payment</button>
+						</div>
 					<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}
 						<button @click="showEdit(property.id)" class="transition-all" v-if="property.id > 0">
 							<Pencil class="w-5 h-5" />
 						</button>
 						<EditPropertyModal ref="editRef" @updated="reloadList()" />
+
+						
+
 					</h2>
+
 					<h4 class="text-gray-500 mt-1">{{ fullAddress }}</h4>
 					<h5 class="text-xl sm:text-2xl font-semibold text-green-600">
 						{{ formatCurrency(property.price) }} / Month
 					</h5>
 
 				</div>
-				
+
 				<!-- Gallery -->
 				<div v-if="property.images?.length" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
 					<img v-for="(img, i) in property.images" :key="i" :src="img"
@@ -58,51 +66,94 @@
 
 				<!-- Tenancy Details -->
 				<section>
-					<h2 class="text-xl font-semibold mb-4">Tenancy</h2>
-					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm sm:text-base">
-						<div><strong>Tenant:</strong> {{ property.tenant_name || 'Vacant' }}</div>
-						<div><strong>Lease Start:</strong> {{ property.lease_start || '—' }}</div>
-						<div><strong>Lease End:</strong> {{ property.lease_end || '—' }}</div>
-						<div><strong>Rent Cycle:</strong> {{ property.rent_cycle || 'Monthly' }}</div>
-						<div><strong>Deposit:</strong> {{ formatCurrency(property.deposit) }}</div>
-						<div><strong>Due Day:</strong> {{ property.due_day ? `Every ${property.due_day}` : '—' }}</div>
-					</div>
+					<h2 class="text-xl font-semibold mb-4">Tenants</h2>
+					<list ref='tenants' class="w-full" tmpl="custom" :data-url="dataUrl" :sortBy="'pt.id'"
+						:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }"
+						:page-limit="50" :search="false">
+						<template #body="{ rows }">
+							<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+								<router-link v-for="tenant in rows" :key="tenant.id"
+									:to="{ name: 'TenantDetail', params: { id: tenant.id } }">
+									<div
+										class="bg-white rounded-2xl shadow-md p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4">
+										<!-- Avatar -->
+										<img :src="tenant.avatar" alt="Avatar"
+											class="w-16 h-16 rounded-full object-cover" />
+
+										<!-- Tenant Info -->
+										<div class="text-center sm:text-left">
+											<h3 class="text-lg font-black italic ">
+												{{ tenant.name }}
+											</h3>
+											<p class="font-bold">{{ tenant.property }}</p>
+											<p>{{ tenant.address }}</p>
+
+											<!-- Status -->
+											<span :class="[
+												'text-xs mt-2 inline-block rounded-full px-2 py-1',
+												tenant.status === 'active'
+													? 'bg-green-100 text-green-600'
+													: tenant.status === 'vacated'
+														? 'bg-yellow-100 text-yellow-600'
+														: 'bg-red-100 text-red-600',
+											]">
+												{{ tenant.status.toUpperCase() }}
+											</span>
+										</div>
+									</div>
+								</router-link>
+							</div>
+						</template>
+					</list>
 				</section>
+
+
 			</div>
 		</div>
 	</div>
 
+	<Modal v-model="open" title=" ">
+		<TenantCard :property="property" @submitted="handleClose()" />
+	</Modal>
+
+	<Modal v-model="payOpen" title=" ">
+		<PaymentCard :property="property" @submitted="handleClose()" />
+	</Modal>
 
 </template>
 
 
 <script setup>
-import { ref, onMounted, computed, onBeforeUnmount  } from 'vue'
+
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import useApiRequest from '@/composables/request'
 import { Pencil } from 'lucide-vue-next'
 
 import EditPropertyModal from './edit.vue';
-import { EllipsisVerticalIcon } from 'lucide-vue-next'
 
-const menuOpen = ref(false)
-const menuRef = ref(null)
-const toggleMenu = () => {
-  menuOpen.value = !menuOpen.value
-}
-const handleClickOutside = (event) => {
-  if (menuRef.value && !menuRef.value.contains(event.target)) {
-    menuOpen.value = false
-  }
-}
+import Modal from '@/components/elements/Modal.vue'
+import List from '@/components/List/List.vue'
+import TenantCard from '../Tenant/form.vue'
+const emit = defineEmits(['submitted'])
+
 const property = ref({
 	images: [],
 	tags: [],
 })
 
+const tenants = ref([]);
+
 const fallbackImage = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80'
 const route = useRoute()
 const request = useApiRequest()
+const property_id = ref(0)
+property_id.value = route.params.id || 0;
+const dataUrl = computed(() => {
+	return property_id.value > 0
+		? `list/Tenants?property_id=${property_id.value}`
+		: `list/Tenants`
+})
 
 const fullAddress = computed(() => {
 	const p = property.value
@@ -118,12 +169,9 @@ const formatCurrency = (value) =>
 	}).format(value || 0)
 
 onMounted(async () => {
-	loadData()
-	document.addEventListener('click', handleClickOutside)
-})
-onBeforeUnmount(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
+	loadData();
+});
+
 const loadData = async () => {
 	const id = route.params.id
 	if (!id) return
@@ -140,5 +188,13 @@ const showEdit = (id) => {
 	console.log(editRef.value);
 	editRef.value?.open(id)
 }
+
+// For Add Modal Popup
+const handleClose = () => {
+	open.value = false
+	tenants.value.goFirst()
+}
+const open = ref(false)
+const payOpen = ref(false)
 
 </script>

@@ -71,28 +71,24 @@
 								}">
 								{{ tag }}
 							</span>
-						</div>
-
-						<div class="flex justify-between mt-4">
-							<router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }"
-								>
-								<button class="btn primary">+ Add Tenant</button>
-							</router-link>
-							<router-link :to="{ name: 'AddPayment', params: { property_id: property.id } }"
-								>
-								<button class="btn primary">+ Add Payment</button>
-							</router-link>
-						</div>
+						</div>						
 					</div>
 				</router-link>
 			</div>
 		</template>
 	</list>
+
+	<Modal v-model="open" title="Tenant">
+    <TenantCard />
+  </Modal>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useMeta } from '@/composables/use-meta'
 import List from '@/components/List/List.vue'
+
+
 
 useMeta({ title: 'My Properties' })
 
@@ -104,4 +100,5 @@ const formatCurrency = (value) => {
 		maximumFractionDigits: 2
 	}).format(value || 0)
 }
+const open = ref(false)
 </script>
