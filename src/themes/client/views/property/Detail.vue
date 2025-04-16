@@ -15,29 +15,29 @@
 			<div class="bg-white rounded-2xl shadow-xl max-w-6xl mx-auto p-6 sm:p-10 space-y-10">
 
 				<!-- Price Badge -->
-				 <div class="flex flex-row w-full justify-between items-center mb-4">
-				<div class="flex flex-col items-left space-y-2">
-					
-					<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}
-						<button @click="showEdit(property.id)" class="transition-all" v-if="property.id > 0">
-							<Pencil class="w-5 h-5" />
-						</button>
-						<EditPropertyModal ref="editRef" @updated="reloadList()" />
+				<div class="flex flex-row w-full justify-between items-center mb-4">
+					<div class="flex flex-col items-left space-y-2">
 
-						
+						<h2 class="text-2xl sm:text-4xl font-black italic">{{ property.name }}
+							<button @click="showEdit(property.id)" class="transition-all" v-if="property.id > 0">
+								<Pencil class="w-5 h-5" />
+							</button>
+							<EditPropertyModal ref="editRef" @updated="reloadList()" />
 
-					</h2>
 
-					<h4 class="text-gray-500 mt-1">{{ fullAddress }}</h4>
-					<h5 class="text-xl sm:text-2xl font-semibold text-green-600">
-						{{ formatCurrency(property.price) }} / Month
-					</h5>
 
+						</h2>
+
+						<h4 class="text-gray-500 mt-1">{{ fullAddress }}</h4>
+						<h5 class="text-xl sm:text-2xl font-semibold text-green-600">
+							{{ formatCurrency(property.price) }} / Month
+						</h5>
+
+					</div>
+					<div class="flex flex-col relative right-0">
+						<button @click="open = true" class="text-base p-2 transition-all">+Add Tenant</button>
+					</div>
 				</div>
-				<div class="flex flex-col relative right-0">
-					<button @click="open = true" class="text-base p-2 transition-all">+Add Tenant</button>							
-				</div>
-			</div>
 				<!-- Gallery -->
 				<div v-if="property.images?.length" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
 					<img v-for="(img, i) in property.images" :key="i" :src="img"
@@ -46,66 +46,104 @@
 
 				<!-- Basic Information -->
 				<section>
-					<h2 class="text-xl font-semibold mb-4">Basic Info</h2>
-					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm sm:text-base">
-						<div><strong>Type:</strong> {{ property.property_type ?? 'Rental Home' }}</div>
-						<div><strong>Bedrooms:</strong> {{ property.bedrooms }}</div>
-						<div><strong>Bathrooms:</strong> {{ property.bathrooms }}</div>
-						<div><strong>Square Footage:</strong> {{ property.square_footage }} sqft</div>
+					<div class="bg-white p-6 rounded-2xl shadow-md space-y-6 mb-6">
+						<h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+							<span class="inline-block">ℹ️</span>
+							Basic Info
+						</h2>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm sm:text-base">
+							<div><strong>Type:</strong> {{ property.property_type ?? 'Rental Home' }}</div>
+							<div><strong>Bedrooms:</strong> {{ property.bedrooms }}</div>
+							<div><strong>Bathrooms:</strong> {{ property.bathrooms }}</div>
+							<div><strong>Square Footage:</strong> {{ property.square_footage }} sqft</div>
+						</div>
 					</div>
 				</section>
 
 				<!-- Rental Information -->
-				<section>
-					<h2 class="text-xl font-semibold mb-4">Rental Info</h2>
-					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm sm:text-base">
-						<div><strong>Lease Terms:</strong> {{ property.lease_terms }}</div>
-						<div><strong>Furnishing:</strong> {{ property.furnishing || 'Unfurnished' }}</div>
-						<div><strong>Available From:</strong> {{ property.availability }}</div>
-					</div>
-				</section>
+				<div class="bg-white p-6 rounded-2xl shadow-md space-y-6 mb-6">
+					<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+						<span class="text-blue-500">💳</span>Payments
+					</h3>
 
-				<!-- Tenancy Details -->
-				<section>
-					<h2 class="text-xl font-semibold mb-4">Tenants</h2>
-					<list ref='tenants' class="w-full" tmpl="custom" :data-url="dataUrl" :sortBy="'pt.id'"
-						:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }"
+					<div v-if="payments.length === 0" class="text-center italic">No Payment Details Yet.</div>
+					<list ref='tenants' class="w-full" tmpl="custom" :data-url="paymentUrl" :sortBy="'pt.id'"
+						:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no Payments added!' }"
 						:page-limit="50" :search="false">
 						<template #body="{ rows }">
-							<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-								<router-link v-for="tenant in rows" :key="tenant.id"
-									:to="{ name: 'TenantDetail', params: { id: tenant.id } }">
-									<div
-										class="bg-white rounded-2xl shadow-md p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4">
-										<!-- Avatar -->
-										<img :src="tenant.avatar" alt="Avatar"
-											class="w-16 h-16 rounded-full object-cover" />
-
-										<!-- Tenant Info -->
-										<div class="text-center sm:text-left">
-											<h3 class="text-lg font-black italic ">
-												{{ tenant.name }}
-											</h3>
-											<p class="font-bold">{{ tenant.property }}</p>
-											<p>{{ tenant.address }}</p>
-
-											<!-- Status -->
-											<span :class="[
-												'text-xs mt-2 inline-block rounded-full px-2 py-1',
-												tenant.status === 'active'
-													? 'bg-green-100 text-green-600'
-													: tenant.status === 'vacated'
-														? 'bg-yellow-100 text-yellow-600'
-														: 'bg-red-100 text-red-600',
-											]">
-												{{ tenant.status.toUpperCase() }}
-											</span>
+							<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+								<div v-for="p in payments" :key="p.id"
+									class="p-4 rounded-xl border border-gray-100 shadow-sm bg-gray-50 hover:bg-white transition">
+									<div class="flex justify-between items-start mb-2">
+										<div>
+											<div class="text-base font-semibold text-gray-700">
+												{{ p.type === 'other' ? p.other_type : capitalize(p.type) }}
+											</div>
+											<div class="text-sm text-gray-500 mt-1">
+												{{ formatDate(p.due_from) }} • {{ p.period }}
+											</div>
 										</div>
+										<button @click="editPayment(p)"
+											class="text-blue-500 hover:underline text-sm">Edit</button>
 									</div>
-								</router-link>
+
+									<div class="text-lg font-bold text-green-600 mt-2">₹{{ p.amount }}</div>
+
+									<div v-if="p.notes" class="text-sm text-gray-400 mt-2 italic">
+										"{{ p.notes }}"
+									</div>
+								</div>
 							</div>
 						</template>
 					</list>
+				</div>
+
+
+				<!-- Tenancy Details -->
+				<section>
+					<div class="bg-white p-6 rounded-2xl shadow-md space-y-6 mb-6">
+						<h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
+							👥 Tenants
+						</h2>
+						<list ref='tenants' class="w-full" tmpl="custom" :data-url="dataUrl" :sortBy="'pt.id'"
+							:sortOrder="'desc'" :filter-toggle="false"
+							:messages="{ empty: 'There are no tenants added!' }" :page-limit="50" :search="false">
+							<template #body="{ rows }">
+								<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+									<router-link v-for="tenant in rows" :key="tenant.id"
+										:to="{ name: 'TenantDetail', params: { id: tenant.id } }">
+										<div
+											class="bg-white rounded-2xl shadow-md p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4">
+											<!-- Avatar -->
+											<img :src="tenant.avatar" alt="Avatar"
+												class="w-16 h-16 rounded-full object-cover" />
+
+											<!-- Tenant Info -->
+											<div class="text-center sm:text-left">
+												<h3 class="text-lg font-black italic ">
+													{{ tenant.name }}
+												</h3>
+												<p class="font-bold">{{ tenant.property }}</p>
+												<p>{{ tenant.address }}</p>
+
+												<!-- Status -->
+												<span :class="[
+													'text-xs mt-2 inline-block rounded-full px-2 py-1',
+													tenant.status === 'active'
+														? 'bg-green-100 text-green-600'
+														: tenant.status === 'vacated'
+															? 'bg-yellow-100 text-yellow-600'
+															: 'bg-red-100 text-red-600',
+												]">
+													{{ tenant.status.toUpperCase() }}
+												</span>
+											</div>
+										</div>
+									</router-link>
+								</div>
+							</template>
+						</list>
+					</div>
 				</section>
 
 
@@ -144,6 +182,7 @@ const property = ref({
 })
 
 const tenants = ref([]);
+const payments = ref([]);
 
 const fallbackImage = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80'
 const route = useRoute()
@@ -154,6 +193,12 @@ const dataUrl = computed(() => {
 	return property_id.value > 0
 		? `list/Tenants?property_id=${property_id.value}`
 		: `list/Tenants`
+})
+
+const paymentUrl = computed(() => {
+	return property_id.value > 0
+		? `list/Payments?property_id=${property_id.value}`
+		: `list/Payments`
 })
 
 const fullAddress = computed(() => {
@@ -181,6 +226,9 @@ const loadData = async () => {
 	if (res.error) return
 
 	property.value = res.data
+
+	// Payments
+
 }
 
 const editRef = ref(null)
@@ -197,5 +245,11 @@ const handleClose = () => {
 }
 const open = ref(false)
 const payOpen = ref(false)
+
+
+const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const formatDate = (d) => new Date(d).toLocaleDateString('en-IN', {
+	year: 'numeric', month: 'short', day: 'numeric'
+});
 
 </script>
