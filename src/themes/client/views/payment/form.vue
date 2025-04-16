@@ -148,6 +148,7 @@ const props = defineProps({
  
   
   const submitForm = async () => {
+   
     payment.value.property_id = props.property.id;
    
     const response = await request.post('task/Payment/save', payment.value)
@@ -155,8 +156,12 @@ const props = defineProps({
       Signal.error(response.message);
       return;
     }
-  
-    Signal.success('Payment added successfully!');
+    if (props.paymentEdit.id > 0) {
+      Signal.success('Payment Details updated successfully!');
+    } 
+      Signal.success('Payment added successfully!');
+   
+    
     emit('submitted')
   
   };
