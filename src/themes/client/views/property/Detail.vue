@@ -12,7 +12,7 @@
 
 		<!-- Floating Card -->
 		<div class="relative z-11 -mt-20 sm:-mt-32 px-4">
-			<div class="bg-white rounded-2xl shadow-xl max-w-6xl mx-auto p-6 sm:p-10 space-y-10">
+			<div class="bg-white max-w-6xl mx-auto p-2 sm:p-4 space-y-10">
 
 				<!-- Price Badge -->
 				<div class="flex flex-row w-full justify-between items-center mb-4">
@@ -23,9 +23,6 @@
 								<Pencil class="w-5 h-5" />
 							</button>
 							<EditPropertyModal ref="editRef" @updated="reloadList()" />
-
-
-
 						</h2>
 
 						<h4 class="text-gray-500 mt-1">{{ fullAddress }}</h4>
@@ -34,9 +31,7 @@
 						</h5>
 
 					</div>
-					<div class="flex flex-col relative right-0">
-						<button @click="open = true" class="text-base p-2 transition-all">+Add Tenant</button>
-					</div>
+
 				</div>
 				<!-- Gallery -->
 				<div v-if="property.images?.length" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -62,37 +57,57 @@
 
 				<!-- Rental Information -->
 				<div class="bg-white p-6 rounded-2xl shadow-md space-y-6 mb-6">
-					<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-						<span class="text-blue-500">💳</span>Payments
+					<h3
+						class="text-xl font-semibold mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+						<div class="flex items-center gap-2">
+							<span class="text-blue-500 text-lg">💳</span>Payments
+						</div>
+
+						<button @click="payOpen = true" class="btn text-sm sm:text-base px-4 py-2 transition-all">
+							+ Add Payment
+						</button>
 					</h3>
 
 					<div v-if="payments.length === 0" class="text-center italic">No Payment Details Yet.</div>
-					<list ref='tenants' class="w-full" tmpl="custom" :data-url="paymentUrl" :sortBy="'pt.id'"
+					<list ref='payments' class="w-full" tmpl="custom" :data-url="paymentUrl" :sortBy="'pt.id'"
 						:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no Payments added!' }"
 						:page-limit="50" :search="false">
 						<template #body="{ rows }">
 							<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-								<div v-for="p in payments" :key="p.id"
-									class="p-4 rounded-xl border border-gray-100 shadow-sm bg-gray-50 hover:bg-white transition">
-									<div class="flex justify-between items-start mb-2">
-										<div>
-											<div class="text-base font-semibold text-gray-700">
+								<div v-for="p in rows" :key="p.id" @click="editPayment(p)"
+									class="cursor-pointer rounded-2xl bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 group overflow-hidden">
+
+									<div class="p-5 space-y-2">
+										<!-- Header: Payment Type + Edit -->
+										<div class="flex justify-between items-start">
+											<div class="text-lg font-semibold text-gray-800 tracking-tight">
 												{{ p.type === 'other' ? p.other_type : capitalize(p.type) }}
 											</div>
-											<div class="text-sm text-gray-500 mt-1">
-												{{ formatDate(p.due_from) }} • {{ p.period }}
-											</div>
+											
 										</div>
-										<button @click="editPayment(p)"
-											class="text-blue-500 hover:underline text-sm">Edit</button>
+
+										<!-- Subinfo: Date & Period -->
+										<div class="text-sm text-gray-500">
+											{{ formatDate(p.due_from) }} • {{ capitalize(p.period) }}
+										</div>
+
+										<!-- Amount -->
+										<div class="text-2xl font-bold text-green-600 mt-3">
+											₹{{ p.amount }}
+										</div>
+
+										<!-- Notes -->
+										<div v-if="p.notes" class="text-sm text-gray-400 italic mt-2">
+											"{{ p.notes }}"
+										</div>
 									</div>
 
-									<div class="text-lg font-bold text-green-600 mt-2">₹{{ p.amount }}</div>
-
-									<div v-if="p.notes" class="text-sm text-gray-400 mt-2 italic">
-										"{{ p.notes }}"
+									<!-- Subtle hover bar -->
+									<div
+										class="h-1 w-full bg-gradient-to-r from-transparent via-green-300 to-transparent scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300">
 									</div>
 								</div>
+
 							</div>
 						</template>
 					</list>
@@ -102,8 +117,16 @@
 				<!-- Tenancy Details -->
 				<section>
 					<div class="bg-white p-6 rounded-2xl shadow-md space-y-6 mb-6">
-						<h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-							👥 Tenants
+						<h2
+							class="text-xl font-semibold mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+							<div class="flex items-center gap-2">
+								<span class="text-lg">👥</span>
+								Tenants
+							</div>
+
+							<button @click="open = true" class="btn text-sm sm:text-base px-4 py-2 transition-all">
+								+ Add Tenant
+							</button>
 						</h2>
 						<list ref='tenants' class="w-full" tmpl="custom" :data-url="dataUrl" :sortBy="'pt.id'"
 							:sortOrder="'desc'" :filter-toggle="false"
@@ -113,7 +136,7 @@
 									<router-link v-for="tenant in rows" :key="tenant.id"
 										:to="{ name: 'TenantDetail', params: { id: tenant.id } }">
 										<div
-											class="bg-white rounded-2xl shadow-md p-4 flex flex-col sm:flex-row items-center sm:items-start gap-4">
+											class="p-4 rounded-xl border border-gray-100 shadow-sm bg-gray-50 hover:bg-white transition">
 											<!-- Avatar -->
 											<img :src="tenant.avatar" alt="Avatar"
 												class="w-16 h-16 rounded-full object-cover" />
@@ -156,7 +179,7 @@
 	</Modal>
 
 	<Modal v-model="payOpen" title=" ">
-		<PaymentCard :property="property" @submitted="handleClose()" />
+		<PaymentCard :property="property" :payment-edit="payment" @submitted="handleClose()" />
 	</Modal>
 
 </template>
@@ -174,6 +197,7 @@ import EditPropertyModal from './edit.vue';
 import Modal from '@/components/elements/Modal.vue'
 import List from '@/components/List/List.vue'
 import TenantCard from '../Tenant/form.vue'
+import PaymentCard from '../payment/form.vue'
 const emit = defineEmits(['submitted'])
 
 const property = ref({
@@ -182,6 +206,7 @@ const property = ref({
 })
 
 const tenants = ref([]);
+const payment = ref({});
 const payments = ref([]);
 
 const fallbackImage = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80'
@@ -241,15 +266,26 @@ const showEdit = (id) => {
 // For Add Modal Popup
 const handleClose = () => {
 	open.value = false
+	payOpen.value = false
 	tenants.value.goFirst()
+	payments.value.goFirst()
 }
 const open = ref(false)
 const payOpen = ref(false)
 
 
-const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalize = (str) => {
+	if (!str || typeof str !== 'string') return '';
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
 const formatDate = (d) => new Date(d).toLocaleDateString('en-IN', {
 	year: 'numeric', month: 'short', day: 'numeric'
 });
+
+const editPayment = (p) => {
+	payment.value = { ...p };
+	payOpen.value = true
+	
+}
 
 </script>
