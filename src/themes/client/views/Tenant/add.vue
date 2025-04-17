@@ -48,7 +48,8 @@
      
 
       <!-- Mobile Form -->
-      <div class="bg-white p-4  space-y-4">
+      <div class="bg-white p-4  space-y-2">
+        <p class=" text-base font-black">Property : {{ property.name || 'Property' }}</p>
         <FormKit
           v-if="!loading"
           type="form"
