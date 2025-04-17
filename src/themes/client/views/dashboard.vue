@@ -1,15 +1,77 @@
 <template>
-  <div class="space-y-6">
+  <div v-if="deviceStore.isMobile">
+    <section class="p-4">
+      <h1 class=" font-black italic mb-2">👋 Welcome, {{ extendedStore.user.full_name ?
+        extendedStore.user.full_name : 'User' }}!</h1>
+      <p class="text-sm text-gray-600">You are managing {{ statsCount.totalProperties }} properties.</p>
+    </section>
+    <section class="px-4 pb-4">
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded shadow text-center">
+          <div class="text-blue-500 text-2xl mb-2">🏠</div>
+          <p>My Properties</p>
+          <p class="text-xl font-bold">{{ statsCount.totalProperties }}</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow text-center">
+          <div class="text-blue-500 text-2xl mb-2">👥</div>
+          <p>My Tenants</p>
+          <p class="text-xl font-bold">{{ statsCount.tenants }}</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow text-center">
+          <div class="text-blue-500 text-2xl mb-2">💸</div>
+          <p>Due Payments</p>
+          <p class="text-xl font-bold">{{ statsCount.pendingPayments }}</p>
+        </div>
+      </div>
+    </section>
+    <section class="px-4 pb-4">
+      <h3 class="text-md font-semibold mb-2">🏡 My Properties</h3>
+      <list class="w-full" tmpl="custom" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'"
+        :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="10" :search="false">
+        <template #body="{ rows }">
+          <div class="space-y-2">
+            <div v-for="property in rows" :key="property.id" class="bg-white p-4 rounded shadow">
+              <div class="flex justify-between items-center mb-2">
+                <p class="font-semibold">{{ property.name }}</p>
+                <button class="text-sm text-blue-600 font-medium">View</button>
+              </div>
+              <div class="flex gap-2">
+                <router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Tenant</button>
+                </router-link>
+                <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Rent Setup</button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </list>
+    </section>
+    <section class="px-4 pb-6">
+      <h3 class="text-md font-semibold mb-2">💳 Recent Payments</h3>
+      <div class="bg-white p-4 rounded shadow space-y-2">
+        <div class="flex justify-between text-sm">
+          <p>Priya R – Sunrise Villa</p>
+          <span class="text-red-500 font-medium">₹12,000 Due</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <p>Ram Kumar – Green Apartments</p>
+          <span class="text-green-600 font-medium">₹15,000 Paid</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Desktop View -->
+  <div v-else>
     <!-- Header with Welcome and Action Button -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between">
       <div>
-        <h1 class="text-2xl font-black italic">Welcome back, {{ extendedStore.user.full_name? extendedStore.user.full_name :'User' }}!</h1>
+        <h1 class="text-2xl font-black italic">Welcome back, {{ extendedStore.user.full_name ?
+          extendedStore.user.full_name : 'User' }}!</h1>
         <p class="text-gray-600">Here's a quick overview of your properties and activities.</p>
       </div>
-      <RouterLink
-        to="/property/basic"
-        class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 rounded-xl bg-[var(--button-primary-background)] text-white hover:bg-[var(--button-primary-focus-background)]"
-      >
+      <RouterLink to="/property/basic"
+        class="mt-4 md:mt-0 inline-flex items-center px-4 py-2 rounded-xl bg-[var(--button-primary-background)] text-white hover:bg-[var(--button-primary-focus-background)]">
         <Plus class="w-5 h-5 mr-2" /> Add Property
       </RouterLink>
     </div>
@@ -52,55 +114,28 @@
     </div>
 
     <!-- Activity Log -->
-    <div class="bg-white p-4 rounded-xl shadow">
-      <h2 class="text-lg font-semibold mb-3">Recent Activity</h2>
-      <ul>
-        <li v-for="activity in activities" :key="activity.message" class="border-b last:border-b-0 py-2">
-          <p class="text-sm">{{ activity.message }}</p>
-          <p class="text-xs text-gray-400">{{ activity.time }}</p>
-        </li>
-      </ul>
-    </div>
 
-    <!-- Upcoming Renewals -->
-    <!--<div class="bg-white p-4 rounded-xl shadow">
-      <h2 class="text-lg font-semibold mb-3">Upcoming Lease Renewals</h2>
-      <ul>
-        <li v-for="lease in leaseRenewals" :key="lease.unit" class="border-b last:border-b-0 py-2">
-          <div class="flex justify-between">
-            <span class="font-medium">{{ lease.tenant }}</span>
-            <span class="text-sm text-gray-500">{{ lease.endDate }}</span>
-          </div>
-          <p class="text-sm text-gray-500">{{ lease.unit }}</p>
-        </li>
-      </ul>
-    </div>-->
-
-    <!-- Notifications Button 
-    <div>
-      <button class="flex items-center px-4 py-2 rounded-xl shadow">
-        <Bell class="w-5 h-5 mr-2" /> Notifications
-      </button>
-    </div>
-    -->
   </div>
 </template>
 
 <script setup>
-import { ref , onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import { Home, Users, DollarSign, Bell, FileText, Plus } from 'lucide-vue-next';
 import ApexCharts from 'vue3-apexcharts';
 import { useMeta } from '@/composables/use-meta';
 import { useExtendedStore } from '../stores/extendedStore'
+import { useDeviceStore } from '../stores/useDeviceStore'
 import useApiRequest from '@/composables/request'
 import Signal from '@/composables/signal'
+import List from '@/components/List/List.vue'
 const request = useApiRequest();
+const deviceStore = useDeviceStore()
 useMeta({ title: 'Dashboard' })
 
 const userName = 'John';
 
 const extendedStore = useExtendedStore()
-
+const statsCount = ref({});
 const loadStats = async () => {
   // Handle form submission logic here
   const response = await request.post('task/Dashboard/statsList')
@@ -110,7 +145,9 @@ const loadStats = async () => {
   }
 
   if (response.data && response.data.stats) {
+
     const responseStats = response.data.stats;
+    statsCount.value = response.data.statsCount;
 
     stats.value = defaultStats.map(stat => {
       let rawValue = responseStats[stat.label] ?? stat.value;
@@ -135,16 +172,16 @@ const loadStats = async () => {
 
 // Load property data if editing
 onMounted(async () => {
-	loadStats()
-  });
-  const defaultStats = [
+  loadStats()
+});
+const defaultStats = [
   { label: 'Total Properties', value: 0, icon: Home, bg: 'bg-blue-100 text-blue-600' },
   { label: 'Occupied Units', value: 0, icon: Users, bg: 'bg-green-100 text-green-600' },
   { label: 'Pending Payments', value: 0, icon: DollarSign, bg: 'bg-yellow-100 text-yellow-600' },
   { label: 'Revenue', value: '$0', icon: DollarSign, bg: 'bg-purple-100 text-purple-600' },
 ];
-  const stats = ref(defaultStats); 
-  
+const stats = ref(defaultStats);
+
 
 const activities = ref([
   { message: 'John Doe paid rent for Apt 204', time: '2 hrs ago' },

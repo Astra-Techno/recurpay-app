@@ -1,5 +1,5 @@
 <template>
-	<div class="flex h-screen">		
+	<div class="flex h-screen">
 		<!-- Sidebar -->
 		<div v-if="!deviceStore.isMobile" :class="[
 			'side-bar',
@@ -52,25 +52,37 @@
 			<!-- Navigation Bar -->
 			<NavigationBar>
 				<template #flex-items>
-					<div v-if="deviceStore.isMobile" class="flex-none w-11">
-						<button @click="toggleDrawer" class="flex items-center normal">
-							<IconOPWhite />
-							<IconRightArrow class="text-white" />
-						</button>
+					<div class="flex items-center flex-1 space-x-2">
+						<Icon name="IconMinimal" class="cursor-pointer" :fill="'#FFF'" />
+
+						<h1 class="text-white font-black italic pt-1 cursor-pointer relative">
+							MyProps
+							<span class="text-[8px] absolute right-0 top-full leading-none text-right w-full">
+								Rent.Pay.Go.
+							</span>
+						</h1>
 					</div>
+
 					<div class="flex-1 text-center sm:text-left font-bold">
-						{{ title }}
+						<div class="space-x-2 flex justify-end">
+							<a href="#"
+								class="flex items-center gap-1 text-sm  text-white font-semibold px-2 py-1 rounded ">
+								<User class="w-6 h-6" />
+
+							</a>
+							<a href="#"
+								class="flex items-center gap-1 text-sm   text-white font-semibold  py-1 rounded ">
+								<LogOut class="w-6 h-6" />
+
+							</a>
+						</div>
 					</div>
-					<div class="flex-none w-8">
-						<button class="text-white opacity-50">
-							<IconBell />
-						</button>
-					</div>
+
 				</template>
 			</NavigationBar>
 
 			<!-- Main content -->
-			<div class="pt-6 px-6 flex-1 main relative" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
+			<div class="pt-2 px-2 flex-1 main relative" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
 				<slot />
 			</div>
 		</div>
@@ -86,9 +98,7 @@ import { useUIPreferencesStore } from '../stores/uiPreferences'
 import { useDeviceStore } from '../stores/useDeviceStore'
 import DefaultSideBar from './DefaultSideBar.vue'
 import NavigationBar from '../layouts/NavigationBar.vue'
-import IconBell from '../icons/IconBell.vue'
-import IconOPWhite from '../icons/IconOPWhite.vue'
-import IconRightArrow from '../icons/IconRightArrow.vue'
+import { User, LogOut } from 'lucide-vue-next';
 import { useRoute } from 'vue-router'
 import { useCurrentTitle } from '@/composables/use-meta';
 
@@ -180,7 +190,7 @@ onUnmounted(() => {
 }
 
 nav {
-	box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.4);
+	/*box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.4);*/
 	position: sticky;
 	top: 0;
 	/*z-index: 999;*/
