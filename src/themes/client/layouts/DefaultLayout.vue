@@ -48,7 +48,7 @@
 		</transition>
 
 		<!-- Main Content -->
-		<div class="flex-1 flex flex-col" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
+		<div class="flex-1 flex flex-col"  :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
 			<!-- Navigation Bar -->
 			<NavigationBar>
 				<template #flex-items>

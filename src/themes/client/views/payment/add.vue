@@ -4,8 +4,8 @@
      
   
       <!-- Form Card -->
-      <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
-        <div class="mb-6 ">
+      <div class="bg-white px-4 rounded-2xl  space-y-6" >
+        <div class="mb-6 " v-if="!deviceStore.isMobile">
         <div class="flex items-center  gap-2">
   
           <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">
@@ -13,15 +13,15 @@
           </span>
           <h2 class="text-3xl font-black italic">Add Payment</h2>
         </div>
-        <p class="text-gray-500 text-sm mt-1">to {{ property.name || 'Property' }}</p>
+        
       </div>
-  
+      <p class=" text-base font-black">Property : {{ property.name || 'Property' }}</p>
         <!-- Form -->
         <FormKit 
             type="form" 
             @submit="submitForm" 
             v-model="payment" 
-            submit-label="Save and Continue" 
+            submit-label="Save" 
             submit-class="btn-primary"
             :actions="true" 
             :config="{ classes: { form: 'space-y-4', submit: { input: 'btn btn-primary' } }}"
@@ -116,10 +116,11 @@
   import useApiRequest from '@/composables/request'
   import Signal from '@/composables/signal'
   import SelectBox from '@/components/elements/SelectBox.vue'
-  
+  import { useDeviceStore } from '../../stores/useDeviceStore'
   import { useMeta } from '@/composables/use-meta';
-  useMeta({ title: 'Add Tenant' })
-  
+  useMeta({ title: 'Add Payment' })
+
+  const deviceStore = useDeviceStore()
   const router = useRouter();
   const property = ref({});
   const payment = ref({});
@@ -160,7 +161,9 @@
     }
   
     Signal.success('Payment added successfully!');
-    router.push("/properties/"+PropertyId);
+    //router.push("/properties/"+PropertyId);
+
+    router.go(-1); // Go back to the previous page
   };
 
 // Payment type options

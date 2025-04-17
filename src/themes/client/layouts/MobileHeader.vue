@@ -1,5 +1,5 @@
 <template>
-  <div v-if="deviceStore.isMobile"
+  <div v-if="deviceStore.isMobile || deviceStore.isTablet || deviceStore.isLandscape" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']"
     class="sm:hidden flex justify-between items-center px-2 py-2 text-white sticky top-0 z-50 w-full">
     <!-- Left Section -->
     <div class="flex items-center space-x-2">

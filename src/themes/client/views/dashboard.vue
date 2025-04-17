@@ -39,7 +39,9 @@
                 <router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Tenant</button>
                 </router-link>
-                <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Rent Setup</button>
+                <router-link :to="{ name: 'AddPayment', params: { property_id: property.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Payment</button>
+                </router-link>
               </div>
             </div>
           </div>

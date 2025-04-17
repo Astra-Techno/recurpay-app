@@ -1,28 +1,41 @@
+// stores/useDeviceStore.js or .ts
 import { ref, onMounted, onUnmounted } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useDeviceStore = defineStore('device', () => {
   const isMobile = ref(false)
+  const isTablet = ref(false)
+  const isDesktop = ref(false)
+  const isLandscape = ref(false)
 
-  const checkIsMobile = () => {
+  const checkDevice = () => {
     const width = window.innerWidth
     const height = window.innerHeight
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
 
-    // Detect mobile or small tablet in both orientations
-    isMobile.value = isTouch && Math.min(width, height) <= 768
+    const minDimension = Math.min(width, height)
+
+    isMobile.value = isTouch && minDimension <= 768
+    isTablet.value = isTouch && minDimension > 768 && minDimension <= 1024
+    isDesktop.value = !isTouch || minDimension > 1024
+    isLandscape.value = width > height
   }
 
   onMounted(() => {
-    checkIsMobile()
-    window.addEventListener('resize', checkIsMobile)
-    window.addEventListener('orientationchange', checkIsMobile)
+    checkDevice()
+    window.addEventListener('resize', checkDevice)
+    window.addEventListener('orientationchange', checkDevice)
   })
 
   onUnmounted(() => {
-    window.removeEventListener('resize', checkIsMobile)
-    window.removeEventListener('orientationchange', checkIsMobile)
+    window.removeEventListener('resize', checkDevice)
+    window.removeEventListener('orientationchange', checkDevice)
   })
 
-  return { isMobile }
+  return {
+    isMobile,
+    isTablet,
+    isDesktop,
+    isLandscape
+  }
 })
