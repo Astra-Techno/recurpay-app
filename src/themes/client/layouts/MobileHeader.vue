@@ -25,7 +25,7 @@
     <div  class="flex items-center space-x-2">
       <User class="w-6 h-6" />
       <!-- Uncomment this if you want the logout icon too -->
-      <LogOut class="w-6 h-6" />
+      <RouterLink :to="`/logout`"><LogOut class="w-6 h-6" /></RouterLink>
     </div>
   </div>
 
