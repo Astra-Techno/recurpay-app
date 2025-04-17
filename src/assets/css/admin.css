@@ -67,9 +67,8 @@
 
   /* Primary Button */
   button {
-    color: var(--button-primary-text);
-    background-color: var(--button-primary-background);
-    border: 1px solid var(--button-primary-outline);
+    color: var(--button-primary-text);  
+    
     font-weight: bold;
     border-radius: 0.25rem;
   }
@@ -78,7 +77,7 @@
   button:hover:not(.formkit-selector) {
     color: var(--button-primary-focus-text);
     background-color: var(--button-primary-focus-background);
-    outline: 1px solid var(--button-primary-focus-outline);
+   
   }
 
   button:disabled {

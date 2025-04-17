@@ -1,51 +1,72 @@
 <template>
   <div class="py-4">
-    <!-- Main Page Heading -->
-    <div class="mb-6 ">
-      <div class="flex items-center  gap-2">
-
-        <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">
-          🏠
-        </span>
-        <h2 class="text-3xl font-black italic">Add Tenant</h2>
+    <!-- Desktop View -->
+    <div v-if="!deviceStore.isMobile">
+      <!-- Main Page Heading -->
+      <div class="mb-6">
+        <div class="flex items-center gap-2">
+          <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">🏠</span>
+          <h2 class="text-3xl font-black italic">Add Tenant</h2>
+        </div>
+        <p class="text-gray-500 text-sm mt-1">to {{ property.name || 'Property' }}</p>
       </div>
-      <p class="text-gray-500 text-sm mt-1">to {{ property.name || 'Property' }}</p>
+
+      <!-- Form Card -->
+      <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
+        <Stepper :steps="['Basic Details', 'Bank Details']" :currentStep="currentStep" />
+
+        <div class="space-y-1">
+          <h1 class="text-2xl font-black italic">Let’s Add a New Tenant</h1>
+          <p class="text-gray-500 text-sm">Provide the basic details of the tenant to add.</p>
+        </div>
+
+        <FormKit
+          v-if="!loading"
+          type="form"
+          @submit="submitForm"
+          v-model="tenant"
+          submit-label="Save and Continue"
+          :actions="true"
+          :config="{ classes: { form: 'space-y-4', submit: { input: 'btn btn-primary' } } }"
+        >
+          <template v-if="currentStep === 0">
+            <FormKit type="text" name="name" label="Name" help="Please enter full name" validation="required" />
+            <FormKit type="mask" name="phone" mask="🇮🇳 +91 ##### #####" label="Phone"
+              help="Please enter a phone number" validation="required" />
+          </template>
+
+          <template v-else-if="currentStep === 1">
+            <FormKit type="text" name="bank_name" label="Bank Name" validation="required" />
+            <FormKit type="text" name="account_number" label="Account Number" validation="required" />
+          </template>
+        </FormKit>
+      </div>
     </div>
 
-    <!-- Form Card -->
-    <div class="bg-white p-6 rounded-2xl shadow-md space-y-6">
-      <!-- Mobile Stepper with Arrows -->
-      <Stepper :steps="['Basic Details', 'Bank Details']" :currentStep="currentStep" />
+    <!-- Mobile View -->
+    <div v-else class="px-4">
+     
 
-      <!-- Section Title -->
-      <div class="space-y-1 ">
-        <h1 class="text-2xl font-black italic ">Let’s Add a New Tenant </h1>
-        <p class="text-gray-500 text-sm">Provide the basic details of the tenant to add.
-        </p>
+      <!-- Mobile Form -->
+      <div class="bg-white p-4  space-y-4">
+        <FormKit
+          v-if="!loading"
+          type="form"
+          @submit="submitForm"
+          v-model="tenant"
+          submit-label="Save"
+          :actions="true"
+          :config="{ classes: { form: 'space-y-4', submit: { input: 'w-full bg-blue-600 text-white font-semibold py-2 rounded-md' } } }"
+        >
+          <!-- Step 1 only, or conditionally show more if needed -->
+          <FormKit type="text" name="name" label="Tenant Name" validation="required" />
+          <FormKit type="mask" name="phone" label="Mobile Number" mask="🇮🇳 +91 ##### #####" validation="required" />
+        </FormKit>
       </div>
-
-      <!-- Form -->
-      <FormKit v-if="!loading" type="form" @submit="submitForm" v-model="tenant" submit-label="Save and Continue"
-        submit-class="btn-primary" :actions="true"
-        :config="{ classes: { form: 'space-y-4', submit: { input: 'btn btn-primary' } } }">
-        <!-- Step 1: Basic Details -->
-        <template v-if="currentStep === 0">
-          <FormKit type="text" name="name" label="Name" help="Please enter full name" validation="required" />
-          <FormKit type="mask" name="phone" mask="🇮🇳 +91 ##### #####" label="Phone" help="Please enter a phone number"
-            validation="required" />
-        </template>
-
-        <!-- Step 2: Bank Details -->
-        <template v-else-if="currentStep === 1">
-          <FormKit type="text" name="bank_name" label="Bank Name" validation="required" />
-          <FormKit type="text" name="account_number" label="Account Number" validation="required" />
-        </template>
-
-        
-      </FormKit>
     </div>
   </div>
 </template>
+
 
 
 
@@ -56,6 +77,9 @@ import { FormKit } from "@formkit/vue";
 import useApiRequest from '@/composables/request'
 import Stepper from '@/components/elements/Stepper.vue'
 import Signal from '@/composables/signal'
+import { useDeviceStore } from '../../stores/useDeviceStore'
+
+const deviceStore = useDeviceStore()
 
 import { useMeta } from '@/composables/use-meta';
 useMeta({ title: 'Add Tenant' })
@@ -106,11 +130,7 @@ const submitForm = async () => {
   // Save returned ID once on first save
   if (!tenant.value.id) tenant.value.id = response.data.id;
 
-  if (currentStep.value < 1) {
-    currentStep.value++;
-  } else {
-    Signal.success("Tenant added successfully!");
-    router.push("/properties/" + PropertyId + "/tenants");
-  }
+  Signal.success("Tenant added successfully!");
+    router.go(-1); // Go back to the previous page
 };
 </script>

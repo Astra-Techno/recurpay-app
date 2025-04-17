@@ -52,32 +52,7 @@
 			<!-- Navigation Bar -->
 			<NavigationBar>
 				<template #flex-items>
-					<div class="flex items-center flex-1 space-x-2">
-						<Icon name="IconMinimal" class="cursor-pointer" :fill="'#FFF'" />
-
-						<h1 class="text-white font-black italic pt-1 cursor-pointer relative">
-							MyProps
-							<span class="text-[8px] absolute right-0 top-full leading-none text-right w-full">
-								Rent.Pay.Go.
-							</span>
-						</h1>
-					</div>
-
-					<div class="flex-1 text-center sm:text-left font-bold">
-						<div class="space-x-2 flex justify-end">
-							<a href="#"
-								class="flex items-center gap-1 text-sm  text-white font-semibold px-2 py-1 rounded ">
-								<User class="w-6 h-6" />
-
-							</a>
-							<a href="#"
-								class="flex items-center gap-1 text-sm   text-white font-semibold  py-1 rounded ">
-								<LogOut class="w-6 h-6" />
-
-							</a>
-						</div>
-					</div>
-
+					<MobileHeader />
 				</template>
 			</NavigationBar>
 
@@ -101,6 +76,7 @@ import NavigationBar from '../layouts/NavigationBar.vue'
 import { User, LogOut } from 'lucide-vue-next';
 import { useRoute } from 'vue-router'
 import { useCurrentTitle } from '@/composables/use-meta';
+import MobileHeader from '../layouts/MobileHeader.vue'
 
 const route = useRoute()
 const appStore = useAppStore()
