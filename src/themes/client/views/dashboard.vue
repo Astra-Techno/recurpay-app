@@ -33,7 +33,9 @@
             <div v-for="property in rows" :key="property.id" class="bg-white p-4 rounded shadow">
               <div class="flex justify-between items-center mb-2">
                 <p class="font-semibold">{{ property.name }}</p>
-                <button class="text-sm text-blue-600 font-medium">View</button>
+                <router-link :to="{ name: 'PropertyView', params: { id: property.id } }">
+                  <button class="text-sm text-blue-600 font-medium">View</button>
+                </router-link>
               </div>
               <div class="flex gap-2">
                 <router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">

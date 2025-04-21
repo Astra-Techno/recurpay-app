@@ -1,5 +1,5 @@
 <template>
-	<div class="flex h-screen">
+	<div class="flex h-screen w-3/12 mx-auto bg-white dark:bg-gray-900">
 		<!-- Sidebar -->
 		<div v-if="!deviceStore.isMobile" :class="[
 			'side-bar',
@@ -57,7 +57,7 @@
 			</NavigationBar>
 
 			<!-- Main content -->
-			<div class="pt-2 px-2 flex-1 main relative" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
+			<div class=" flex-1 main relative" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
 				<slot />
 			</div>
 		</div>

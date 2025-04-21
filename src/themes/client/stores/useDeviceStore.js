@@ -15,9 +15,9 @@ export const useDeviceStore = defineStore('device', () => {
 
     const minDimension = Math.min(width, height)
 
-    isMobile.value = isTouch && minDimension <= 768
-    isTablet.value = isTouch && minDimension > 768 && minDimension <= 1024
-    isDesktop.value = !isTouch || minDimension > 1024
+    isMobile.value = true;//isTouch && minDimension <= 768
+    isTablet.value = false; //isTouch && minDimension > 768 && minDimension <= 1024
+    isDesktop.value = false; //!isTouch || minDimension > 1024
     isLandscape.value = width > height
   }
 

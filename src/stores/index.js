@@ -30,7 +30,7 @@ export const useAppStore = defineStore('app', {
 		guestPages: ['login', 'register', 'request-password', 'reset-password'],
 		theme: import.meta.env.VITE_PROJECT_BASE || 'client',
 		headers: JSON.parse(session.getItem('headers')) || {},
-		verticalLayout: !isMobileDevice(), // true if not mobile device
+		verticalLayout: false //!isMobileDevice(), // true if not mobile device
 	}),
 
 	actions: {

@@ -22,6 +22,12 @@ const routes = [
   },
   {
     path: '/properties/:id',
+    name: 'PropertyView',
+    component: () => import('../views/property/index.vue'),
+    props: true
+  },
+  {
+    path: '/properties/:id',
     name: 'PropertyDetail',
     component: () => import('../views/property/Detail.vue'),
     props: true
