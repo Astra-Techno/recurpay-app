@@ -20,15 +20,8 @@
           <p class="text-gray-500 text-sm">Provide the basic details of the tenant to add.</p>
         </div>
 
-        <FormKit
-          v-if="!loading"
-          type="form"
-          @submit="submitForm"
-          v-model="tenant"
-          submit-label="Save and Continue"
-          :actions="true"
-          :config="{ classes: { form: 'space-y-4', submit: { input: 'btn btn-primary' } } }"
-        >
+        <FormKit v-if="!loading" type="form" @submit="submitForm" v-model="tenant" submit-label="Save and Continue"
+          :actions="true" :config="{ classes: { form: 'space-y-4', submit: { input: 'btn btn-primary' } } }">
           <template v-if="currentStep === 0">
             <FormKit type="text" name="name" label="Name" help="Please enter full name" validation="required" />
             <FormKit type="mask" name="phone" mask="🇮🇳 +91 ##### #####" label="Phone"
@@ -45,20 +38,15 @@
 
     <!-- Mobile View -->
     <div v-else class="px-4">
-     
+
 
       <!-- Mobile Form -->
       <div class="bg-white p-4  space-y-2">
-        <p class=" text-base font-black">Property : {{ property.name || 'Property' }}</p>
-        <FormKit
-          v-if="!loading"
-          type="form"
-          @submit="submitForm"
-          v-model="tenant"
-          submit-label="Save"
-          :actions="true"
-          :config="{ classes: { form: 'space-y-4', submit: { input: 'w-full bg-blue-600 text-white font-semibold py-2 rounded-md' } } }"
-        >
+        <div class="sticky top-0 bg-white z-10  pb-2 shadow-sm border-b">
+          <p class=" text-base font-black">Property : {{ property.name || 'Property' }}</p>
+        </div>
+        <FormKit v-if="!loading" type="form" @submit="submitForm" v-model="tenant" submit-label="Save" :actions="true"
+          :config="{ classes: { form: 'space-y-4', submit: { input: 'w-full bg-blue-600 text-white font-semibold py-2 rounded-md' } } }">
           <!-- Step 1 only, or conditionally show more if needed -->
           <FormKit type="text" name="name" label="Tenant Name" validation="required" />
           <FormKit type="mask" name="phone" label="Mobile Number" mask="🇮🇳 +91 ##### #####" validation="required" />
@@ -120,7 +108,7 @@ onMounted(async () => {
   property.value = response.data;
   tenant.value.property_id = PropertyId;
 
-  proxy.$setHeader('Add Tenant', 'to '+property.value.name, true, 'IconHome')
+  proxy.$setHeader('Add Tenant', 'to ' + property.value.name, true, 'IconHome')
 });
 
 
@@ -135,6 +123,6 @@ const submitForm = async () => {
   if (!tenant.value.id) tenant.value.id = response.data.id;
 
   Signal.success("Tenant added successfully!");
-    router.go(-1); // Go back to the previous page
+  router.go(-1); // Go back to the previous page
 };
 </script>

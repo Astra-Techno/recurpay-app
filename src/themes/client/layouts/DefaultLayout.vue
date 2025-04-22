@@ -1,7 +1,8 @@
 <template>
 	<div class="flex h-screen w-full md:w-3/12 mx-auto bg-white dark:bg-gray-900">
 		<!-- Main Content -->
-		<div class="flex-1 flex flex-col " >
+		<div class="flex-1 flex flex-col overflow-hidden">
+
 			<!-- Navigation Bar -->
 			<NavigationBar>
 				<template #flex-items>
@@ -9,14 +10,18 @@
 				</template>
 			</NavigationBar>
 
-			<!-- Main content -->
-			<div class=" flex-1 main relative bg-white text-gray-800  rounded-t-2xl " :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '', isDashboard ? 'top-0' : '-top-10  z-20']" >
+			<!-- Scrollable Content Area (scroll enabled, scrollbar hidden) -->
+			<div class="flex-1 overflow-y-scroll hide-scrollbar relative bg-white text-gray-800 rounded-t-2xl"
+				:class="[isDashboard ? 'top-0' : '-top-10 z-20']">
 				<slot />
 			</div>
+
 			<!-- Bottom Navigation for Mobile -->
 			<BottomNav v-if="deviceStore.isMobile" :showBackButton="showBackButton" :toggleDrawer="toggleDrawer" />
 		</div>
 	</div>
+
+
 </template>
 
 
@@ -132,5 +137,14 @@ nav {
 
 .side-bar.w-20 {
 	box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Hide scrollbar but keep scrolling */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
 </style>
