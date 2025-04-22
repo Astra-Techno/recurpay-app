@@ -1,23 +1,23 @@
 <template>
 	<div class="flex flex-col h-screen">
 
-		<div class="mx-4">
+		<div class="mx-4 sticky top-0 bg-white z-10 px-2 shadow-sm  border-b">
 			
 			<p class="py-2 mt-1">{{ fullAddress }}</p>
 		</div>
 
 		<!-- Property Info Card -->
 		<div class="mx-4 ">
-			<div class="flex justify-between text-center">
-				<div class="flex-1">
+			<div class="flex justify-between text-center border-b">
+				<div class="flex-1 border-r">
 					<p class="text-xl font-bold">{{ property.bedrooms ?? 0 }}</p>
 					<p class="text-xs text-gray-500">Bedrooms</p>
 				</div>
-				<div class="flex-1">
+				<div class="flex-1 border-r">
 					<p class="text-xl font-bold">{{ property.bathrooms ?? 0 }}</p>
 					<p class="text-xs text-gray-500">Bathrooms</p>
 				</div>
-				<div class="flex-1">
+				<div class="flex-1 ">
 					<p class="text-xl font-bold">{{ property.square_footage ?? 1000 }}</p>
 					<p class="text-xs text-gray-500">Sq. Ft.</p>
 				</div>
