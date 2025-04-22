@@ -2,7 +2,7 @@
     <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-md border-t border-gray-200 z-50">
       <div class="flex justify-around items-center h-14">
         <!-- Properties -->
-        <a href="#" class="flex flex-col items-center text-gray-600 no-bg">
+        <a href="/properties" class="flex flex-col items-center text-gray-600 no-bg">
           <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" stroke-width="1.5"
                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round"
