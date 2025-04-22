@@ -34,7 +34,7 @@
               <div class="flex justify-between items-center mb-2">
                 <p class="font-semibold">{{ property.name }}</p>
                 <router-link :to="{ name: 'PropertyView', params: { id: property.id } }">
-                  <button class="text-sm text-blue-600 font-medium">View</button>
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">View</button>
                 </router-link>
               </div>
               <div class="flex gap-2">
