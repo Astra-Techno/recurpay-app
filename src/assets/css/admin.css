@@ -68,7 +68,7 @@
   /* Primary Button */
   button {
     color: var(--button-primary-text);  
-    
+    background-color: var(--button-primary-background);
     font-weight: bold;
     border-radius: 0.25rem;
   }

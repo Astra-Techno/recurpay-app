@@ -9,22 +9,22 @@
 		<!-- Property Info Card -->
 		<div class="mx-4 ">
 			<div class="flex justify-between text-center border-b">
-				<div class="flex-1 border-r">
-					<p class="text-xl font-bold">{{ property.bedrooms ?? 0 }}</p>
-					<p class="text-xs text-gray-500">Bedrooms</p>
+				<div class="flex-1 border-r p-2">
+					<p class="text-lg font-bold">{{ property.bedrooms ?? 0 }}</p>
+					<p class="text-sm text-gray-500">Bedrooms</p>
 				</div>
-				<div class="flex-1 border-r">
-					<p class="text-xl font-bold">{{ property.bathrooms ?? 0 }}</p>
-					<p class="text-xs text-gray-500">Bathrooms</p>
+				<div class="flex-1 border-r p-2">
+					<p class="text-lg font-bold">{{ property.bathrooms ?? 0 }}</p>
+					<p class="text-sm text-gray-500">Bathrooms</p>
 				</div>
-				<div class="flex-1 ">
-					<p class="text-xl font-bold">{{ property.square_footage ?? 1000 }}</p>
-					<p class="text-xs text-gray-500">Sq. Ft.</p>
+				<div class="flex-1 p-2">
+					<p class="text-lg font-bold">{{ property.square_footage ?? 1000 }}</p>
+					<p class="text-sm text-gray-500">Sq. Ft.</p>
 				</div>
 			</div>
 			<div class="flex gap-3 mt-4">
-				<button class="flex-1 py-2 success">Edit Property</button>
-				<button class="flex-1 py-2 success">Add Tenant</button>
+				<button class="flex-1 py-2 secondary">Edit Property</button>
+				<button class="flex-1 py-2 primary">Add Tenant</button>
 			</div>
 		</div>
 
