@@ -4,7 +4,7 @@
 			<h1 class="flex-1">{{ routeName }}</h1>
 		</slot>
 	</div>
-	<div class="flex flex-col mb-10">
+	<div class="flex flex-col mb-10 rounded-t-2xl">
 		<slot name="body">
 			<!-- <div class="flex items-center">
 				<h1 class="text-4xl font-bold mb-4">Coming Soon!</h1>

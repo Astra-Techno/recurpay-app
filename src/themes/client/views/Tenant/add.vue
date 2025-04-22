@@ -83,7 +83,7 @@ import { useDeviceStore } from '../../stores/useDeviceStore'
 const deviceStore = useDeviceStore()
 
 import { useMeta } from '@/composables/use-meta';
-useMeta({ title: 'Add Tenant' })
+import { getCurrentInstance } from 'vue'
 
 const router = useRouter();
 const property = ref({});
@@ -106,6 +106,7 @@ const request = useApiRequest();
 const PropertyId = router.currentRoute.value.params.property_id || 0; // Get property ID from route params or global params
 
 onMounted(async () => {
+  const proxy = getCurrentInstance().proxy;
   loading.value = false;
   if (PropertyId == 0)
     return;
@@ -118,6 +119,8 @@ onMounted(async () => {
 
   property.value = response.data;
   tenant.value.property_id = PropertyId;
+
+  proxy.$setHeader('Add Tenant', 'to '+property.value.name, true, 'IconHome')
 });
 
 

@@ -117,8 +117,8 @@
   import Signal from '@/composables/signal'
   import SelectBox from '@/components/elements/SelectBox.vue'
   import { useDeviceStore } from '../../stores/useDeviceStore'
-  import { useMeta } from '@/composables/use-meta';
-  useMeta({ title: 'Add Payment' })
+  import { getCurrentInstance } from 'vue'
+  
 
   const deviceStore = useDeviceStore()
   const router = useRouter();
@@ -142,7 +142,7 @@
     loading.value = false;
     if (PropertyId == 0)
       return;
-  
+      const proxy = getCurrentInstance().proxy;
     const response = await request.post('entity/Property/' + PropertyId)
     if (response.error) {
       Signal.error(response.message)
@@ -151,6 +151,8 @@
   
     property.value = response.data;
     payment.value.property_id = PropertyId;
+
+    proxy.$setHeader('Add Payment', 'to '+property.value.name, true, 'IconHome')
   });
   
   const submitForm = async () => {

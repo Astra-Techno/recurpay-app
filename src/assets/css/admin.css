@@ -123,7 +123,7 @@
   button.normal:focus,
   button.normal:hover {
     color: var(--button-secondary-focus-text);
-    background-color: var(--button-secondary-focus-background);
+    /*background-color: var(--button-secondary-focus-background);*/
     outline: none;
   }
 
@@ -391,11 +391,7 @@
   fill:none !important;
 }
 @layer components {  
-  /*label.formkit-label {
-    font-size: 16px;
-    line-height: inherit;
-    color: var(--ui-label);
-  }*/
+
 
   .formkit-inner input,
   .formkit-inner input:disabled,
@@ -403,68 +399,5 @@
     border: initial;    
   }
 
-  /* Apply styles to .formkit-inner, but avoid applying them if it contains a .formkit-selector & .formkit-decorator childs */  
  
- /* .formkit-options .formkit-inner {
-    background-color: transparent;
-  }*/
-  /*.formkit-track {
-    border: 0 !important;
-  }*/
-  /*.formkit-input:focus-visible ~ .formkit-track,
-  .formkit-input:focus-visible ~ .formkit-decorator {
-    box-shadow: none !important;
-  }*/
-  /*.formkit-input:checked ~ .formkit-decorator {
-    border-color: var(--ui-focus-outline)!important;
-    color: var(--ui-focus-outline) !important;
-    background-color: transparent !important;
-  }*/
-
-  /*.formkit-inner button,
-  .formkit-selectionWrapper button,
-  .formkit-inner button:hover,
-  .formkit-inner button:focus,
-  .formkit-selectionWrapper button:hover,
-  .formkit-selectionWrapper button:focus {
-    background-color: inherit;
-    border: initial;
-    border-radius: inherit;
-    outline: inherit;
-    color: inherit;
-    font-weight:inherit;
-  }*/
-
-  /* .formkit-inner {
-    padding: 0 !important;
-  }
-
-  .formkit-input {
-    border: 1px solid var(--ui-outline) !important;
-    border-radius: 0.25rem;
-    background-color: var(--ui-background) !important;
-    padding: 0.5rem !important;
-  }
-
-  .formkit-input:focus {
-    border: 1px solid var(--ui-focus-outline) !important;
-    border-radius: 0.25rem;
-    background-color: var(--ui-background) !important;
-    padding: 0.5rem !important;
-  } */
-
-  /* div.formkit-inner {
-    border: 1px solid var(--ui-outline);
-    background-color: var(--ui-background);
-  }
-  div.formkit-inner:focus {
-    border: 1px solid var(--ui-outline);
-    background-color: var(--ui-background);
-  }
-  .formkit-input[type='radio']:checked + .formkit-decorator {
-    border-color: var(--primary-color);
-  }
-  .formkit-input[type='radio']:checked + .formkit-decorator svg {
-    color: var(--primary-color);
-  } */
 }

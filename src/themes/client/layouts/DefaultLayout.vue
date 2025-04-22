@@ -1,54 +1,7 @@
 <template>
-	<div class="flex h-screen w-3/12 mx-auto bg-white dark:bg-gray-900">
-		<!-- Sidebar -->
-		<div v-if="!deviceStore.isMobile" :class="[
-			'side-bar',
-			'duration-300',
-			'ease-in-out',
-			'border-r',
-			'p-5',
-			'flex-shrink-0 z-1 shadow-md',
-			'overflow-x-hidden',
-			'overflow-y-auto',
-			isMiniSidebar ? 'w-20' : 'w-64',
-		]" style="scrollbar-width: thin;">
-			<DefaultSideBar :isMiniSidebar="isMiniSidebar" :toggleMiniSidebar="toggleMiniSidebar" />
-		</div>
-
-		<!-- Drawer for Mobile -->
-		<transition name="slide" v-if="deviceStore.isMobile">
-			<div v-if="drawerOpen" class="relative z-[1000]">
-				<div :class="[
-					'fixed',
-					'top-0',
-					'left-0',
-					'h-full',
-					'w-56',
-					'bg-white',
-					'shadow-lg',
-					'z-50',
-					'border-r-2',
-					'p-5',
-					'overflow-x-hidden',
-					'overflow-y-auto',
-					'transition-transform', // Ensure smooth transition for transform
-					drawerOpen
-						? 'translate-x-0 opacity-100'
-						: '-translate-x-full opacity-0',
-				]">
-					<DefaultSideBar :isMiniSidebar="false" :toggleMiniSidebar="toggleDrawer"
-						:toggleDrawer="toggleDrawer" />
-				</div>
-				<div class="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ease-in-out"
-					:class="{
-						'opacity-100': drawerOpen,
-						'opacity-0': !drawerOpen,
-					}" @click="toggleDrawer"></div>
-			</div>
-		</transition>
-
+	<div class="flex h-screen w-full md:w-3/12 mx-auto bg-white dark:bg-gray-900">
 		<!-- Main Content -->
-		<div class="flex-1 flex flex-col"  :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
+		<div class="flex-1 flex flex-col " >
 			<!-- Navigation Bar -->
 			<NavigationBar>
 				<template #flex-items>
@@ -57,12 +10,15 @@
 			</NavigationBar>
 
 			<!-- Main content -->
-			<div class=" flex-1 main relative" :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '']">
+			<div class=" flex-1 main relative bg-white text-gray-800  rounded-t-2xl " :class="[!deviceStore.isMobile ? 'overflow-y-auto' : '', isDashboard ? 'top-0' : '-top-10  z-20']" >
 				<slot />
 			</div>
+			<!-- Bottom Navigation for Mobile -->
+			<BottomNav v-if="deviceStore.isMobile" :showBackButton="showBackButton" :toggleDrawer="toggleDrawer" />
 		</div>
 	</div>
 </template>
+
 
 <script setup>
 import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
@@ -73,6 +29,7 @@ import { useUIPreferencesStore } from '../stores/uiPreferences'
 import { useDeviceStore } from '../stores/useDeviceStore'
 import DefaultSideBar from './DefaultSideBar.vue'
 import NavigationBar from '../layouts/NavigationBar.vue'
+import BottomNav from '../layouts/BottomNav.vue'
 import { User, LogOut } from 'lucide-vue-next';
 import { useRoute } from 'vue-router'
 import { useCurrentTitle } from '@/composables/use-meta';
@@ -110,6 +67,7 @@ watch(
 	},
 )
 
+const isDashboard = computed(() => route.path === '/dashboard')
 const currentAccount = ref(extendedStore.currentAccount)
 const isDropdownOpen = ref(false)
 const toggleDropdown = () => {

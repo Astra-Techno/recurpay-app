@@ -1,4 +1,4 @@
-<template>
+<template>	
 	<div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-600 to-blue-500 px-4">
 	  
   
@@ -67,9 +67,9 @@
   
 		  <!-- Toggle Button -->
 		  <div class="text-center mt-2">
-			<button type="button" @click="toggleLoginMode" class="secondary border-none text-sm text-blue-600 font-medium hover:underline">
+			<a href="#" @click="toggleLoginMode" class="text-[var(--general-text-link-unvisited)] font-medium hover:underline">
 			  {{ isOtpMode ? 'Login with Password instead' : 'Login with OTP instead' }}
-			</button>
+			</a>
 		  </div>
   
 		  <!-- Register -->

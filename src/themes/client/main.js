@@ -17,6 +17,10 @@ import '@/assets/css/theme.css'
 import '@/assets/css/admin.css'
 import '@/assets/css/client.css'
 
+import HeaderPlugin from '@/plugins/header'
+
+app.use(HeaderPlugin)
+
 // perfect scrollbar
 import { PerfectScrollbarPlugin } from 'vue3-perfect-scrollbar'
 app.use(PerfectScrollbarPlugin)
