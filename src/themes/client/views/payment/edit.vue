@@ -3,7 +3,6 @@
       <!-- Main Page Heading -->
       <div class="mb-6 ">
         <div class="flex items-center  gap-2">
-  {{ payment }}
           <span class="inline-block bg-blue-100 text-blue-600 p-2 rounded-full">
             🏠
           </span>
@@ -32,8 +31,8 @@
             :config="{ classes: { form: 'space-y-4', submit: { input: 'btn btn-primary' } }}"
         >
 
-            <SelectBox label="Select Tenant(s)" placeholder="Select Tenant(s)" name="users" multiple popover
-            :data-url="`all/Tenants?select=autocomplete&property_id=${PropertyId}`"  />
+            <SelectBox label="Select Tenant(s)"  placeholder="Select Tenant(s)" v-model="payment.users" multiple popover
+            :data-url="`all/Tenants?select=autocomplete&property_id=${payment.property_id}`"  />
 
             <!-- Payment Type Dropdown -->
             <FormKit
@@ -146,14 +145,16 @@
     if (PaymentId == 0)
       return;
   
-    const response = await request.post('entity/Payment/' + PaymentId )
+    const response = await request.post('entity/Payment/' + PaymentId + '?attrib=UserIds' )
     if (response.error) {
       Signal.error(response.message)
       return;
     }
   
     payment.value = response.data;
-    payment.value.users = response.data.PaymentUserIds;
+    payment.value.users = payment.value.UserIds;
+
+    console.log('PaymentUserIds', payment.value)
   });
   
   const submitForm = async () => {
@@ -164,7 +165,7 @@
     }
   
     Signal.success('Payment details saved successfully!');
-    router.push("/property/additional/" + response.data.id);
+    router.push("/payment/view/" + response.data.id);
   };
 
   // Payment type options

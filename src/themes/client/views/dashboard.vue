@@ -1,8 +1,8 @@
 <template>
   <div v-if="deviceStore.isMobile">
-    <section class="p-4">
-      <h1 class=" font-black italic mb-2">👋 Welcome, {{ extendedStore.user.full_name ?
-        extendedStore.user.full_name : 'User' }}!</h1>
+    <section class="p-4"> 
+      <h1 class=" font-black italic mb-2">👋 Welcome, {{ user.name ?
+        user.name : 'User' }}!</h1>
       <p class="text-sm text-gray-600">You are managing {{ statsCount.totalProperties }} properties.</p>
     </section>
     <section class="px-4 pb-4">
@@ -24,10 +24,12 @@
         </div>
       </div>
     </section>
+
     <section class="px-4 pb-4">
       <h3 class="text-md font-semibold mb-2">🏡 My Properties</h3>
-      <list class="w-full" tmpl="custom" :data-url="'list/Properties'" :sortBy="'p.id'" :sortOrder="'desc'"
-        :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="10" :search="false">
+      <list class="w-full" tmpl="custom" :data-url="'list/Properties?Owned=1'" :sortBy="'p.id'" :sortOrder="'desc'"
+        :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="2" 
+        :show-pagination="false" :search="false">
         <template #body="{ rows }">
           <div class="space-y-2">
             <div v-for="property in rows" :key="property.id" class="bg-white p-4 rounded shadow">
@@ -50,6 +52,7 @@
         </template>
       </list>
     </section>
+
     <section class="px-4 pb-6">
       <h3 class="text-md font-semibold mb-2">💳 Recent Payments</h3>
       <div class="bg-white p-4 rounded shadow space-y-2">
@@ -127,7 +130,7 @@ import { ref, onMounted } from 'vue';
 import { Home, Users, DollarSign, Bell, FileText, Plus } from 'lucide-vue-next';
 import ApexCharts from 'vue3-apexcharts';
 import { useMeta } from '@/composables/use-meta';
-import { useExtendedStore } from '../stores/extendedStore'
+import { useAppStore } from '@/stores/index'
 import { useDeviceStore } from '../stores/useDeviceStore'
 import useApiRequest from '@/composables/request'
 import Signal from '@/composables/signal'
@@ -138,7 +141,7 @@ useMeta({ title: 'Dashboard' })
 
 const userName = 'John';
 
-const extendedStore = useExtendedStore()
+const user = useAppStore().getUser();
 const statsCount = ref({});
 const loadStats = async () => {
   // Handle form submission logic here

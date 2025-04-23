@@ -130,6 +130,7 @@
 		return
 	  }
   
+	  console.log('data_user', response.data.user)
 	  appStore.setToken(response.data.token)
 	  appStore.setGuest('0')
 	  appStore.setUser(response.data.user)

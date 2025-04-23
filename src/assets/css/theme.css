@@ -56,8 +56,8 @@
   --button-primary-disabled-background: #666681;
   --button-primary-disabled-outline: #9090a5;
 
-  --button-secondary-text: #6600ee;
-  --button-secondary-background: transparent;
+  --button-secondary-text: #000000;
+  --button-secondary-background: #E9EDF2;
   --button-secondary-outline: #8c52ff;
   --button-secondary-focus-text: #d21dcb;
   --button-secondary-focus-outline: #d21dcb;

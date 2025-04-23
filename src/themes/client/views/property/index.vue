@@ -1,14 +1,14 @@
 <template>
 	<div class="flex flex-col h-screen">
 
-		<div class="mx-4 sticky top-0 bg-white z-10 px-2 py-4">
+		<div class="sticky top-0 bg-white z-10 px-6 py-4">
 
 			<p class="py-2 mt-1">{{ fullAddress }}</p>
 
 
 			<!-- Property Info Card -->
-			<div class="mx-4 ">
-				<div class="flex justify-between text-center border-b">
+			<div>
+				<div class="flex justify-between text-center border-t">
 					<div class="flex-1 border-r p-2">
 						<p class="text-lg font-bold">{{ property.bedrooms ?? 0 }}</p>
 						<p class="text-sm text-gray-500">Bedrooms</p>
