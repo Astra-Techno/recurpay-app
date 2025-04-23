@@ -19,8 +19,8 @@
     :search="false"
   >
     <template #body="{ rows }">
-      <div class="mt-6 px-4 py-2">
-					<h2 class="text-base font-bold mb-2 leading-6">
+      <div class=" px-4">
+					<h2 class="text-base font-bold mb-2 leading-6 sticky top-0 bg-white z-10 py-2 shadow-sm">
             <template v-if="property_id == 0">My Tenants</template>
             <template v-else>
               
