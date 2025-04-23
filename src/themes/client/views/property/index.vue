@@ -28,12 +28,12 @@
 				</div>
 			</div>
 		</div>
-		<list class="w-full" tmpl="custom" :data-url="tenantListUrl" :sortBy="'pt.id'" :sortOrder="'desc'"
+		<list ref="tenantList" class="w-full" tmpl="custom" :data-url="tenantListUrl" :sortBy="'pt.id'" :sortOrder="'desc'"
 			:filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }" :page-limit="4" :search="false"
 			:show-pagination="false">
 			<template #body="{ rows }">
 				<div class="mt-6 px-4 py-2">
-					<h2 class="text-sm font-semibold mb-2">Current Tenants</h2>
+					<h2 class="text-base font-bold mb-2">Current Tenants</h2>
 					<div v-for="tenant in rows"
 						class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
 						<div class="flex items-center gap-3">
@@ -41,8 +41,8 @@
 								<img :src="tenant.avatar" alt="Avatar" class="w-16 h-16 rounded-full object-cover" />
 							</div>
 							<div>
-								<p class="text-sm font-medium">{{ tenant.name }}</p>
-								<p class="text-xs text-blue-600" :class="[
+								<p class="text-base font-bold italic">{{ tenant.name }}</p>
+								<p class="text-sm text-blue-600" :class="[
 									'text-xs mt-2 inline-block rounded-full px-2 py-1',
 									tenant.status === 'active'
 										? 'bg-green-100 text-green-600'
@@ -57,16 +57,18 @@
 							<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
 						</svg>
 					</div>
+					
+					<div v-if="tenantList.total > 4" class="text-center mt-4">
+						<router-link :to="{ name: 'TenantsListByProperty', params: { id: property_id } }"
+							class="text-blue-600 btn text-center primary hover:underline">View All Tenants</router-link>
+					</div>
 				</div>
 
-				<div v-if="rows.length > 4" class="text-center mt-4">
-					<router-link :to="{ name: 'TenantList', params: { id: property_id } }"
-						class="text-blue-600 hover:underline">View All Tenants</router-link>
-				</div>
+
 
 			</template>
 		</list>
-		
+
 
 		<!-- Payments -->
 		<div class="mt-6 px-4">
@@ -184,5 +186,11 @@ const tenantListUrl = computed(() => {
 		: `list/Tenants`
 })
 
+const paymentListUrl = computed(() => {
+	return property_id.value > 0
+		? `list/Payments?property_id=${property_id.value}`
+		: `list/Payments`
+})
+const tenantList = ref([])
 
 </script>
