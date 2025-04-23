@@ -1,56 +1,72 @@
 <template>
 	<div class="flex flex-col h-screen">
 
-		<div class="mx-4 sticky top-0 bg-white z-10 px-2 shadow-sm  border-b">
-			
+		<div class="mx-4 sticky top-0 bg-white z-10 px-2 py-4">
+
 			<p class="py-2 mt-1">{{ fullAddress }}</p>
-		</div>
 
-		<!-- Property Info Card -->
-		<div class="mx-4 ">
-			<div class="flex justify-between text-center border-b">
-				<div class="flex-1 border-r p-2">
-					<p class="text-lg font-bold">{{ property.bedrooms ?? 0 }}</p>
-					<p class="text-sm text-gray-500">Bedrooms</p>
+
+			<!-- Property Info Card -->
+			<div class="mx-4 ">
+				<div class="flex justify-between text-center border-b">
+					<div class="flex-1 border-r p-2">
+						<p class="text-lg font-bold">{{ property.bedrooms ?? 0 }}</p>
+						<p class="text-sm text-gray-500">Bedrooms</p>
+					</div>
+					<div class="flex-1 border-r p-2">
+						<p class="text-lg font-bold">{{ property.bathrooms ?? 0 }}</p>
+						<p class="text-sm text-gray-500">Bathrooms</p>
+					</div>
+					<div class="flex-1 p-2">
+						<p class="text-lg font-bold">{{ property.square_footage ?? 1000 }}</p>
+						<p class="text-sm text-gray-500">Sq. Ft.</p>
+					</div>
 				</div>
-				<div class="flex-1 border-r p-2">
-					<p class="text-lg font-bold">{{ property.bathrooms ?? 0 }}</p>
-					<p class="text-sm text-gray-500">Bathrooms</p>
-				</div>
-				<div class="flex-1 p-2">
-					<p class="text-lg font-bold">{{ property.square_footage ?? 1000 }}</p>
-					<p class="text-sm text-gray-500">Sq. Ft.</p>
+				<div class="flex gap-3 mt-4">
+					<button class="flex-1 py-2 secondary">Edit Property</button>
+					<button class="flex-1 py-2 primary">Add Tenant</button>
 				</div>
 			</div>
-			<div class="flex gap-3 mt-4">
-				<button class="flex-1 py-2 secondary">Edit Property</button>
-				<button class="flex-1 py-2 primary">Add Tenant</button>
-			</div>
 		</div>
-
-		<!-- Current Tenants -->
-		<div class="mt-6 px-4">
-			<h2 class="text-sm font-semibold mb-2">Current Tenants</h2>
-			<div class="bg-gray-100 rounded-xl p-4 flex items-center justify-between">
-				<div class="flex items-center gap-3">
-					<div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-						<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2"
+		<list class="w-full" tmpl="custom" :data-url="tenantListUrl" :sortBy="'pt.id'" :sortOrder="'desc'"
+			:filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }" :page-limit="4" :search="false"
+			:show-pagination="false">
+			<template #body="{ rows }">
+				<div class="mt-6 px-4 py-2">
+					<h2 class="text-sm font-semibold mb-2">Current Tenants</h2>
+					<div v-for="tenant in rows"
+						class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
+						<div class="flex items-center gap-3">
+							<div class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center">
+								<img :src="tenant.avatar" alt="Avatar" class="w-16 h-16 rounded-full object-cover" />
+							</div>
+							<div>
+								<p class="text-sm font-medium">{{ tenant.name }}</p>
+								<p class="text-xs text-blue-600" :class="[
+									'text-xs mt-2 inline-block rounded-full px-2 py-1',
+									tenant.status === 'active'
+										? 'bg-green-100 text-green-600'
+										: tenant.status === 'vacated'
+											? 'bg-yellow-100 text-yellow-600'
+											: 'bg-red-100 text-red-600',
+								]">{{ tenant.status.toUpperCase() }}</p>
+							</div>
+						</div>
+						<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
 							viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round"
-								d="M5.121 17.804A4 4 0 018 16h8a4 4 0 012.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+							<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
 						</svg>
 					</div>
-					<div>
-						<p class="text-sm font-medium">Ram Kumar</p>
-						<p class="text-xs text-blue-600">Active</p>
-					</div>
 				</div>
-				<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
-					viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-				</svg>
-			</div>
-		</div>
+
+				<div v-if="rows.length > 4" class="text-center mt-4">
+					<router-link :to="{ name: 'TenantList', params: { id: property_id } }"
+						class="text-blue-600 hover:underline">View All Tenants</router-link>
+				</div>
+
+			</template>
+		</list>
+		
 
 		<!-- Payments -->
 		<div class="mt-6 px-4">
@@ -72,7 +88,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import useApiRequest from '@/composables/request'
-
+import List from '@/components/List/List.vue'
 
 import { getCurrentInstance } from 'vue'
 
@@ -162,6 +178,11 @@ const formatDate = (d) => new Date(d).toLocaleDateString('en-IN', {
 	year: 'numeric', month: 'short', day: 'numeric'
 });
 
+const tenantListUrl = computed(() => {
+	return property_id.value > 0
+		? `list/Tenants?property_id=${property_id.value}`
+		: `list/Tenants`
+})
 
 
 </script>
