@@ -24,13 +24,70 @@
         </div>
       </div>
     </section>
+  
+    <section class="px-4 pb-4" v-show="dues?.total > 0">
+      <h3 class="text-md font-semibold mb-2">⏰ Dues</h3>
+      <list ref="dues" class="w-full" tmpl="custom" :data-url="'list/Payments?Due=1'" 
+        :filter-toggle="false" :messages="{ empty: 'No more dues to pay!' }" :page-limit="2" 
+        :show-pagination="false" :search="false">
+        <template #body="{ rows }">
+          <div class="space-y-2">
+            <div v-for="payment in rows" :key="payment.id" class="bg-white p-4 rounded shadow">
+              <div class="flex justify-between items-center mb-2">
+                <p class="font-semibold">{{ payment.property }}</p> 
+                <p>{{ payment.address1 }}</p>
+                <p>{{ ucfirst(payment.type) }} – ₹{{ payment.total_due }} </p>
+                <span class="text-orange-600 font-medium">Due in {{ payment.due_in_days }} days</span>
+                <router-link :to="{ name: 'PropertyView', params: { id: payment.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">View</button>
+                </router-link>
+              </div>
+              <div class="flex gap-2">
+                <router-link :to="{ name: 'PayNow', params: { payment_id: payment.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Pay Now</button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </template>
+      </list>
+    </section>
 
-    <section class="px-4 pb-4">
+    <section class="px-4 pb-4" v-show="pendings?.total > 0">
+      <h3 class="text-md font-semibold mb-2">💰 Pendings</h3>
+      <list ref="pendings" class="w-full" tmpl="custom" :data-url="'list/Payments?Pending=1'" 
+        :filter-toggle="false" :messages="{ empty: 'No more pendings to pay!' }" :page-limit="2" 
+        :show-pagination="false" :search="false">
+        <template #body="{ rows }">
+          <div class="space-y-2">
+            <div v-for="payment in rows" :key="payment.id" class="bg-white p-4 rounded shadow">
+              <div class="flex justify-between items-center mb-2">
+                <p class="font-semibold">{{ payment.property }}</p> 
+                <p>{{ payment.address1 }}</p>
+                <p>{{ ucfirst(payment.type) }} – ₹{{ payment.total_due }} </p>
+                <span class="text-orange-600 font-medium">Due in {{ payment.due_in_days }} days</span>
+                <router-link :to="{ name: 'PropertyView', params: { id: payment.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">View</button>
+                </router-link>
+              </div>
+              <div class="flex gap-2">
+                <router-link :to="{ name: 'MarkAsPaid', params: { payment_id: payment.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Mark As Paid</button>
+                </router-link>
+                <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Send Reminder</button>
+              </div>
+            </div>
+          </div>
+        </template>
+      </list>
+    </section>
+
+    <section class="px-4 pb-4" v-show="owned?.total > 0">
       <h3 class="text-md font-semibold mb-2 flex justify-between">🏡 My Properties <router-link
           :to="{ name: 'AddProperty', params: { mode: 'add' } }">
           <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Property</button>
         </router-link></h3>
-      <list class="w-full" tmpl="custom" :data-url="'list/Properties?Owned=1'" :sortBy="'p.id'" :sortOrder="'desc'"
+      <list ref="owned" class="w-full" tmpl="custom" :data-url="'list/Properties?Owned=1'" :sortBy="'p.id'" :sortOrder="'desc'"
         :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="2"
         :show-pagination="false" :search="false">
         <template #body="{ rows }">
@@ -38,7 +95,7 @@
             <div v-for="property in rows" :key="property.id" class="bg-white p-4 rounded shadow">
               <div class="flex justify-between items-center mb-2">
                 <p class="font-semibold">{{ property.name }}</p>
-                
+                <p>{{ property.address1 }}</p>
                 <router-link :to="{ name: 'PropertyView', params: { id: property.id } }">
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">View</button>
                 </router-link>
@@ -47,6 +104,35 @@
                 <router-link :to="{ name: 'AddProperty', params: { id: property.id, mode:'edit' } }">
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Edit Property</button>
                 </router-link>
+                <router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Tenant</button>
+                </router-link>
+                <router-link :to="{ name: 'AddPayment', params: { property_id: property.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Payment</button>
+                </router-link>
+              </div>
+            </div>
+          </div>
+        </template>
+      </list>
+    </section>
+
+    <section class="px-4 pb-4" v-show="rented?.total > 0">
+      <h3 class="text-md font-semibold mb-2">🏡 Rented Properties</h3>
+      <list ref="rented" class="w-full" tmpl="custom" :data-url="'list/Properties?Rented=1'" :sortBy="'p.id'" :sortOrder="'desc'"
+        :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="2" 
+        :show-pagination="false" :search="false">
+        <template #body="{ rows }">
+          <div class="space-y-2">
+            <div v-for="property in rows" :key="property.id" class="bg-white p-4 rounded shadow">
+              <div class="flex justify-between items-center mb-2">
+                <p class="font-semibold">{{ property.name }}</p>
+                <p>{{ property.address1 }}</p>
+                <router-link :to="{ name: 'PropertyView', params: { id: property.id } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">View</button>
+                </router-link>
+              </div>
+              <div class="flex gap-2" style="display: none;">
                 <router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Tenant</button>
                 </router-link>
@@ -140,6 +226,7 @@ import { useMeta } from '@/composables/use-meta';
 import { useAppStore } from '@/stores/index'
 import { useDeviceStore } from '../stores/useDeviceStore'
 import useApiRequest from '@/composables/request'
+import { ucfirst } from '@/composables/helper';
 import Signal from '@/composables/signal'
 import List from '@/components/List/List.vue'
 const request = useApiRequest();
@@ -150,6 +237,12 @@ const userName = 'John';
 
 const user = useAppStore().getUser();
 const statsCount = ref({});
+
+const owned = ref(null);
+const rented = ref(null);
+const dues = ref(null);
+const pendings = ref(null);
+
 const loadStats = async () => {
   // Handle form submission logic here
   const response = await request.post('task/Dashboard/statsList')

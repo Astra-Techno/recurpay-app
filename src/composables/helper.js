@@ -18,3 +18,7 @@ export const isEmpty = (value) => {
   // All other cases are not empty
   return false;
 };
+
+export function ucfirst(str) {
+  return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
+}
