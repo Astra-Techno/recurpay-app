@@ -23,14 +23,17 @@
 					</div>
 				</div>
 				<div class="flex gap-3 mt-4">
-					<button class="flex-1 py-2 secondary">Edit Property</button>
+					<router-link :to="{ name: 'editProperty', params: { id: payment.id } }">
+						<button class="btn flex-1 py-2 secondary">Edit Property</button>
+					</router-link>
+		
 					<button class="flex-1 py-2 primary">Add Tenant</button>
 				</div>
 			</div>
 		</div>
-		<list ref="tenantList" class="w-full" tmpl="custom" :data-url="tenantListUrl" :sortBy="'pt.id'" :sortOrder="'desc'"
-			:filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }" :page-limit="4" :search="false"
-			:show-pagination="false">
+		<list ref="tenantList" class="w-full" tmpl="custom" :data-url="tenantListUrl" :sortBy="'pt.id'"
+			:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }"
+			:page-limit="4" :search="false" :show-pagination="false">
 			<template #body="{ rows }">
 				<div class="mt-6 px-4 py-2">
 					<h2 class="text-base font-bold mb-2">Current Tenants</h2>
@@ -57,15 +60,12 @@
 							<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
 						</svg>
 					</div>
-					
+
 					<div v-if="tenantList.total > 4" class="text-center mt-4">
 						<router-link :to="{ name: 'TenantsListByProperty', params: { id: property_id } }"
 							class="text-blue-600 btn text-center primary hover:underline">View All Tenants</router-link>
 					</div>
 				</div>
-
-
-
 			</template>
 		</list>
 

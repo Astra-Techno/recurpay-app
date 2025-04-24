@@ -1,25 +1,18 @@
 <template>
     <div class="max-w-3xl mx-auto p-6 bg-white ">
         <!-- Step Indicator -->
-        <StepProgress v-if="mode === 'add'" :currentStep="currentStep" :steps="stepLabels" />
+        <StepProgress  :currentStep="currentStep" :steps="stepLabels" />
 
         <!-- Dynamic Step Form -->
         <!-- Add Mode (Step Form) -->
-        <FormKit v-if="mode === 'add'" type="form" :actions="false" @submit="handleStepSubmit" :key="currentStep">
+        <FormKit  type="form" :actions="false" @submit="handleStepSubmit" :key="currentStep">
             <component :is="steps[currentStep]" v-model="formData" />
             <div class="flex justify-between mt-6">
                 <FormKit type="submit" label="Next" />
             </div>
         </FormKit>
 
-        <!-- Edit Mode (Grouped Form) -->
-        <FormKit v-else type="form" :actions="false" @submit="handleStepSubmit" :value="formData">
-            <GroupedForm v-model="formData" />
-            <div class="flex justify-end mt-6">
-                <FormKit type="submit" label="Save Property" />
-            </div>
-        </FormKit>
-
+       
 
     </div>
 </template>
@@ -33,10 +26,6 @@ import StepAddress from './Address.vue'
 import StepDetails from './Details.vue'
 import useApiRequest from '@/composables/request'
 import Signal from '@/composables/signal'
-import GroupedForm from './GroupedForm.vue'
-import Edit from '../edit.vue'
-
-
 
 const steps = [StepAddress, StepBasic, StepDetails]
 const stepLabels = ['Address Details', 'Basic Information', 'Property Features']
@@ -47,7 +36,7 @@ const route = useRoute()
 const router = useRouter()
 const request = useApiRequest()
 const { proxy } = getCurrentInstance()
-const mode = ref(route.params.mode || 'add')
+const mode = ref('add')
 onMounted(async () => {
 
     propertyId.value = route.params.id || null;

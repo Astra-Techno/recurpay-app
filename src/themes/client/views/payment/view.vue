@@ -3,8 +3,8 @@
 
   
       <!-- Payment Info Card -->
-      <div class="bg-white mx-4 -mt-10 rounded-2xl shadow p-5">
-        <div class="flex justify-between items-start">
+      <div class="bg-white mx-4  rounded-2xl shadow p-5">
+        <div class="flex justify-between items-start sticky top-0 bg-white z-10">
           <div>
             <p class="text-3xl font-bold">₹15,000</p>
             <p class="text-sm text-gray-500">Due on May 5</p>

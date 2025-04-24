@@ -27,15 +27,15 @@ const routes = [
     props: true
   },
   {
-    path: '/properties/:id',
-    name: 'PropertyDetail',
-    component: () => import('../views/property/Detail.vue'),
+    path: '/properties/add/',
+    name: 'AddProperty',
+    component: () => import('../views/property/add/index.vue'),
     props: true
   },
   {
-    path: '/properties/update/:mode/:id?',
-    name: 'AddProperty',
-    component: () => import('../views/property/add/index.vue'),
+    path: '/properties/edit/:id',
+    name: 'editProperty',
+    component: () => import('../views/property/edit.vue'),
     props: true
   },
   {

@@ -1,10 +1,5 @@
 <template>
-  <div class="flex space-x-2 mb-4 ">
-   
-    <!--<h1 class="text-2xl font-black italic" v-if="property_id == 0">My Tenants</h1>
-    <h1 class="text-2xl font-black italic" v-else>{{property.name}} - Tenants</h1>-->
-  </div>
-
+ <section class="px-4 pb-4">
   
 
   <list
@@ -19,18 +14,10 @@
     :search="false"
   >
     <template #body="{ rows }">
-      <div class=" px-4 rounded shadow">
-					<h2 class="text-base font-bold mb-2 leading-6 sticky top-0 bg-white z-10 py-2 shadow-sm">
-            <template v-if="property_id == 0">My Tenants</template>
-            <template v-else>
-              
-              {{ property.name }} - Tenants
-              
-
-            </template>
-          </h2>
+      <div class="space-y-2">
+					
 					<div v-for="tenant in rows"
-						class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
+						class="bg-white p-4 rounded shadow">
 						<div class="flex items-center gap-3">
 							<div class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center">
 								<img :src="tenant.avatar" alt="Avatar" class="w-16 h-16 rounded-full object-cover" />
@@ -47,15 +34,13 @@
 								]">{{ tenant.status.toUpperCase() }}</p>
 							</div>
 						</div>
-						<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
-							viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-						</svg>
+						
 					</div>				
 					
 				</div>
     </template>
   </list>
+</section>
 </template>
 
 <script setup>

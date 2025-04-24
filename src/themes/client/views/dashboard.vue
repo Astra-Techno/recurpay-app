@@ -100,10 +100,7 @@
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">View</button>
                 </router-link>
               </div>
-              <div class="flex gap-2">
-                <router-link :to="{ name: 'AddProperty', params: { id: property.id, mode:'edit' } }">
-                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Edit Property</button>
-                </router-link>
+              <div class="flex gap-2">               
                 <router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Tenant</button>
                 </router-link>
