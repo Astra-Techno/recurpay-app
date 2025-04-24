@@ -4,7 +4,7 @@
 	  <list
 		class="w-full"
 		tmpl="custom"
-		:data-url="'list/Properties'"
+		:data-url="'list/Properties?Owned=1'"
 		:sortBy="'p.id'"
 		:sortOrder="'desc'"
 		:filter-toggle="false"

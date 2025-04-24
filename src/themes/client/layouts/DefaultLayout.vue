@@ -1,5 +1,5 @@
 <template>
-	<div class="flex h-screen w-full md:w-3/12 mx-auto bg-white dark:bg-gray-900">
+	<div class="flex h-screen w-full md:w-3/12 mx-auto bg-white-300 dark:bg-gray-900">
 		<!-- Main Content -->
 		<div class="flex-1 flex flex-col overflow-hidden">
 
@@ -11,7 +11,7 @@
 			</NavigationBar>
 
 			<!-- Scrollable Content Area (scroll enabled, scrollbar hidden) -->
-			<div class="flex-1 overflow-y-scroll hide-scrollbar relative bg-gray-100 text-gray-800 rounded-t-2xl"
+			<div class="flex-1 overflow-y-scroll hide-scrollbar relative  rounded-t-2xl"
 				:class="[isDashboard ? 'top-0' : '-top-10 z-20']">
 				<slot />
 			</div>

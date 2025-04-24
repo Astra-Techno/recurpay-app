@@ -1,5 +1,5 @@
 <template>
-  <div class="flex space-x-2 mb-4">
+  <div class="flex space-x-2 mb-4 ">
    
     <!--<h1 class="text-2xl font-black italic" v-if="property_id == 0">My Tenants</h1>
     <h1 class="text-2xl font-black italic" v-else>{{property.name}} - Tenants</h1>-->
@@ -19,7 +19,7 @@
     :search="false"
   >
     <template #body="{ rows }">
-      <div class=" px-4">
+      <div class=" px-4 rounded shadow">
 					<h2 class="text-base font-bold mb-2 leading-6 sticky top-0 bg-white z-10 py-2 shadow-sm">
             <template v-if="property_id == 0">My Tenants</template>
             <template v-else>

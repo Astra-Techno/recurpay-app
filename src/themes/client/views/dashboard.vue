@@ -1,6 +1,6 @@
 <template>
   <div v-if="deviceStore.isMobile">
-    <section class="p-4"> 
+    <section class="p-4">
       <h1 class=" font-black italic mb-2">👋 Welcome, {{ user.name ?
         user.name : 'User' }}!</h1>
       <p class="text-sm text-gray-600">You are managing {{ statsCount.totalProperties }} properties.</p>
@@ -26,20 +26,27 @@
     </section>
 
     <section class="px-4 pb-4">
-      <h3 class="text-md font-semibold mb-2">🏡 My Properties</h3>
+      <h3 class="text-md font-semibold mb-2 flex justify-between">🏡 My Properties <router-link
+          :to="{ name: 'AddProperty', params: { mode: 'add' } }">
+          <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Property</button>
+        </router-link></h3>
       <list class="w-full" tmpl="custom" :data-url="'list/Properties?Owned=1'" :sortBy="'p.id'" :sortOrder="'desc'"
-        :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="2" 
+        :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="2"
         :show-pagination="false" :search="false">
         <template #body="{ rows }">
           <div class="space-y-2">
             <div v-for="property in rows" :key="property.id" class="bg-white p-4 rounded shadow">
               <div class="flex justify-between items-center mb-2">
                 <p class="font-semibold">{{ property.name }}</p>
+                
                 <router-link :to="{ name: 'PropertyView', params: { id: property.id } }">
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">View</button>
                 </router-link>
               </div>
               <div class="flex gap-2">
+                <router-link :to="{ name: 'AddProperty', params: { id: property.id, mode:'edit' } }">
+                  <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Edit Property</button>
+                </router-link>
                 <router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
                   <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Tenant</button>
                 </router-link>

@@ -33,6 +33,12 @@ const routes = [
     props: true
   },
   {
+    path: '/properties/update/:mode/:id?',
+    name: 'AddProperty',
+    component: () => import('../views/property/add/index.vue'),
+    props: true
+  },
+  {
     path: '/payment/add/:property_id',
     name: 'AddPayment',
     component: () => import('../views/payment/add.vue'),
