@@ -27,6 +27,12 @@ const routes = [
     props: true
   },
   {
+    path: '/properties/list/:mode?',
+    name: 'PropertiesList',
+    component: () => import('../views/property/list.vue'),
+    props: true
+  },
+  {
     path: '/properties/add/',
     name: 'AddProperty',
     component: () => import('../views/property/add/index.vue'),

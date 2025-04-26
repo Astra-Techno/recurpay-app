@@ -1,5 +1,5 @@
 <template>
-    <section class="p-4">
+    <section class="p-4">     
       <h2 class=" font-black italic mb-2">👋 Welcome, {{ user.name ? user.name : 'User' }}!</h2>
       <p class="indent-2">You are managing {{ statsCount.totalProperties }} properties.</p>
     </section>

@@ -22,12 +22,14 @@
 						<p class="text-sm text-gray-500">Sq. Ft.</p>
 					</div>
 				</div>
-				<div class="flex gap-3 mt-4">
+				<div class="flex gap-2 mt-4 items-center" v-if="property.user_id == user.id ">
 					<router-link :to="{ name: 'editProperty', params: { id: payment.id } }">
-						<button class="btn flex-1 py-2 secondary">Edit Property</button>
+						<button  class=" py-2 px-4 w-40 secondary">Edit Property</button>
 					</router-link>
-		
-					<button class="flex-1 py-2 primary">Add Tenant</button>
+					<router-link  :to="{ name: 'AddTenant', params: { property_id: property.id } }">
+						<button class="py-2 px-4 w-40 primary">Add Tenant</button>
+					</router-link>
+					
 				</div>
 			</div>
 		</div>
@@ -91,7 +93,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import useApiRequest from '@/composables/request'
 import List from '@/components/List/List.vue'
-
+import { useAppStore } from '@/stores/index'
 import { getCurrentInstance } from 'vue'
 
 
@@ -102,6 +104,7 @@ const property = ref({
 	tags: [],
 })
 
+const user = useAppStore().getUser()
 const tenants = ref([]);
 const payment = ref({});
 const payments = ref([]);

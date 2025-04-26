@@ -43,14 +43,14 @@ import { ref, onMounted, getCurrentInstance } from 'vue'
 import useApiRequest from '@/composables/request'
 import Signal from '@/composables/signal'
 import { useRoute, useRouter } from 'vue-router'
-
+import { useAppStore } from '@/stores/index'
 
 const route = useRoute()
 const router = useRouter()
 const { proxy } = getCurrentInstance()
 const property = ref({});
 const request = useApiRequest()
-
+const user = useAppStore().getUser()
 
 const saveProperty = async () => {
   console.log('Saving property:', property)
@@ -84,6 +84,13 @@ onMounted(async () => {
     Signal.error(response.message)
   } else {
     property.value = response.data
+  }
+
+  // Validate User Edit
+  if (user.id != property.value.user_id) {
+    Signal.error('You are not authorized to edit this property')
+    router.go(-1)
+    return
   }
   // Set the header for the page  
   proxy.$setHeader(
