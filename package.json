@@ -29,6 +29,7 @@
     "axios": "^1.8.1",
     "crypto-js": "^4.2.0",
     "cssnano": "^7.0.6",
+    "dayjs": "^1.11.13",
     "leaflet": "^1.9.4",
     "lucide-vue-next": "^0.485.0",
     "mapbox-gl": "^3.11.0",

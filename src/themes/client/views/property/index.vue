@@ -22,14 +22,14 @@
 						<p class="text-sm text-gray-500">Sq. Ft.</p>
 					</div>
 				</div>
-				<div class="flex gap-2 mt-4 items-center" v-if="property.user_id == user.id ">
+				<div class="flex gap-2 mt-4 items-center" v-if="property.user_id == user.id">
 					<router-link :to="{ name: 'editProperty', params: { id: payment.id } }">
-						<button  class=" py-2 px-4 w-40 secondary">Edit Property</button>
+						<button class=" py-2 px-4 w-40 secondary">Edit Property</button>
 					</router-link>
-					<router-link  :to="{ name: 'AddTenant', params: { property_id: property.id } }">
+					<router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
 						<button class="py-2 px-4 w-40 primary">Add Tenant</button>
 					</router-link>
-					
+
 				</div>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 			<template #body="{ rows }">
 				<div class="mt-6 px-4 py-2">
 					<h2 class="text-base font-bold mb-2">Current Tenants</h2>
-					<div v-for="tenant in rows"
+					<div v-if="tenantList.total > 0" v-for="tenant in rows"
 						class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
 						<div class="flex items-center gap-3">
 							<div class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center">
@@ -62,26 +62,20 @@
 							<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
 						</svg>
 					</div>
-
+					<div v-else class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
+						<p class="text-base font-bold italic text-center w-full">No tenants added yet.</p>
+					</div>
 					<div v-if="tenantList.total > 4" class="text-center mt-4">
 						<router-link :to="{ name: 'TenantsListByProperty', params: { id: property_id } }"
 							class="text-blue-600 btn text-center primary hover:underline">View All Tenants</router-link>
 					</div>
 				</div>
+
 			</template>
 		</list>
-
-
 		<!-- Payments -->
 		<div class="mt-6 px-4">
-			<h2 class="text-sm font-semibold mb-2">Payments</h2>
-			<div class="bg-gray-100 rounded-xl p-4 flex items-center justify-between">
-				<div>
-					<p class="text-sm font-medium">May Rent</p>
-					<p class="text-xs text-blue-600 mt-1">Due: May 5</p>
-				</div>
-				<p class="text-sm font-semibold">₹15,000</p>
-			</div>
+			<PropertyPayments title="Payments" :property-id="property_id" />
 		</div>
 
 	</div>
@@ -93,6 +87,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import useApiRequest from '@/composables/request'
 import List from '@/components/List/List.vue'
+import PropertyPayments from '@/components/common/DuePayments.vue'
 import { useAppStore } from '@/stores/index'
 import { getCurrentInstance } from 'vue'
 

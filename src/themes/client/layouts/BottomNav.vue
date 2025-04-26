@@ -9,7 +9,7 @@
         
   
         <!-- Transactions -->
-        <a href="#" class="flex flex-col items-center no-bg">
+        <a href="/payments" class="flex flex-col items-center no-bg">
           <Icon name="IconPayment" class="w-6 h-6 mb-1" />
           <span class="text-xs">Payments</span>
         </a>

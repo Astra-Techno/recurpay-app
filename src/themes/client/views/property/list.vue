@@ -21,5 +21,5 @@
       return mode === 'owned'
     })
 
-  getCurrentInstance().proxy.$setHeader('Properties', '', true, 'IconHome')
+  getCurrentInstance().proxy.$setHeader(title, '', true, 'IconHome')
   </script>

@@ -50,7 +50,12 @@ const routes = [
     component: () => import('../views/payment/add.vue'),
     props: true
   },
-
+  {
+    path: '/payments/',
+    name: 'PaymentsList',
+    component: () => import('../views/payment/list.vue'),
+    props: true
+  },
   {
     path: '/tenants/',
     name: 'TenantsList',
