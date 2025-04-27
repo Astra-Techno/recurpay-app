@@ -11,22 +11,47 @@
         :filter-toggle="false" :messages="{ empty: 'There are no properties added!' }" :page-limit="pageLimit"
         :show-pagination="pagination" :search="false">
         <template #body="{ rows }">
-            <div class="space-y-2">
-                <div v-for="payment in rows" class="bg-gray-100 rounded-xl p-4 flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-semibold">{{ getPaymentTypeLabel(payment.type) }}</p>
-                        <p class="text-xs font-semibold text-blue-600 mt-1">Due: {{ formattedDate(payment.next_due_date) }}</p>
+
+
+            <template v-if="grouped">
+                <div class="space-y-6">
+                    <!-- If Grouped -->
+
+                    <div v-for="(payments, groupTitle) in rows" :key="groupTitle"
+                        class="bg-white rounded-2xl shadow p-4 space-y-4">
+
+                        <div class="flex justify-between items-center pb-2 border-b">
+                            <h2 class="text-lg font-bold">{{ groupTitle }}</h2>
+                        </div>
+                        <!-- Payments under group -->
+                        <div class="space-y-4 pt-2">
+                            <PaymentCard v-for="payment in payments" :key="payment.id" :payment="payment" />
+                        </div>
+
                     </div>
-                    <p class="text-sm font-semibold">{{ formatCurrency(payment.amount) }}</p>
                 </div>
-                <div v-if="rows.length === 0" class="text-center text-gray-500">No Payments to List.</div>
-                <div v-if="rowContents?.total > 2 && pagination === false" class="text-center text-gray-500">
-                    <router-link :to="{ name: 'PaymentsList', params: { property_id: propertyId } }">
-                        <button class="text-xs w-full bg-blue-500 text-white px-3 py-1 rounded-full">View
-                            All</button>
-                    </router-link>
+            </template>
+
+            <!-- If Flat List -->
+            <template v-else>
+                <div class="space-y-4">
+                    <PaymentCard class="grid grid-cols-1 gap-1 shadow-md" v-for="payment in rows" :key="payment.id"
+                        :payment="payment" />
                 </div>
+            </template>
+            <!-- View All Button -->
+            <div v-if="rowContents?.total > 2 && pagination === false" class="text-center mt-6">
+                <router-link :to="{ name: 'PaymentsList', params: { property_id: propertyId } }">
+                    <button
+                        class="text-xs w-full bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-full font-semibold transition">
+                        View All
+                    </button>
+                </router-link>
             </div>
+            <!-- No Payments Message -->
+            <template v-if="rowContents.total === 0">
+                <div class="text-center text-gray-500">No Payments to List.</div>
+            </template>
         </template>
     </list>
 
@@ -35,12 +60,9 @@
 import { computed, defineProps, ref } from 'vue'
 import List from '@/components/List/List.vue'
 import { useAppStore } from '@/stores/index'
-import dayjs from 'dayjs'
 
+import PaymentCard from '@/components/common/PaymentCard.vue'
 
-const formattedDate = (date) => {
-    return dayjs(date).format('MMM DD, YYYY')
-}
 
 const user = useAppStore().getUser()
 const props = defineProps({
@@ -72,33 +94,20 @@ const props = defineProps({
     }
 })
 
+const grouped = ref(false)
 const dataUrl = computed(() => {
     const base_url = 'list/Payments'
 
-    if (props.propertyId) {
+    if (props.propertyId > 0) {
         return `${base_url}?property_id=${props.propertyId}`
     } else {
-        return base_url+':allPayments'
+        grouped.value = true
+        return 'group-list/Payments:allPayments'
     }
-    
+
 })
-const paymentTypes = [
-  { label: 'Rent', value: 'rent' },
-  { label: 'Electricity Bill', value: 'electricity' },
-  { label: 'Water Bill', value: 'water' },
-  { label: 'Maintenance Fee', value: 'maintenance' },
-  { label: 'Security Deposit', value: 'deposit' },
-  { label: 'Other', value: 'other' }
-];
-function getPaymentTypeLabel(type) {
-  const found = paymentTypes.find(item => item.value === type)
-  return found ? found.label : type // fallback to raw type if not found
-}
-function formatCurrency(amount, currency = 'INR', locale = 'en-IN') {
-  return new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: currency
-  }).format(amount)
-}
-const rowContents = ref(null)
+
+
+const rowContents = ref([])
+
 </script>
