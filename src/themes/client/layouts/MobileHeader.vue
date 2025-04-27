@@ -35,7 +35,7 @@
     </div>
 
     <!-- Second Section (Full width ensured) -->
-    <div v-if="!isDashboard" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 pt-2 pb-12">
+    <div v-if="!isDashboard" class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white px-6 pt-2 pb-4">
       <h1 class="font-bold text-white">{{title}}</h1>
       <p class="text-sm mt-1">{{subtitle}}</p>
     </div>
