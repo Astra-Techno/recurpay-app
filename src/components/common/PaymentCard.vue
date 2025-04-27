@@ -15,7 +15,11 @@
           Due: {{ formattedDate(payment.next_due_date) }}
         </p>
         
-       
+        <router-link :to="{ name: 'PaymentDetail', params: { id: payment.id } }">
+          <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full hover:bg-blue-600 transition">
+            View
+          </button>
+        </router-link>
       </div>
     </div>
   </template>

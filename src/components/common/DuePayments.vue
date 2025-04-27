@@ -1,8 +1,8 @@
 <template>
 
     <div class="flex justify-between items-center py-4">
-        <p class="text-sm font-semibold">Payments</p>
-        <router-link :to="{ name: 'AddPayment', params: { property_id: propertyId } }">
+        <p class="text-sm font-semibold" v-if="!grouped">Payments</p>
+        <router-link v-if="!grouped" :to="{ name: 'AddPayment', params: { property_id: propertyId } }">
             <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Payment</button>
         </router-link>
     </div>
@@ -15,14 +15,20 @@
 
             <template v-if="grouped">
                 <div class="space-y-6">
-                    <!-- If Grouped -->
-
                     <div v-for="(payments, groupTitle) in rows" :key="groupTitle"
                         class="bg-white rounded-2xl shadow p-4 space-y-4">
 
                         <div class="flex justify-between items-center pb-2 border-b">
                             <h2 class="text-lg font-bold">{{ groupTitle }}</h2>
+
+                            <router-link v-if="payments.length > 0"
+                                :to="{ name: 'AddPayment', params: { property_id: payments[0].property_id } }">
+                                <button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">
+                                    Add Payment
+                                </button>
+                            </router-link>
                         </div>
+
                         <!-- Payments under group -->
                         <div class="space-y-4 pt-2">
                             <PaymentCard v-for="payment in payments" :key="payment.id" :payment="payment" />
@@ -30,6 +36,7 @@
 
                     </div>
                 </div>
+
             </template>
 
             <!-- If Flat List -->
