@@ -11,7 +11,7 @@
         <span class="text-xs">Properties</span>
       </router-link>
 
-      <router-link to="/payments" class="flex flex-col items-center no-bg">
+      <router-link to="/transactions" class="flex flex-col items-center no-bg">
         <Icon name="IconPayment" class="w-6 h-6 mb-1" />
         <span class="text-xs">Transactions</span>
       </router-link>

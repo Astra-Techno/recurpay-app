@@ -63,6 +63,12 @@ const routes = [
     props: true
   },
   {
+    path: '/transactions/:property_id?/:status?',
+    name: 'Transactions',
+    component: () => import('../views/Transaction/List.vue'),
+    props: true
+  },
+  {
     path: '/tenants/',
     name: 'TenantsList',
     component: () => import('../views/Tenant/List.vue'),
