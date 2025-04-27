@@ -22,14 +22,13 @@
 						<p class="text-sm text-gray-500">Sq. Ft.</p>
 					</div>
 				</div>
-				<div class="flex gap-2 mt-4 items-center" v-if="property.user_id == user.id">
-					<router-link :to="{ name: 'editProperty', params: { id: payment.id } }">
-						<button class=" py-2 px-4 w-40 secondary">Edit Property</button>
+				<div class="flex gap-2 mt-4 items-center w-full" v-if="property.user_id == user.id">
+					<router-link :to="{ name: 'editProperty', params: { id: payment.id } }" class="w-1/2">
+						<button class="py-2 px-4 w-full secondary">Edit Property</button>
 					</router-link>
-					<router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }">
-						<button class="py-2 px-4 w-40 primary">Add Tenant</button>
+					<router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }" class="w-1/2">
+						<button class="py-2 px-4 w-full primary">Add Tenant</button>
 					</router-link>
-
 				</div>
 			</div>
 		</div>

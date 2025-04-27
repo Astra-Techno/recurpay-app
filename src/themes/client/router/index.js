@@ -51,7 +51,7 @@ const routes = [
     props: true
   },
   {
-    path: '/payments/:property_id?',
+    path: '/payments/:property_id?/:status?',
     name: 'PaymentsList',
     component: () => import('../views/payment/list.vue'),
     props: true
@@ -96,6 +96,12 @@ const routes = [
     path: '/payment/:payment_id/mark-as-paid',
     name: 'MarkAsPaid',
     component: () => import('../views/Payment/view.vue'),
+    props: true
+  },
+  {
+    path: '/payment/:payment_id/send-reminder',
+    name: 'SendReminder',   
+    component: () => import('../views/Payment/reminder.vue'),
     props: true
   },
   {

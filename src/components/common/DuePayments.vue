@@ -19,7 +19,7 @@
                         class="bg-white rounded-2xl shadow p-4 space-y-4">
 
                         <div class="flex justify-between items-center pb-2 border-b">
-                            <h2 class="text-lg font-bold">{{ groupTitle }}</h2>
+                            <h2 class="text-lg font-bold">{{ groupTitle }}<br /><span class="text-sm text-gray-500"> {{payments[0].address1 }}</span></h2>
 
                             <router-link v-if="payments.length > 0"
                                 :to="{ name: 'AddPayment', params: { property_id: payments[0].property_id } }">
@@ -98,23 +98,36 @@ const props = defineProps({
         type: Number,
         default: null,
         required: false
-    }
+    },
+    status: {
+        type: String,
+        default: 'all',
+        required: false
+    },
 })
 
 const grouped = ref(false)
 const dataUrl = computed(() => {
-    const base_url = 'list/Payments'
+    let pay_status = '';
 
-    if (props.propertyId > 0) {
-        return `${base_url}?property_id=${props.propertyId}`
+    if (props.status === 'pending') {
+        pay_status = 'Pending=1';
+    } else if (props.status === 'due') {
+        pay_status = 'Due=1';
     } else {
-        grouped.value = true
-        return 'group-list/Payments:allPayments'
+        pay_status = '';
     }
 
-})
+    // Build query string
+    const query = pay_status ? `&${pay_status}` : '';
 
+    if (props.propertyId > 0) {
+        return `list/Payments?property_id=${props.propertyId}${query}`;
+    } else {
+        grouped.value = true;
+        return `group-list/Payments:allPayments${pay_status ? `?${pay_status}` : ''}`;
+    }
+});
 
 const rowContents = ref([])
-
 </script>
