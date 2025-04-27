@@ -78,8 +78,7 @@
 		</div>
 
 		<!-- Recent Payments-->
-		<div class="mt-6 px-4">
-			
+		<div class="mt-6 px-4">			
 			<Transactions title="Recent Payments" page-limit="2" display="detail-list" :property-id="property_id" />
 		</div>
 	</div>

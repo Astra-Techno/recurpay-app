@@ -28,6 +28,14 @@
 					<template v-if="rowContents.total === 0" class="text-center text-gray-400 text-sm py-10">
 						No Recent Payments Found
 					</template>
+                    <div v-if="rowContents?.total > 2 && pagination === false" class="text-center mt-6">
+                        <router-link :to="{ name: 'Transactions', params: { property_id: propertyId } }">
+                            <button
+                                class="text-xs w-full bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-full font-semibold transition">
+                                View All
+                            </button>
+                        </router-link>
+                    </div>
 				
 				</template>
 
