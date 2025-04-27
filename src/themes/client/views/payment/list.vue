@@ -1,5 +1,5 @@
 <template>
-    <section class="px-4 pb-4  bg-white rounded-xl h-screen">
+    <section class="px-4  bg-white rounded-xl h-screen">
       <List class="py-2 my-2" :status="status" :property-id="property_id" :display="'list'" :pagination="true" :pageLimit="8" title="Payments" :description="'No Payments Added yet'"/>      
     </section>
   </template>
