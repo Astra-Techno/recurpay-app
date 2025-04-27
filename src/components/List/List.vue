@@ -510,7 +510,7 @@ function rowClick(item) {
 }
 
 defineExpose({
-	goFirst, goNext, goPrev, goTo, total, rows, currentPage, totalPages, filter, editRow, saveRow, cancelEdit
+	goFirst, goNext, goPrev, goTo, total, rows, currentPage, totalPages, filter, editRow, saveRow, cancelEdit,isLoading
 });
 </script>
 

@@ -69,6 +69,12 @@ const routes = [
     props: true
   },
   {
+    path: '/transaction/:id',
+    name: 'TransactionDetail',
+    component: () => import('../views/Transaction/index.vue'),
+    props: true
+  },
+  {
     path: '/tenants/',
     name: 'TenantsList',
     component: () => import('../views/Tenant/List.vue'),
