@@ -11,6 +11,8 @@ export default defineConfig(({ command, mode }) => {
 	const HOST = `${process.env.VITE_HOST ?? 'localhost'}`
 	const PORT = `${process.env.VITE_PORT ?? '5173'}`
 	const THEME = `${process.env.VITE_PROJECT_BASE ?? 'client'}`
+	const baseURL = process.env.VITE_API_BASE_URL
+	const isDev = process.env.NODE_ENV === 'development'
 	const MEDIA_BASE_URL =
 		process.env.VITE_MEDIA_BASE_URL || 'http://default-url'
 	const IS_LOCAL = process.env.VITE_LOCAL_ENV || 0
@@ -63,6 +65,10 @@ export default defineConfig(({ command, mode }) => {
 					target: MEDIA_BASE_URL,
 					changeOrigin: true,
 					rewrite: path => path.replace(/^\/media/, ''),
+				},
+				'/api': {
+					target: baseURL,
+					changeOrigin: true,
 				},
 			},
 		},

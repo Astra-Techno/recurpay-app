@@ -9,7 +9,7 @@ const isLoading = ref(false)
 const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 const axiosClient = axios.create({
-	baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
+	baseURL: `/api`,
 })
 
 axiosClient.interceptors.request.use(
@@ -20,7 +20,7 @@ axiosClient.interceptors.request.use(
 		config.headers['X-Site-Origin'] =
 			`${import.meta.env.VITE_PROJECT_BASE || 'propertymanager'}`
 		config.headers['X-User-TimeZone'] = userTimeZone
-		config.headers['Accept'] = 'application/json';
+		config.headers['Accept'] = 'application/json'
 		if (appStore.headers) {
 			for (const key in appStore.headers) {
 				config.headers[key] = appStore.headers[key]
