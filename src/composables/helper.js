@@ -21,7 +21,25 @@ export function ucfirst(str) {
   return str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
 }
 
+export function upper(str) {
+  return str ? str.toUpperCase() : '';
+}
+
+export function lower(str) {
+  return str ? str.toLowerCase() : '';
+}
+
 export const currency = (value, currency = 'USD', locale = 'en-US') => {
+    if (isEmpty(value)) {
+      return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      })
+        .formatToParts(0)
+        .find(part => part.type === 'currency').value;
+    }
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: currency

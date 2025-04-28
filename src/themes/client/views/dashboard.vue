@@ -32,7 +32,7 @@
       <template #body="{ rows }">
         <div class="space-y-2">
           <template v-for="payment in rows">
-            <PaymentCard :payment="payment" displayType="dashboard" />
+            <DuePaymentCard :payment="payment" displayType="dashboard" />
           </template>
         </div>
         <div v-if="rows.length > 0" class="text-center mt-4">
@@ -101,6 +101,7 @@ import useApiRequest from '@/composables/request'
 import Signal from '@/composables/signal'
 import List from '@/components/List/List.vue'
 import PaymentCard from '@/components/common/PaymentCard.vue'
+import DuePaymentCard from '@/components/common/DuePaymentCard.vue'
 import TransactionCard from '@/components/common/TransactionCard.vue'
 
 const request = useApiRequest()

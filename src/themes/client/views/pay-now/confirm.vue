@@ -35,8 +35,9 @@
         </div>
 
         <div class="bg-white rounded-lg shadow p-6 mb-6 space-y-4" v-if="paymentMethod?.type == 'cash'">
-          <div class="flex justify-between items-center border-b pb-3">
-            <span class="text-gray-600">Give cash to landlord and tap 'Mark as Paid'.</span>
+          <div class="text-center">
+            <p class="text-gray-600">Give cash <span class="font-bold text-green-600">{{ currency(payment?.PaymentDue?.total_due || 0, 'INR') }}</span> to landlord</p>
+            <p> and Tap <span class="font-bold">'Mark as Paid'</span></p>
           </div>
         </div>
   
@@ -47,7 +48,17 @@
             type="text" 
             class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter transaction reference"
-            v-model="referenceId"
+            v-model="paidInfo.referenceId"
+          >
+        </div>
+
+        <div class="mb-6" v-if="paymentMethod?.type == 'cash'">
+          <label class="block text-gray-700 text-sm font-medium mb-2">Paid Amount {{currency('', 'INR')}}</label>
+          <input 
+            type="text" 
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter paid amount"
+            v-model="paidInfo.paidAmount"
           >
         </div>
   
@@ -69,9 +80,9 @@
               accept="image/*,.pdf"
             >
           </div>
-          <div v-if="previewUrl" class="mt-2">
+          <!--<div v-if="previewUrl" class="mt-2">
             <img :src="previewUrl" alt="Payment proof" class="h-20 object-contain rounded">
-          </div>
+          </div>-->
         </div>
       </div>
   
@@ -91,7 +102,8 @@
   import { ref, inject, onMounted, getCurrentInstance } from 'vue';
   import { useRouter } from 'vue-router';
   import useApiRequest from '@/composables/request'
-  import { currency, formatDate, ucfirst } from '@/composables/helper';
+  import { currency } from '@/composables/helper';
+  import Signal from '@/composables/signal'
 
   const QueryParams = inject('QueryParams'); // Inject global params
   const PaymentId = QueryParams.value[0] ?? 0;
@@ -102,12 +114,22 @@
   const request = useApiRequest()
   const selectedId = ref(null);
 
-  function confirmPaymentMethod() {
-    console.log('Selected payment method ID:', selectedId.value);
-    router.push('/payment/confirm/'+PaymentId+'/'+selectedId.value);
+  async function markAsPaid() {
+    const response = await request.post('task/Payment/paid', paidInfo.value);
+    if (response.error) {
+      Signal.error(response.message);
+      return;
+    }
+
+    Signal.success('Payment completed! The owner has been notified.');
+    
+    console.log('PaidInfo:', paidInfo)
+    router.push("/dashboard");
   }
 
   const title = ref('💵 Cash Payment');
+
+  const paidInfo = ref({});
 
   const instance = getCurrentInstance();
   //getCurrentInstance().proxy.$setHeader(title.value, '', true, '')
@@ -125,6 +147,10 @@
   
     payment.value = response.data;
     paymentMethod.value = response.data.PaymentOptions?.[0];
+
+    paidInfo.value.paymentId = payment.value.id;
+    paidInfo.value.paymentMethodId = paymentMethod.value.id;
+    paidInfo.value.paidAmount = payment.value.PaymentDue?.total_due;
 
     if (paymentMethod.value.type == 'bank')
         title.value = '🏦 Bank Transfer';

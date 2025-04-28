@@ -25,7 +25,7 @@
               <span v-else-if="method.type === 'cash'">💵</span>
             </div>
             <div class="text-sm">
-              <div class="font-medium capitalize">{{ method.type }}</div>
+              <div class="font-medium capitalize">{{ method.type == 'upi' ? 'UPI' : ucfirst(method.type) }}</div>
               <div class="text-gray-500 text-xs">
                 <span v-if="method.type === 'bank'">****{{ method.account_number.slice(-4) }}</span>
                 <span v-else-if="method.type === 'upi'">{{ method.upi_id }}</span>
@@ -54,7 +54,7 @@
   import { ref, inject, onMounted, getCurrentInstance } from 'vue';
   import { useRouter } from 'vue-router';
   import useApiRequest from '@/composables/request'
-  import { currency, formatDate, ucfirst } from '@/composables/helper';
+  import { currency, formatDate, ucfirst, upper } from '@/composables/helper';
 
   const QueryParams = inject('QueryParams'); // Inject global params
   const PaymentId = QueryParams.value[0] ?? 0;
