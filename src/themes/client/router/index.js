@@ -117,6 +117,12 @@ const routes = [
     props: true
   },
   {
+    path: '/settings',
+    name: 'Profile',   
+    component: () => import('../views/user/profile.vue'),
+    props: true
+  },
+  {
     path: "/:pageName(.*)",
     name: "page",
     component: HomeView

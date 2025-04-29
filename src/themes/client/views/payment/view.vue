@@ -48,6 +48,7 @@
             </svg>
           </div>
           <div>
+            {{ payment }}
             <p class="text-sm font-black ">Ram Kumar</p>
             <p class="text-xs text-gray-500">Frequency: Monthly</p>
             <p class="text-xs text-gray-500">Next Due Date: NA</p>
