@@ -40,14 +40,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed,getCurrentInstance } from 'vue'
 import { useRouter } from 'vue-router'
 import ProfileItem from '@/components/profile/ProfileItem.vue'
 import UserDetails from '@/components/profile/UserDetails.vue'
 import MyPayments from '@/components/profile/Payments.vue'
 import AccountDetails from '@/components/profile/AccountDetails.vue'
 import UpdatePassword from '@/components/profile/PasswordUpdate.vue'
-
+getCurrentInstance().proxy.$setHeader('', '', true, 'IconHome')
 const router = useRouter()
 const expanded = ref(null)
 const user = ref({ name: 'Shanmugakani Vignesh' })
