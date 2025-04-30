@@ -1,60 +1,18 @@
 <template>
-    <div class="space-y-4">
-      <div class="flex justify-between items-center">
-        <h2 class="text-lg font-semibold text-gray-800">My Payments</h2>
-      </div>
-  
-      <div class="bg-white p-4 rounded shadow">
-        <div class="space-y-2">
-          <div
-            v-for="(payment, index) in payments"
-            :key="index"
-            class="border-b pb-2 last:border-b-0 last:pb-0"
-          >
-            <p class="text-sm font-medium text-gray-700">
-              {{ formatCurrency(payment.amount) }} — {{ payment.type }}
-            </p>
-            <p class="text-xs text-gray-500">
-              Paid on {{ formattedDate(payment.date) }} via {{ payment.method }}
-            </p>
-          </div>
-        </div>
-  
-        <div v-if="payments.length === 0" class="text-sm text-gray-400">
-          No payments found.
-        </div>
-      </div>
-    </div>
+    <section class="px-4 pb-4  bg-white rounded-xl h-screen">
+      <List class="py-2 my-2" :status="status" :property-id="property_id" :display="'list'" :pagination="true" :pageLimit="5" title="My Payments" :description="'No Payments Added yet'"/>      
+    </section>
   </template>
   
   <script setup>
-  import { ref } from 'vue'
-  import dayjs from 'dayjs'
+  import List from '@/components/common/Transactions.vue'
+  import { getCurrentInstance } from 'vue'
+  import { useRoute } from 'vue-router'  
+   const route = useRoute()
+   const property_id = route.params.property_id || 0    
+   const status = route.params.status || 'all'
   
-  const payments = ref([
-    {
-      amount: 12000,
-      type: 'Rent',
-      date: '2024-12-05',
-      method: 'UPI'
-    },
-    {
-      amount: 5500,
-      type: 'Maintenance',
-      date: '2025-02-12',
-      method: 'Bank Transfer'
-    }
-  ])
-  
-  function formatCurrency(amount, currency = 'INR', locale = 'en-IN') {
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: currency
-    }).format(amount)
-  }
-  
-  function formattedDate(date) {
-    return dayjs(date).format('MMM DD, YYYY')
-  }
+  getCurrentInstance().proxy.$setHeader('All Transactions', '', true, 'IconHome')
   </script>
+  
   
