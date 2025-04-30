@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="displayType === 'card'"
-    class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 space-y-4 relative overflow-hidden"
+    class="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 space-y-4 relative overflow-hidden"
   >
     <!-- Top: Payment Type and Amount -->
     <div class="flex justify-between items-center">
@@ -49,7 +49,7 @@
   <!-- Default View -->
   <div
     v-else
-    class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 space-y-4 overflow-hidden"
+    class="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 space-y-4 overflow-hidden"
   >
     <div class="flex justify-between items-center">
       <p class="font-bold text-gray-800">{{ payment.property }}</p>

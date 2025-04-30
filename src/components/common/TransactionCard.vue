@@ -50,7 +50,7 @@
   </div>
 
   <!-- Dashboard Display -->
-  <div v-else-if="displayType === 'dashboard'" class="flex justify-between items-center p-2">
+  <div v-else-if="displayType === 'dashboard'" class="flex justify-between shadow-sm items-center p-2">
     <div class="text-sm text-gray-700 font-semibold truncate">
       {{ transaction.tenant_name }} — {{ transaction.property }}
     </div>

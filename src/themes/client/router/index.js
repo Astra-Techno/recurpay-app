@@ -123,6 +123,12 @@ const routes = [
     props: true
   },
   {
+    path: '/settings',
+    name: 'EditProfile',   
+    component: () => import('../views/user/profile.vue'),
+    props: true
+  },
+  {
     path: "/:pageName(.*)",
     name: "page",
     component: HomeView

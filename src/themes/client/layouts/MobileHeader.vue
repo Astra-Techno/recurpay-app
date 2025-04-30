@@ -27,7 +27,9 @@
 
       <!-- Right Section -->
       <div class="flex items-center space-x-2">
+        <RouterLink :to="`/settings`">
         <User class="w-6 h-6" />
+        </RouterLink>
         <RouterLink :to="`/logout`">
           <LogOut class="w-6 h-6" />
         </RouterLink>
