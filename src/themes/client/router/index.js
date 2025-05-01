@@ -75,6 +75,12 @@ const routes = [
     props: true
   },
   {
+    path: '/mark-as-paid/:id',
+    name: 'MarkAsPaidDetail',
+    component: () => import('../views/MarkAsPaid/index.vue'),
+    props: true
+  },
+  {
     path: '/tenants/',
     name: 'TenantsList',
     component: () => import('../views/Tenant/List.vue'),

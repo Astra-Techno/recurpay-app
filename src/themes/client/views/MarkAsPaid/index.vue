@@ -11,7 +11,7 @@
       </transition>
   
       <!-- Main Content -->
-      <div class="flex-1 p-6 flex flex-col items-center text-center space-y-6">
+      <div class="flex-1 p-6 flex flex-col items-center text-center space-y">
         <template v-if="loading">
           <!-- Loading Shimmer -->
           <div class="animate-pulse space-y-6 w-full flex flex-col items-center">
@@ -31,7 +31,7 @@
           <!-- Empty State -->
           <div class="flex flex-col items-center space-y-4">
             <div class="text-6xl">😕</div>
-            <p class="text-gray-600 font-semibold">Receipt not found.</p>
+            <p class="text-gray-600 font-semibold">Transaction not found.</p>
             <button @click="$router.back()" class="text-sm mt-2 text-blue-500">
               Go Back
             </button>
@@ -59,61 +59,62 @@
   
           <!-- Tenant/User Name -->
           <p class="text-sm text-gray-500">
-            {{ transaction.tenant_name }}
+            Paid via <span class="font-medium">{{ formatPaymentMode(transaction.payment_mode) }}</span>
           </p>
   
           <!-- Info Card -->
-          <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-6">
+          <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-1">
             <div class="flex justify-between">
-              <p class="text-xs text-gray-500">Payment Date</p>
-              <p class="text-base font-semibold text-gray-800">{{ formattedDate(transaction.paid_on) }}</p>
+              <p class="text-base text-gray-500">Paid</p>
+              <p class="text-base font-semibold text-gray-800">{{  transaction.tenant_name	}}</p>
             </div>
             <div class="border-t"></div>
   
             <div class="flex justify-between">
-              <p class="text-xs text-gray-500">Payment Method</p>
-              <p class="text-base font-semibold text-gray-800">{{ formatPaymentMode(transaction.payment_mode) }}</p>
+              <p class="text-base text-gray-500">Date</p>
+              <p class="text-base font-semibold text-gray-800">{{ formattedDate(transaction.paid_on)  }}</p>
             </div>
-            <div class="border-t"></div>
-  
-            <div class="flex justify-between">
-              <p class="text-xs text-gray-500">Transaction ID</p>
-              <p class="text-base font-semibold text-gray-800 truncate">{{ transaction.transaction_ref || '-' }}</p>
-            </div>
-            <div class="border-t"></div>
-  
-            <div class="flex justify-between">
-              <p class="text-xs text-gray-500">Payment Type</p>
-              <p class="text-base font-semibold text-gray-800">{{ formatPaymentType(transaction.payment_type) }}</p>
-            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-6" v-if="transaction.status=='pending'">
+            <p class="text-left">Please <b>confirm only if</b> you have received the payment. This action cannot be undone</p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-6" v-if="transaction.status=='success'">
+            <p class="text-left">You've already confirmed this payment.</p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-6" v-if="transaction.status=='failed'">
+            <p class="text-left">Payment failed to process. Please contact our support team for assistance.</p>
           </div>
         </template>
       </div>
   
-      <!-- Bottom Actions (only for success) -->
-      <div v-if="transaction && isSuccess" class="p-4 bg-white flex flex-wrap justify-around gap-2 border-t">
-        <a @click="shareReceipt" class="text-blue-500 font-semibold text-sm cursor-pointer">
-          Share
-        </a>
-        <a @click="downloadInvoice" class="text-blue-500 font-semibold text-sm cursor-pointer">
-          Download Invoice
-        </a>        
+      <!-- Fixed Bottom Button -->
+      <div class="p-4 bg-white border-t shadow-lg" v-if="transaction.status=='pending'">
+        <button
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-lg"
+          @click="markAsPaid"
+        >
+          Confirm Payment
+        </button>
       </div>
     </div>
   </template>
   
   <script setup>
   import { ref, onMounted, computed, getCurrentInstance } from 'vue'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import dayjs from 'dayjs'
   import useApiRequest from '@/composables/request'
+  import Signal from '@/composables/signal'
   
   // Set page header
-  getCurrentInstance().proxy.$setHeader('Payment Receipt', '', true, 'IconHome')
-
+  getCurrentInstance().proxy.$setHeader('Mark As Paid', '', true, 'IconHome')
+  
   const route = useRoute()
   const request = useApiRequest()
-  
+  const router = useRouter();
   const transaction = ref(null)
   const loading = ref(true)
   
@@ -158,16 +159,13 @@
     }[mode.toLowerCase()] || mode
   }
   
-  function formatPaymentType(type) {
-    const labels = {
-      rent: 'Rent',
-      maintenance: 'Maintenance',
-      electricity: 'Electricity Bill',
-      water: 'Water Bill',
-      deposit: 'Security Deposit',
-      other: 'Other'
-    }
-    return labels[type] || type
+  async function markAsPaid() {
+    const response = await request.post('task/Payment/markAsPaid', transaction.value);
+    if (response.error)
+      Signal.error(response.message);
+    else
+      Signal.success('Payment processed successfully!');
+    router.push("/dashboard");
   }
   
   function getStatusIcon(status) {
@@ -200,8 +198,8 @@
   }
   
   const statusIcon = computed(() => {
-    if (!transaction.value) return getStatusIcon('success')
-    return getStatusIcon(transaction.value.status || 'success')
+    return getStatusIcon('success')
+    //return getStatusIcon(transaction.value.status || 'success')
   })
   
   const isSuccess = computed(() => {
