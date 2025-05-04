@@ -4,8 +4,6 @@
 		<div class="sticky top-0 bg-white z-10 px-6 py-4">
 
 			<p class="py-2 mt-1">{{ fullAddress }}</p>
-
-
 			<!-- Property Info Card -->
 			<div>
 				<div class="flex justify-between text-center border-t">
@@ -36,7 +34,7 @@
 			:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }"
 			:page-limit="4" :search="false" :show-pagination="false">
 			<template #body="{ rows }">
-				<div class="mt-6 px-4 py-2">
+				<div class="mt-2 px-4 py-2">
 					<h2 class="text-base font-bold mb-2">Current Tenants</h2>
 					<div v-if="tenantList.total > 0" v-for="tenant in rows"
 						class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
@@ -73,28 +71,26 @@
 			</template>
 		</list>
 		<!-- Payments -->
-		<div class="mt-6 px-4">
-			<PropertyPayments title="Payments" :property-id="property_id" />
+		<div class="px-4">
+			<Payments title="Payments" :property-id="property_id" layout="property" />
 		</div>
 
 		<!-- Recent Payments-->
-		<div class="mt-6 px-4">			
-			<Transactions title="Recent Payments" page-limit="2" display="detail-list" :property-id="property_id" />
+		<div class="mt-5 px-4">			
+			<Transactions title="Transactions" page-limit="2" display="detail-list" :property-id="property_id" />
 		</div>
 	</div>
 </template>
 
 <script setup>
 
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, getCurrentInstance } from 'vue'
 import { useRoute } from 'vue-router'
 import useApiRequest from '@/composables/request'
 import List from '@/components/List/List.vue'
-import PropertyPayments from '@/components/common/DuePayments.vue'
+import Payments from '@/components/common/Payments.vue'
 import Transactions from '@/components/common/Transactions.vue'
 import { useAppStore } from '@/stores/index'
-import { getCurrentInstance } from 'vue'
-
 
 const emit = defineEmits(['submitted'])
 

@@ -59,14 +59,14 @@
   
           <!-- Tenant/User Name -->
           <p class="text-sm text-gray-500">
-            Paid via <span class="font-medium">{{ formatPaymentMode(transaction.payment_mode) }}</span>
+            Paid via <span class="font-medium">{{ formatPaymentMode(transaction?.payment_mode) }}</span>
           </p>
   
           <!-- Info Card -->
           <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-1">
             <div class="flex justify-between">
               <p class="text-base text-gray-500">Paid</p>
-              <p class="text-base font-semibold text-gray-800">{{  transaction.tenant_name	}}</p>
+              <p class="text-base font-semibold text-gray-800">{{  transaction?.tenant_name	}}</p>
             </div>
             <div class="border-t"></div>
   
@@ -76,7 +76,7 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-6" v-if="transaction.status=='pending'">
+          <div class="bg-white rounded-xl shadow p-4 w-full space-y-4 mt-6" v-if="transaction.status=='paid'">
             <p class="text-left">Please <b>confirm only if</b> you have received the payment. This action cannot be undone</p>
           </div>
 
@@ -91,7 +91,7 @@
       </div>
   
       <!-- Fixed Bottom Button -->
-      <div class="p-4 bg-white border-t shadow-lg" v-if="transaction.status=='pending'">
+      <div class="p-4 bg-white border-t shadow-lg" v-if="transaction.status=='paid'">
         <button
           class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-lg"
           @click="markAsPaid"
@@ -103,11 +103,14 @@
   </template>
   
   <script setup>
-  import { ref, onMounted, computed, getCurrentInstance } from 'vue'
+  import { ref, onMounted, computed, inject, getCurrentInstance } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import dayjs from 'dayjs'
   import useApiRequest from '@/composables/request'
   import Signal from '@/composables/signal'
+
+  const QueryParams = inject('QueryParams'); // Inject global params
+  const transactionId = QueryParams.value[0] ?? 0;
   
   // Set page header
   getCurrentInstance().proxy.$setHeader('Mark As Paid', '', true, 'IconHome')
@@ -115,7 +118,7 @@
   const route = useRoute()
   const request = useApiRequest()
   const router = useRouter();
-  const transaction = ref(null)
+  const transaction = ref({})
   const loading = ref(true)
   
   // Toast State
@@ -125,9 +128,10 @@
   onMounted(async () => {
     try {
       const id = route.params.id
-      const res = await request.fetch(`/item/PaymentTransactions?id=${id}`)
+      const res = await request.fetch(`/item/PaymentTransactions?id=${transactionId}`)
       await new Promise(resolve => setTimeout(resolve, 500))
   
+
       if (res.error) {
         transaction.value = null
       } else {

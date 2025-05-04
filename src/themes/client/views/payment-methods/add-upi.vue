@@ -25,6 +25,7 @@
             }
           }"
         >
+         <FormKit type="text" name="account_holder_name" label="Name" placeholder="Name.." validation="required" />
           <FormKit
             type="text"
             name="upi_id"

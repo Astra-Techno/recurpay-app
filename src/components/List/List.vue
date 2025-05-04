@@ -1,7 +1,9 @@
 <template>
 	<div class="list-container">
 		<!-- Instance-specific loader -->
-		<loader :loading="isLoading"></loader>
+		<!-- <loader :loading="isLoading"></loader> -->
+
+		<SkeletonLoader v-if="isLoading" :count="3" class="mt-4" />
 
 		<slot name="header-top"></slot>
 
@@ -223,6 +225,7 @@ import Pagination from './Pagination.vue';
 import useApiRequest from '@/composables/request';
 import Signal from '@/composables/signal';
 import loader from '@/components/elements/Loader.vue';
+import SkeletonLoader from '../common/SkeletonLoader.vue';
 
 const props = defineProps({
 	// Original props

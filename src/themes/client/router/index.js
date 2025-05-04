@@ -75,45 +75,27 @@ const routes = [
     props: true
   },
   {
-    path: '/mark-as-paid/:id',
-    name: 'MarkAsPaidDetail',
-    component: () => import('../views/MarkAsPaid/index.vue'),
-    props: true
-  },
-  {
     path: '/tenants/',
     name: 'TenantsList',
-    component: () => import('../views/Tenant/List.vue'),
+    component: () => import('../views/tenant/List.vue'),
     props: true
   },
   {
     path: '/tenants/:id',
     name: 'TenantDetail',
-    component: () => import('../views/Tenant/Detail.vue'),
+    component: () => import('../views/tenant/Detail.vue'),
     props: true
   },
   {
     path: '/properties/:id/tenants',
     name: 'TenantsListByProperty',
-    component: () => import('../views/Tenant/List.vue'),
+    component: () => import('../views/tenant/List.vue'),
     props: true
   },
   {
     path: '/properties/:property_id/add-tenant',
     name: 'AddTenant',
-    component: () => import('../views/Tenant/add.vue'),
-    props: true
-  },
-  {
-    path: '/payment/:payment_id/pay-now',
-    name: 'PayNow',
-    component: () => import('../views/Payment/view.vue'),
-    props: true
-  },
-  {
-    path: '/payment/:payment_id/mark-as-paid',
-    name: 'MarkAsPaid',
-    component: () => import('../views/Payment/view.vue'),
+    component: () => import('../views/tenant/add.vue'),
     props: true
   },
   {
@@ -154,6 +136,25 @@ const router = createRouter({
   }
 })
 
+/*
+// Navigation guard to check authentication
+router.beforeEach((to, from, next) => {
+	const appStore = useAppStore()
+	// Redirect logged-in users from the login page to the dashboard
+	if (to.meta.guest && appStore.user.token) {
+		next('/dashboard')
+	} else if (
+		(to.meta.requiresAuth || !to.meta.guest) &&
+		!appStore.user.token
+	) {
+		// If the route requires authentication and the user is not logged in
+		next({ name: 'Login', query: { redirect: to.fullPath } }) // Redirect to the login page
+	} else {
+		next() // Proceed to the route
+	}
+})
+*/
+
 router.beforeEach((to, from, next) => {
   const store = useAppStore()
   if (to?.query?.fullview == '1')
@@ -161,11 +162,9 @@ router.beforeEach((to, from, next) => {
   else
     store.setMainLayout("app")
 
-  /*if (to?.meta?.layout == "auth") {
-    store.setMainLayout("auth")
-  } else {
-    store.setMainLayout("app")
-  }*/
+  if (to?.name != 'page' && !to?.meta?.guestView && !store.user.token) {
+    next('/login') // Redirect to the login page
+  }
 
   next(true)
 })

@@ -1,11 +1,12 @@
 <template>
 	<!-- Screen loader -->
 	<div>
-		<div v-if="isLoading"
+		<!-- <div v-if="isLoading"
 			class="fixed inset-0 bg-[#fafafa] dark:bg-[#060818] z-[1] grid place-content-center animate__animated">
 			<SimpleLoader></SimpleLoader>
-		</div>
+		</div> -->
 
+		<SkeletonLoader v-if="isLoading" :count="3" class="px-4 pb-4" />
 		<component v-if="PageComp" :is="PageComp" />
 	</div>
 </template>
@@ -17,6 +18,7 @@ import { useMeta } from '@/composables/use-meta';
 import { useRoute, useRouter } from 'vue-router';
 import useApiRequest from '@/composables/request';
 import SimpleLoader from '@/components/elements/SimpleLoader.vue'
+import SkeletonLoader from '@/components/common/SkeletonLoader.vue';
 
 const route = useRoute();
 const router = useRouter();

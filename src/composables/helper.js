@@ -29,7 +29,7 @@ export function lower(str) {
   return str ? str.toLowerCase() : '';
 }
 
-export const currency = (value, currency = 'USD', locale = 'en-US') => {
+export const currency = (value, currency = 'INR', locale = 'en-US') => {
     if (isEmpty(value)) {
       return new Intl.NumberFormat(locale, {
         style: 'currency',

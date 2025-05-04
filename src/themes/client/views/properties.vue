@@ -1,7 +1,7 @@
 <template>
   <section class="px-2 pb-4 drop-shadow-xl bg-white rounded-xl h-screen">
-    <List class="py-2 my-2" :title="'My Properties'" :description="'No properties added yet!'" :owned="true" />
-    <List :title="'Rented Properties'" :description="'No properties added yet!'" :owned="false" />
+    <List :title="'Owned Properties'" :display="'list'" :owned="true" class="py-2 my-2" />
+    <List :title="'Rented Properties'" :display="'list'" :description="'No properties added yet!'" :owned="false" />
   </section>
 </template>
 

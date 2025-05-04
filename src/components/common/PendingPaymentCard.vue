@@ -23,10 +23,8 @@
 
     <!-- Floating Actions -->
     <div v-if="payment.pay_status" class="flex gap-2 mt-4 flex-wrap justify-end md:justify-end">
-      <router-link
-        v-if="payment.pay_status === 'pending'"
-        :to="{ name: 'MarkAsPaid', params: { payment_id: payment.id } }"
-      >
+      <router-link v-if="payment.pay_status === 'paid'"
+      :to="`/mark-as-paid/index/${payment.transaction_id}`">
         <button
           class="ripple-btn text-xs bg-green-500 hover:bg-green-600 text-white font-bold px-3 py-1 rounded-full transition w-full md:w-auto"
         >
@@ -34,7 +32,7 @@
         </button>
       </router-link>
       <router-link
-        v-else-if="payment.pay_status === 'due'"
+        v-else-if="payment.pay_status === 'pending'"
         :to="{ name: 'SendReminder', params: { payment_id: payment.id } }"
       >
         <button
@@ -46,9 +44,9 @@
     </div>
   </div>
 
-  <!-- Default View -->
+  <!-- Property Edit View-->
   <div
-    v-else
+    v-else-if="displayType === 'property'"
     class="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 space-y-4 overflow-hidden"
   >
     <div class="flex justify-between items-center">
@@ -63,16 +61,64 @@
     <p class="text-xs font-semibold text-orange-600">{{ payment.address1 }}</p>
 
     <div class="flex justify-between items-center text-sm">
-      <p class="text-gray-700">{{ getPaymentTypeLabel(payment.type) }} – {{ formatCurrency(payment.total_due) }}</p>
+      <p class="text-gray-700">{{ getPaymentTypeLabel(payment.type) }}  {{ formatCurrency(payment.total_due) }}</p>
       <span class="text-xs font-bold text-orange-500">
         Due in {{ payment.due_in_days }} days
       </span>
     </div>
 
     <div v-if="payment.pay_status" class="flex gap-2 mt-4 flex-wrap justify-end md:justify-end">
+      <router-link v-if="payment.pay_status === 'paid'"
+        :to="`/mark-as-paid/index/${payment.transaction_id}`">
+        <button
+          class="ripple-btn text-xs bg-green-500 hover:bg-green-600 text-white font-bold px-3 py-1 rounded-full transition w-full md:w-auto"
+        >
+          Mark As Paid
+        </button>
+      </router-link>
       <router-link
-        v-if="payment.pay_status === 'pending'"
-        :to="{ name: 'MarkAsPaid', params: { payment_id: payment.id } }"
+        v-else-if="payment.pay_status === 'pending'"
+        :to="{ name: 'SendReminder', params: { payment_id: payment.id } }"
+      >
+        <button
+          class="ripple-btn text-xs bg-yellow-500 hover:bg-yellow-600 text-white font-bold px-3 py-1 rounded-full transition w-full md:w-auto"
+        >
+          Send Reminder
+        </button>
+      </router-link>
+    </div>
+  </div>
+
+  <!-- Default View -->
+  <div
+    v-else
+    class="bg-white pt-0 p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 space-y-4 overflow-hidden"
+  >
+    <div class="flex justify-between items-center">
+      <p class="font-bold text-gray-800">{{ payment.property }}</p>
+      <router-link :to="{ name: 'PaymentDetail', params: { id: payment.id } }">
+        <button class="ripple-btn text-xs bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full">
+          View
+        </button>
+      </router-link>
+    </div>
+
+    <p class="text-xs font-semibold text-orange-600">{{ payment.address1 }}</p>
+
+    <div class="flex justify-between items-center text-sm">
+      <p class="text-gray-700">{{ getPaymentTypeLabel(payment.type) }} {{ formatCurrency(payment.total_due) }}</p>
+      <span class="text-xs font-bold text-orange-500" v-if="payment.pay_status !== 'paid'">
+        Due in {{ payment.due_in_days }} days
+      </span>
+      <span class="text-xs font-bold text-orange-500" v-else>
+        Paid {{ currency(payment.amount_paid) }} via {{ ucfirst(payment.payment_mode) }}
+      </span>
+    </div>
+
+    <div v-if="payment.pay_status" class="flex gap-2 mt-4 flex-wrap justify-end md:justify-end">
+      <router-link
+        v-if="payment.pay_status === 'paid'"
+        :to="`/mark-as-paid/index/${payment.transaction_id}`"
       >
         <button
           class="ripple-btn text-xs bg-green-500 hover:bg-green-600 text-white font-bold px-3 py-1 rounded-full transition w-full md:w-auto"
@@ -81,7 +127,7 @@
         </button>
       </router-link>
       <router-link
-        v-else-if="payment.pay_status === 'due'"
+        v-else-if="payment.pay_status === 'pending'"
         :to="{ name: 'SendReminder', params: { payment_id: payment.id } }"
       >
         <button
@@ -96,6 +142,7 @@
 
 <script setup>
 import dayjs from 'dayjs'
+import { ucfirst, currency } from '@/composables/helper'
 
 defineProps({
   payment: Object,

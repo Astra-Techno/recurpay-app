@@ -1,5 +1,5 @@
 <template>
-    <div class="space-y-6">
+    <div class="space-y-4">
       <!-- Top Section -->
       <div class="flex justify-between items-center py-2">
         <p class="text-base font-bold text-gray-800" v-if="!grouped">{{ title }}</p>
@@ -38,7 +38,7 @@
   
           <template v-else-if="grouped">
             <!-- Grouped View -->
-            <div class="space-y-6 animate-fade-in">
+            <div class="space-y-2 animate-fade-in">
               <div v-for="(payments, groupTitle) in rows" :key="groupTitle" class="bg-white rounded-2xl shadow p-4 space-y-4">
                 <div class="flex justify-between items-start pb-3 border-b">
                   <div>
@@ -97,7 +97,7 @@
   import { ref, computed, defineProps } from 'vue'
   import List from '@/components/List/List.vue'
   import { useAppStore } from '@/stores/index'
-  import PaymentCard from '@/components/common/PaymentCard.vue'
+  import PaymentCard from '@/components/common/PendingPaymentCard.vue'
   
   const user = useAppStore().getUser()
   

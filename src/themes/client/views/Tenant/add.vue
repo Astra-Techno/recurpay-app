@@ -43,7 +43,7 @@
       <!-- Mobile Form -->
       <div class="bg-white p-4  space-y-2">
         <div class="sticky top-0 bg-white z-10  pb-2 shadow-sm border-b">
-          <p class=" text-base font-black">Property : {{ property.name || 'Property' }}</p>
+          <p class=" text-base font-black">Property : {{ property.address1 || 'Property' }}</p>
         </div>
         <FormKit v-if="!loading" type="form" @submit="submitForm" v-model="tenant" submit-label="Save" :actions="true"
           :config="{ classes: { form: 'space-y-4', submit: { input: 'w-full bg-blue-600 text-white font-semibold py-2 rounded-md' } } }">

@@ -5,7 +5,7 @@
   </template>
   
   <script setup>
-  import List from '@/components/common/DuePayments.vue'
+  import List from '@/components/common/Payments.vue'
   import { getCurrentInstance } from 'vue'
   import { useRoute } from 'vue-router'  
    const route = useRoute()

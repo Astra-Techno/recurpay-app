@@ -50,17 +50,35 @@
   </div>
 
   <!-- Dashboard Display -->
-  <div v-else-if="displayType === 'dashboard'" class="flex justify-between shadow-sm items-center p-2">
-    <div class="text-sm text-gray-700 font-semibold truncate">
-      {{ transaction.tenant_name }} — {{ transaction.property }}
-    </div>
-    <div :class="[
-      'text-sm font-bold',
-      transaction.status === 'success' ? 'text-green-600' : 'text-red-500'
-    ]">
-      {{ formatCurrency(transaction.amount_paid || 0) }}
-      <span v-if="transaction.status === 'success'">Paid</span>
-      <span v-else>Due</span>
+  <div v-else-if="displayType === 'dashboard'" class="bg-white rounded-xl shadow-md p-4 flex justify-between items-center border border-gray-100 hover:shadow-lg transition">
+    <div class="flex justify-between items-center w-full">
+      <!-- Left Side -->
+      <div>
+        <p class="text-base font-semibold text-gray-900">{{ transaction.property }}</p>
+
+        <p class="text-xs mt-1 font-medium text-gray-800">
+          {{ ucfirst(transaction.status) }} • {{ formatDate(transaction.paid_on, 'MMM DD, YYYY') }}
+        </p>
+
+        <p class="text-xs text-gray-500">
+          {{ ucfirst(transaction.payment_type) }} via {{ ucfirst(transaction.payment_mode) }}
+        </p>
+      </div>
+
+      <!-- Right Side -->
+      <div class="text-right">
+        <p
+          :class="[
+            'text-base font-bold',
+            transaction.direction === 'outgoing' ? 'text-red-500' : 'text-green-600'
+          ]"
+        >
+          {{ transaction.direction === 'outgoing' ? '- ' : '+ ' }}{{ formatCurrency(transaction.amount_paid || 0) }}
+        </p>
+        <p class="text-[11px] text-gray-500 mt-0.5">
+          {{ transaction.direction === 'outgoing' ? 'Paid' : 'Received' }}
+        </p>
+      </div>
     </div>
   </div>
 
@@ -100,6 +118,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { formatDate, ucfirst } from '@/composables/helper'
 import dayjs from 'dayjs'
 
 defineProps({
