@@ -134,7 +134,7 @@
 	  appStore.setToken(response.data.token)
 	  appStore.setGuest('0')
 	  appStore.setUser(response.data.user)
-	  Signal.success('Logged in successfully')
+	  // Signal.success('Logged in successfully')
   
 	  const redirectTo = typeof route.query.redirect === 'string' ? route.query.redirect : '/dashboard'
 	  router.push(redirectTo)

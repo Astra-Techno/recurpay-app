@@ -7,13 +7,14 @@
 
   <!-- Empty State -->
   <EmptyState
-    v-if="animatedProperties === 0 && !loading"
+    v-if="animatedProperties === 0"
     icon="🏠"
     title="Let's Get Started!"
     description="You don’t have any properties yet."
     action-label="➕ Add Your First Property"
-    action-link="{ name: 'AddProperty', params: { mode: 'add' } }"
+    :action-link="{ name: 'AddProperty', params: { mode: 'add' } }"
   />
+
 
   <!-- Stat Cards -->
   <section class="px-4 pb-4" v-else>
@@ -115,6 +116,7 @@ import PaymentCard from '@/components/common/PendingPaymentCard.vue'
 import DuePaymentCard from '@/components/common/DuePaymentCard.vue'
 import TransactionCard from '@/components/common/TransactionCard.vue'
 import SkeletonLoader from '@/components/common/SkeletonLoader.vue'
+import EmptyState from '@/components/common/EmptyState.vue'
 
 const request = useApiRequest()
 useMeta({ title: 'Dashboard' })

@@ -63,13 +63,6 @@
   const property = ref({});
   const tenant = ref({});
   const loading = ref(true);
-  // Country codes for phone input
-  const countryCodes = ref([
-    { label: '🇮🇳 +91', value: '+91' },
-    { label: '🇺🇸 +1', value: '+1' },
-    { label: '🇬🇧 +44', value: '+44' },
-    // Add more country codes as needed
-  ]);
   
   const request = useApiRequest();
   

@@ -1,6 +1,8 @@
 <template>
 	<div class="list-container">
-		<loader :loading="_loaderGif"></loader>
+		<!-- <loader :loading="_loaderGif"></loader> -->
+
+        <SkeletonLoader :count="3" class="mt-4" />
 
         <slot name="header-top"></slot>
 
@@ -79,6 +81,7 @@ import Pagination from "./Pagination.vue";
 import useApiRequest from '@/composables/request';
 import Signal from '@/composables/signal';
 import loader from '@/components/elements/Loader.vue';
+import SkeletonLoader from '../common/SkeletonLoader.vue';
 
 const count = ref(0)
 

@@ -25,6 +25,22 @@
 			<label for="email" class="text-sm font-medium text-gray-700 block mb-1">Email Address</label>
 			<input id="email" v-model="email" type="email" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm" required />
 		  </div>
+
+		  <div>
+			<label for="mobile" class="text-sm font-medium text-gray-700 block mb-1">Mobile Number</label>
+			<div class="flex rounded-lg overflow-hidden border border-gray-300 bg-gray-50">
+				<select v-model="country_code" class="bg-gray-100 px-3 text-sm text-gray-700 border-r border-gray-300 focus:outline-none">
+				<option value="+91">🇮🇳 +91</option>
+				<option value="+1">🇺🇸 +1</option>
+				<option value="+44">🇬🇧 +44</option>
+				<option value="+61">🇦🇺 +61</option>
+				<option value="+971">🇦🇪 +971</option>
+				<!-- Add more as needed -->
+				</select>
+				<input id="mobile" v-model="phone" type="tel"
+				class="w-full px-4 py-2 text-sm bg-transparent focus:outline-none bg-gray-50 border-none" required />
+			</div>
+		 </div>
   
 		  <div>
 			<label for="password" class="text-sm font-medium text-gray-700 block mb-1">Password</label>
@@ -59,7 +75,9 @@
   const first_name = ref('')
   const last_name = ref('')
   const email = ref('')
+  const phone = ref('')
   const password = ref('')
+  const country_code = ref('+91')
   
   const handleRegister = async () => {
 	appStore.isShowMainLoader = true
@@ -69,6 +87,7 @@
 		first_name: first_name.value,
 		last_name: last_name.value,
 		email: email.value,
+		phone: `${country_code.value}${phone.value}`,
 		password: password.value
 	  }
   
