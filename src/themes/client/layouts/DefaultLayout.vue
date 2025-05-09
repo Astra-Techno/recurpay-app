@@ -11,10 +11,12 @@
 			</NavigationBar>
 
 			<!-- Scrollable Content Area (scroll enabled, scrollbar hidden) -->
-			<div class="flex-1 overflow-y-scroll hide-scrollbar relative bg-white rounded-t-2xl w-[92%] mx-auto"
-				:class="[isDashboard ? 'top-0' : '-mt-[70px] z-20']">
+			<div class="flex-1 overflow-y-scroll hide-scrollbar relative w-[92%] mx-auto rounded-t-2xl shadow-xl transition-all duration-300 ease-out"
+				:class="[isDashboard ? 'mt-0 bg-white' : '-mt-[70px] z-20 bg-white']">
 				<slot />
 			</div>
+
+
 
 			<!-- Bottom Navigation for Mobile -->
 			<BottomNav v-if="deviceStore.isMobile" :showBackButton="showBackButton" :toggleDrawer="toggleDrawer" />
@@ -141,10 +143,14 @@ nav {
 
 /* Hide scrollbar but keep scrolling */
 .hide-scrollbar {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;
+	/* Firefox */
+	-ms-overflow-style: none;
+	/* IE and Edge */
 }
+
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+	display: none;
+	/* Chrome, Safari and Opera */
 }
 </style>
