@@ -2,7 +2,6 @@
 	<div class="flex flex-col h-screen">
 
 		<div class="sticky top-0 bg-white z-10 px-6 py-4">
-
 			<p class="py-2 mt-1">{{ fullAddress }}</p>
 			<!-- Property Info Card -->
 			<div>
@@ -24,52 +23,65 @@
 					<router-link :to="{ name: 'editProperty', params: { id: payment.id } }" class="w-1/2">
 						<button class="py-2 px-4 w-full secondary">Edit Property</button>
 					</router-link>
-					<router-link :to="{ name: 'AddTenant', params: { property_id: property.id } }" class="w-1/2">
-						<button class="py-2 px-4 w-full primary">Add Tenant</button>
+					<router-link :to="{ name: 'PropertyPhotos', params: { property_id: property.id } }" class="w-1/2">
+						<button class="py-2 px-4 w-full primary">Photos</button>
 					</router-link>
 				</div>
 			</div>
 		</div>
-		<list ref="tenantList" class="w-full" tmpl="custom" :data-url="tenantListUrl" :sortBy="'pt.id'"
-			:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }"
-			:page-limit="4" :search="false" :show-pagination="false">
-			<template #body="{ rows }">
-				<div class="mt-2 px-4 py-2">
-					<h2 class="text-base font-bold mb-2">Current Tenants</h2>
-					<div v-if="tenantList.total > 0" v-for="tenant in rows"
-						class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
-						<div class="flex items-center gap-3">
-							<div class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center">
-								<img :src="tenant.avatar" alt="Avatar" class="w-16 h-16 rounded-full object-cover" />
-							</div>
-							<div>
-								<p class="text-base font-bold italic">{{ tenant.name }}</p>
-								<p class="text-sm text-blue-600" :class="[
-									'text-xs mt-2 inline-block rounded-full px-2 py-1',
-									tenant.status === 'active'
-										? 'bg-green-100 text-green-600'
-										: tenant.status === 'vacated'
-											? 'bg-yellow-100 text-yellow-600'
-											: 'bg-red-100 text-red-600',
-								]">{{ tenant.status.toUpperCase() }}</p>
-							</div>
-						</div>
-						<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
-							viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-						</svg>
-					</div>
-					<div v-else class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
-						<p class="text-base font-bold italic text-center w-full">No tenants added yet.</p>
-					</div>
-					<div v-if="tenantList.total > 4" class="text-center mt-4">
-						<router-link :to="{ name: 'TenantsListByProperty', params: { id: property_id } }"
-							class="text-blue-600 btn text-center primary hover:underline">View All Tenants</router-link>
-					</div>
-				</div>
 
-			</template>
-		</list>
+		<div>
+			<div class="flex justify-between items-center py-2">
+				<p class="text-base font-bold text-gray-800">Tenants</p>
+				<router-link :to="{ name: 'AddTenant', params: { property_id: property_id } }">
+				<button class="text-xs bg-blue-500 text-white px-4 py-2 rounded-full font-semibold shadow hover:bg-blue-600 transition">
+					Add Tenant
+				</button>
+				</router-link>
+			</div>
+
+			<list ref="tenantList" class="w-full" tmpl="custom" :data-url="tenantListUrl" :sortBy="'pt.id'"
+				:sortOrder="'desc'" :filter-toggle="false" :messages="{ empty: 'There are no tenants added!' }"
+				:page-limit="4" :search="false" :show-pagination="false">
+				<template #body="{ rows }">
+					<div class="mt-2 px-4 py-2">
+						<!--<h2 class="text-base font-bold mb-2">Tenants</h2> -->
+						<div v-if="tenantList.total > 0" v-for="tenant in rows"
+							class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
+							<div class="flex items-center gap-3">
+								<div class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center">
+									<img :src="tenant.avatar" alt="Avatar" class="w-16 h-16 rounded-full object-cover" />
+								</div>
+								<div>
+									<p class="text-base font-bold italic">{{ tenant.name }}</p>
+									<p class="text-sm text-blue-600" :class="[
+										'text-xs mt-2 inline-block rounded-full px-2 py-1',
+										tenant.status === 'active'
+											? 'bg-green-100 text-green-600'
+											: tenant.status === 'vacated'
+												? 'bg-yellow-100 text-yellow-600'
+												: 'bg-red-100 text-red-600',
+									]">{{ tenant.status.toUpperCase() }}</p>
+								</div>
+							</div>
+							<svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+								viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+							</svg>
+						</div>
+						<div v-else class="bg-gray-100 rounded-xl p-4 flex items-center justify-between  my-2">
+							<p class="text-base font-bold italic text-center w-full">No tenants added yet.</p>
+						</div>
+						<div v-if="tenantList.total > 4" class="text-center mt-4">
+							<router-link :to="{ name: 'TenantsListByProperty', params: { id: property_id } }"
+								class="text-blue-600 btn text-center primary hover:underline">View All Tenants</router-link>
+						</div>
+					</div>
+
+				</template>
+			</list>
+		</div>
+
 		<!-- Payments -->
 		<div class="px-4">
 			<Payments title="Payments" :property-id="property_id" layout="property" />

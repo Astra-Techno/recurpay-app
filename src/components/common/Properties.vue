@@ -1,5 +1,5 @@
 <template>
-	<section  class="px-4 pb-4" v-show="rowContents?.total > 0">
+	<section  class="px-4 pb-4" v-show="owned || rowContents?.total > 0">
 		<h3 class="text-md font-semibold mb-2 py-4 flex justify-between sticky top-0 bg-white z-20">🏡 {{title}}
 			<router-link :to="{ name: 'AddProperty', params: { mode: 'add' } }" v-if="owned">
 				<button class="text-xs bg-blue-500 text-white px-3 py-1 rounded-full">Add Property</button>

@@ -61,7 +61,7 @@ export default defineConfig(({ command, mode }) => {
 			host: HOST,
 			port: PORT,
 			proxy: {
-				'/media/images': {
+				'/media/uploads': {
 					target: MEDIA_BASE_URL,
 					changeOrigin: true,
 					rewrite: path => path.replace(/^\/media/, ''),

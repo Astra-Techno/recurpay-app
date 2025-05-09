@@ -1,12 +1,12 @@
 <template>
 	<!-- Screen loader -->
 	<div>
-		<!-- <div v-if="isLoading"
+		<div v-if="isLoading"
 			class="fixed inset-0 bg-[#fafafa] dark:bg-[#060818] z-[1] grid place-content-center animate__animated">
 			<SimpleLoader></SimpleLoader>
-		</div> -->
+		</div> 
 
-		<SkeletonLoader v-if="isLoading" :count="3" class="px-4 pb-4" />
+		<!--<SkeletonLoader v-if="isLoading" :count="3" class="px-4 pb-4" /> -->
 		<component v-if="PageComp" :is="PageComp" />
 	</div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import axios from 'axios';
 import useApiRequest from '@/composables/request';
 import Signal from '@/composables/signal';
@@ -17,16 +17,16 @@ const props = defineProps({
 	modelValue: String, // v-model binding
 	edit: {
 		type: Boolean,
-		default: true
+		default: false
 	}
 });
 const emit = defineEmits(["update:modelValue"]);
 // Extract props from FormKit `context`
 const section = ref(props.section || '');
 const sectionType = ref(props.sectionType || '');
-const recordId = ref(Number(props.recordId) || 0);
-const edit = props.edit;
-console.log('edit', props.edit);
+const recordId = computed(() => Number(props.recordId) || 0);
+const edit = computed(() => props.edit);
+
 // Upload configurations
 const uploadLimit = ref(0);
 const allowedFormats = ref('');
@@ -46,10 +46,17 @@ const tokentId = generateToken();
 onMounted(() => {
 	loadMediaType();	
 });
+
+watch(() => props.recordId, (newId) => {
+	if (newId) {
+		loadMediaType(); // Reset to the first page and reload data
+	}
+});
+
 // Load media type based on `section` and `sectionType`
 async function loadMediaType() {
 	if (!section.value || !sectionType.value) return;
-	const params = `media_type=${sectionType.value}&media_section=${section.value}&base=1&attribs=files&record_id=${recordId.value}`;
+	const params = `media_type=${sectionType.value}&media_section=${section.value}&base=1&attrib=files&record_id=${recordId.value}`;
 	const response = await request.fetch(`entity/SystemMediaType?${params}`);
 	if (response.error) {
 		console.error('MediaType load error:', response.message);
@@ -59,6 +66,7 @@ async function loadMediaType() {
 	uploadLimit.value = response.data.max_upload_size;
 	allowedFormats.value = response.data.allowed_formats;
 	name.value = response.data.name;
+	files.value = [];
 	for (var i in response.data.files) {
 		const fileObj = ref(response.data.files[i]);
 		fileObj.value.progress = 100;
@@ -209,93 +217,76 @@ const downloadPDF = () => {
   link.click();
   document.body.removeChild(link);
 };
+
+const isImage = (path) => {
+  if (!path) return false;
+  const ext = path.split('.').pop().toLowerCase();
+  return ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(ext);
+};
 </script>
 <template>
-	<div v-if="files.length" id="gallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
+	<div>
+	  <!-- Preview / Display Section -->
+	  <div v-if="files.length" id="gallery" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 		<div 
-		v-for="(file, index) in files" 
-		:key="index" 
-		class="relative group max-w-[200px]"
-		>
-		<!-- Display Image / Video -->
-		<img
-			v-if="file.value.path && name === 'job_images'"
+		  v-for="(file, index) in files" 
+		  :key="index" 
+		  class="relative group rounded-xl overflow-hidden shadow-md bg-white">
+  
+		  <!-- Image Display -->
+		  <img v-if="file.value.path && isImage(file.value.path)"
 			:src="getImageUrl(file.value.path)"
-			alt="Uploaded File"
-			class="w-full h-32 object-cover rounded-lg shadow-md cursor-pointer"
+			alt="Uploaded"
+			class="w-full h-32 object-cover cursor-pointer"
 			@click="openViewer(index, $event)"
-		/>
-		<div v-if="file.value.path && name != 'job_images'">
-			<div class="grid place-items-center">
-				<a :href="getImageUrl(file.value.path)" download class="cursor-pointer">
-				<Icon name="FileText" size="50"
-						class="text-lg opacity-75 hover:opacity-100 cursor-pointer shadow"
-						strokeWidth="1" stroke="red" fill="white">
-				</Icon>
-				</a>
-			</div>
-		</div>		
-		<Icon v-if="file.value.path && name === 'job_images'" name="CircleX" size="24" class="pi pi-trash absolute top-2 right-2 text-lg opacity-75 hover:opacity-100 cursor-pointer shadow" strokeWidth="1" stroke="red" fill="white" @click.stop="removeFile(file, index)"></Icon>
-		<Icon v-if="file.value.path && name != 'job_images'" name="CircleX" size="22" class="pi pi-trash absolute top-1 right-12 text-lg opacity-75 hover:opacity-100 cursor-pointer shadow" strokeWidth="1" stroke="red" fill="white" @click.stop="removeFile(file, index)"></Icon>
-		<div class="text-center text-sm text-gray-500 mt-1">
+		  />
+  
+		  <!-- Non-image Display -->
+		  <div v-else class="p-6 flex justify-center items-center">
+			<a :href="getImageUrl(file.value.path)" download>
+			  <Icon name="FileText" size="40" class="text-blue-500 hover:text-blue-600" />
+			</a>
+		  </div>
+  
+		  <!-- Action Icons -->
+		  <div class="absolute top-2 right-2 flex space-x-2">
+			<Icon name="CircleX" size="20" class="text-red-500 hover:text-red-600 cursor-pointer" @click.stop="removeFile(file, index)" />
+		  </div>
+  
+		  <!--
+		  <div class="px-3 py-2 text-xs text-gray-500">
 			<p>Added by: {{ file.value.author }}</p>
-		</div>
-		<div class="text-center text-sm text-gray-500 mt-1">
 			<p>{{ file.value.created }}</p>
+		  </div>
+		  -->
 		</div>
+	  </div>
+  
+	  <!-- Empty State -->
+	  <div v-else class="text-center text-gray-400 py-6">
+		<p v-if="name === 'job_images'">No images or videos uploaded.</p>
+		<p v-else>No files uploaded.</p>
+	  </div>
+  
+	  <!-- Upload Form -->
+	  <div class="mt-6" v-if="edit">
+		<label class="block text-sm font-semibold text-gray-700 mb-2">{{ $attrs.label }}</label>
+		<div @dragover.prevent @drop="handleDrop" class="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer hover:border-blue-400 border-blue-200 bg-blue-50">
+		  <input type="file" @change="handleFileSelect" ref="fileInput" hidden multiple />
+		  <div @click="triggerFileSelect">
+			<Icon name="UploadCloud" class="mx-auto text-blue-400" size="32" />
+			<p class="text-sm font-semibold mt-2">Click or drag files here to upload</p>
+			<p class="text-xs text-gray-500 mt-1">{{ allowedFormats }} | Max size: {{ uploadLimit }}MB</p>
+		  </div>
 		</div>
-  	</div>
-	<div v-else class="text-center text-gray-500">
-		<p v-if="name==='job_images'">Images or Video Attached</p> 
-		<p v-else>No Files Attached</p> 
+	  </div>
+  
+	  <!-- Slot for Custom Display -->
+	  <div class="mt-4">
+		<slot />
+	  </div>
 	</div>
-	<div class="group max-w-[25em] min-w-0 grow mb-4 data-[disabled]:select-none data-[disabled]:opacity-50 text-base formkit-outer"
-		data-type="media" data-empty="true" v-if="edit">
-		<div class="formkit-wrapper">
-			<label class="block text-neutral-700 text-sm font-bold mb-1 dark:text-neutral-300 formkit-label" for="input_8">{{ $attrs.label }}</label>
-			<div class="formkit-inner" >
-				<div class="upload-component" >
-					<div class="upload-container">
-						<!-- Validation Messages -->
-						<p class="text-red-600 mb-1.5 text-xs" v-if="!section">Section attribute missing!</p>
-						<p class="text-red-600 mb-1.5 text-xs" v-if="!sectionType">SectionType attribute missing!</p>
-						<p class="text-red-600 mb-1.5 text-xs" v-if="!mediaTypeId">Invalid Media Type!</p>
-						<!-- Drag & Drop Upload Box -->
-						<div class="upload-box" @dragover.prevent @drop="handleDrop" v-if="section && sectionType && mediaTypeId">
-							<input type="file" @change="handleFileSelect" ref="fileInput" hidden multiple />
-							<div @click="triggerFileSelect">
-								<svg xmlns="http://www.w3.org/2000/svg" class="w-10 mb-1 fill-[var(--button-icon-small)] inline-block" viewBox="0 0 32 32">
-									<path d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z" data-original="#000000"></path>
-									<path d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z" data-original="#000000"></path>
-								</svg>
-								<p class="font-semibold">Drag and drop files here</p>
-								<!-- <hr class="w-full border-gray-400 my-2"> -->
-								<label class="browser-box block px-6 py-2.5 text-sm tracking-wider cursor-pointer font-semibold">Browse Files</label>
-								<p class="text-xs italic mt-4">{{ allowedFormats }} allowed.<br />
-									<span class="not-italic font-medium text-sm text-red-700">Upload limit {{ uploadLimit }}MB</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<!-- Uploaded Files List -->
-					<!-- <ul v-if="files.length">
-						<li v-for="(file, index) in files" :key="index">
-							<span class="font-medium">{{ file.value.name }}</span> ({{ formatFileSize(file.value.size)
-							}})
-							<progress v-if="file.value.progress < 100" :value="file.value.progress"
-								max="100"></progress>
-							<button @click="cancelUpload(file, index)" v-if="file.value.progress < 100">Cancel</button>
-							<button @click="removeFile(file, index)" v-if="file.value.progress === 100 && edit">Delete</button>
-						</li>
-					</ul> -->
-					<!-- Uploaded Files List -->
-					<!-- Uploaded Files Grid -->
-					 <!-- Image Grid -->					
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
+  </template>
 <style scoped>
 .upload-component {
 	max-width: 400px;
