@@ -30,7 +30,10 @@
           </svg>
         </div>
         <div>
-          <p class="font-semibold text-gray-900">{{ payment.user || 'Tenant' }}</p>
+          <p class="font-semibold text-gray-900">
+            <router-link :to="{ name: 'TenantDetail', params: { id: payment.user_id } }">{{ payment.user || 'Tenant'
+            }}</router-link>
+          </p>
           <p class="text-xs text-slate-600">Frequency: {{ ucfirst(payment.period) }}</p>
           <p class="text-xs text-slate-600">Next Due: {{ payment.next_due_date ? formattedDate(payment.next_due_date) :
             'NA' }}</p>
