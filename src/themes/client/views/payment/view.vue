@@ -1,97 +1,96 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-indigo-100 via-white to-white text-gray-800">
-    <!-- Header -->
-    <div class="px-4 py-5">
-      <h1 class="text-center text-lg font-semibold text-indigo-700">Payment Detail</h1>
-    </div>
+  <div class="min-h-screen p-4 text-gray-900">
+    <!-- Payment Card -->
+    <div class="bg-white mx-auto max-w-2xl rounded-2xl shadow-lg p-6 space-y-6">
 
-    <!-- Card -->
-    <div class="bg-white mx-4 rounded-2xl shadow-xl p-6 space-y-4">
-      <!-- Amount & Status -->
+      <!-- Header: Amount and Status -->
       <div class="flex justify-between items-start">
         <div>
-          <p class="text-4xl font-extrabold text-gray-900">₹{{ formattedAmount }}</p>
-          <p class="text-sm text-gray-500">Due on {{ formattedDate(payment.due_from, 'MMM D') }}</p>
+          <p class="text-4xl font-extrabold text-black">₹{{ formattedAmount }}</p>
+          <p class="text-sm text-slate-600">Due on {{ formattedDate(payment.due_from, 'MMM D') }}</p>
         </div>
         <span
-          :class="[statusColors[payment.pay_status]?.bg || 'bg-gray-200', statusColors[payment.pay_status]?.text || 'text-gray-600', 'text-xs font-semibold px-3 py-1 rounded-full']">
+          :class="[statusColors[payment.pay_status]?.bg || 'bg-gray-200', statusColors[payment.pay_status]?.text || '', 'text-xs font-semibold px-3 py-1 rounded-full']">
           {{ ucfirst(payment.pay_status) }}
         </span>
       </div>
 
+      <!-- Property Info -->
+      <div>
+        <p class="text-xs text-slate-600">Property</p>
+        <p class="text-base font-semibold text-gray-900">{{ payment.property || 'NA' }}</p>
+      </div>
+
       <!-- Tenant Info -->
-      <div class="flex gap-3 items-center border-t pt-4">
-        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-          <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+      <div class="flex items-start gap-4 border-t pt-2">
+        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
           </svg>
         </div>
         <div>
-          <p class="font-semibold">{{ payment.PaymentUsers?.[0]?.name || 'User' }}</p>
-          <p class="text-xs text-gray-500">Frequency: {{ ucfirst(payment.period) }}</p>
-          <p class="text-xs text-gray-500">Next Due Date: {{ payment.next_due_date ? formatDate(payment.next_due_date, 'MMM D') : 'NA' }}</p>
+          <p class="font-semibold text-gray-900">{{ payment.user || 'Tenant' }}</p>
+          <p class="text-xs text-slate-600">Frequency: {{ ucfirst(payment.period) }}</p>
+          <p class="text-xs text-slate-600">Next Due: {{ payment.next_due_date ? formattedDate(payment.next_due_date) :
+            'NA' }}</p>
         </div>
       </div>
 
       <!-- Notes -->
       <div>
-        <p class="text-sm font-semibold text-gray-600 mb-1">Notes</p>
-        <p class="text-sm text-gray-800">{{ payment.notes || 'No notes provided.' }}</p>
+        <p class="text-sm font-semibold text-blue-700 mb-1">Notes</p>
+        <p class="text-sm text-gray-800">{{ payment.notes || 'No notes available for this payment.' }}</p>
       </div>
 
       <!-- Actions -->
-      <div class="grid grid-cols-2 gap-3">
-        <button
-          v-if="payment.pay_status === 'pending'"
-          class="flex items-center justify-center gap-2 py-2 rounded-xl border border-blue-500 text-blue-600 font-semibold hover:bg-blue-50">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-          Mark as Paid
-        </button>
+      <div class="grid grid-cols-2 gap-3 pt-2">
 
-        <button
-          class="flex items-center justify-center gap-2 py-2 rounded-xl border border-blue-500 text-blue-600 font-semibold hover:bg-blue-50">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2 22l11-11" />
-          </svg>
-          Send Reminder
-        </button>
+        <!-- Paid → Show 'Mark as Paid' -->
+        <router-link v-if="payment.pay_status === 'paid'" :to="`/mark-as-paid/index/${payment.transaction_id}`">
+          <button
+            class="w-full flex justify-center items-center gap-2 text-sm font-semibold bg-green-600 text-white py-2 rounded-full hover:bg-green-700 transition">
+            ✔️ Mark as Paid
+          </button>
+        </router-link>
 
-        <button
-          class="flex items-center justify-center gap-2 py-2 rounded-xl border border-gray-400 text-gray-600 font-semibold hover:bg-gray-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6-6m2 2l2 2L11 21H5v-6L17 7z" />
-          </svg>
-          Edit
-        </button>
+        <!-- Pending → Show 'Send Reminder' -->
+        <router-link v-else-if="payment.pay_status === 'pending'"
+          :to="{ name: 'SendReminder', params: { payment_id: payment.id } }">
+          <button
+            class="w-full flex justify-center items-center gap-2 text-sm font-semibold bg-yellow-500 text-white py-2 rounded-full hover:bg-yellow-600 transition">
+            📩 Send Reminder
+          </button>
+        </router-link>
 
-        <button
-          class="flex items-center justify-center gap-2 py-2 rounded-xl border border-gray-400 text-gray-600 font-semibold hover:bg-gray-100">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6" />
-          </svg>
-          Delete
-        </button>
+        <!-- Upcoming → Show Edit & Delete -->
+        <template v-else-if="payment.pay_status === 'upcoming'">
+          <router-link :to="{ name: 'EditPayment', params: { payment_id: payment.id } }">
+            <button
+              class="w-full flex justify-center items-center gap-2 text-sm font-semibold bg-blue-600 text-white py-2 rounded-full hover:bg-blue-700 transition">
+              ✏️ Edit
+            </button>
+          </router-link>
+
+          <router-link :to="{ name: 'DeletePayment', params: { payment_id: payment.id } }">
+            <button
+              class="w-full flex justify-center items-center gap-2 text-sm font-semibold bg-red-500 text-white py-2 rounded-full hover:bg-red-600 transition">
+              🗑️ Delete
+            </button>
+          </router-link>
+        </template>
+
       </div>
     </div>
 
     <!-- Payment History -->
-    <div class="px-4 mt-6">
-      <h2 class="text-sm font-bold text-gray-700 mb-2">Payment History</h2>
-      <div class="bg-white rounded-2xl shadow p-4">
-        <div class="flex justify-between items-center text-sm text-gray-800">
-          <div>
-            <p>April Rent</p>
-            <p class="text-green-600 text-xs">Paid</p>
-          </div>
-          <p class="font-bold">₹15,000</p>
-        </div>
-      </div>
+    <div class="mt-8 max-w-2xl mx-auto">
+      <Transactions title="Payment History" page-limit="2" display="detail-list" :property-id="payment.property_id" />
     </div>
   </div>
 </template>
+
+
 
 <script setup lang="ts">
 import { ref, onMounted, computed, getCurrentInstance } from 'vue'

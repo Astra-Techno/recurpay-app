@@ -116,13 +116,15 @@ import useApiRequest from '@/composables/request'
 import Signal from '@/composables/signal'
 import { ucfirst } from '@/composables/helper'
 import SelectBox from '@/components/elements/SelectBox.vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
 
 const router = useRouter()
 const loading = ref(true)
 const request = useApiRequest()
 
-const QueryParams = inject('QueryParams') // Inject global params
-const PaymentId = QueryParams.value[0] ?? 0
+
+const PaymentId = route.params.payment_id
 const payment = ref({})
 const property = ref({});
 

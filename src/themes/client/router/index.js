@@ -56,6 +56,18 @@ const routes = [
     component: () => import('../views/payment/add.vue'),
     props: true
   },
+   {
+    path: '/payment/edit/:payment_id',
+    name: 'EditPayment',
+    component: () => import('../views/payment/edit.vue'),
+    props: true
+  },
+  {
+    path: '/payment/edit/:payment_id',
+    name: 'DeletePayment',
+    component: () => import('../views/payment/edit.vue'),
+    props: true
+  },
   {
     path: '/payments/:property_id?/:status?',
     name: 'PaymentsList',

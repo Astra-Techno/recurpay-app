@@ -11,8 +11,8 @@
 			</NavigationBar>
 
 			<!-- Scrollable Content Area (scroll enabled, scrollbar hidden) -->
-			<div class="flex-1 overflow-y-scroll hide-scrollbar relative w-[92%] mx-auto rounded-t-2xl shadow-xl transition-all duration-300 ease-out"
-				:class="[isDashboard ? 'mt-0 bg-white' : '-mt-[70px] z-20 bg-white']">
+			<div class="flex-1 overflow-y-scroll hide-scrollbar relative w-[92%] mx-auto  transition-all duration-300 ease-out"
+				:class="[isDashboard ? 'mt-0 bg-white' : '-mt-[70px] z-20 bg-white rounded-t-2xl shadow-xl']">
 				<slot />
 			</div>
 
