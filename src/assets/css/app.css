@@ -51,3 +51,18 @@
    }
 
 }
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.animate-skeleton-shimmer {
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  background-size: 400% 100%;
+  background-repeat: no-repeat;
+}

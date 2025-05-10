@@ -59,6 +59,7 @@ app.component('Tag', Tag) // Register globally
 import defaultImage from '@/directives/defaultImage'
 app.directive('default-image', defaultImage)
 
-
+import skeleton from '@/directives/skeleton'
+app.directive('skeleton', skeleton)
 
 app.mount('#app')
