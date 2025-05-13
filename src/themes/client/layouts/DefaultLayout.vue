@@ -1,29 +1,29 @@
 <template>
-	<div class="flex h-screen w-full md:w-3/12 mx-auto bg-white dark:bg-gray-900">
-		<!-- Main Content -->
-		<div class="flex-1 flex flex-col overflow-hidden">
+  <div class="flex flex-col h-screen w-full md:w-3/12 md:mx-auto bg-white dark:bg-gray-900 relative">
 
-			<!-- Navigation Bar -->
-			<NavigationBar>
-				<template #flex-items>
-					<MobileHeader />
-				</template>
-			</NavigationBar>
+    <!-- Navigation Bar -->
+    <NavigationBar>
+      <template #flex-items>
+        <MobileHeader />
+      </template>
+    </NavigationBar>
 
-			<!-- Scrollable Content Area (scroll enabled, scrollbar hidden) -->
-			<div class="flex-1 overflow-y-scroll hide-scrollbar relative w-[92%] mx-auto  transition-all duration-300 ease-out"
-				:class="[isDashboard ? 'mt-0 bg-white' : '-mt-[70px] z-20 bg-white rounded-t-2xl shadow-xl']">
-				<slot />
-			</div>
+    <!-- Scrollable Content -->
+    <div
+      class="flex-1 overflow-y-scroll hide-scrollbar pb-20 w-[92%] mx-auto transition-all duration-300 ease-out"
+      :class="[isDashboard ? 'mt-0 bg-white' : '-mt-[70px] z-20 bg-white rounded-t-2xl shadow-xl']"
+    >
+      <slot />
+    </div>
 
-
-
-			<!-- Bottom Navigation for Mobile -->
-			<BottomNav v-if="deviceStore.isMobile" :showBackButton="showBackButton" :toggleDrawer="toggleDrawer" />
-		</div>
-	</div>
-
-
+    <!-- Fixed Bottom Navigation -->
+    <BottomNav
+      v-if="deviceStore.isMobile"
+      :showBackButton="showBackButton"
+      :toggleDrawer="toggleDrawer"
+      class="fixed bottom-0 left-0 w-full z-50"
+    />
+  </div>
 </template>
 
 

@@ -6,38 +6,69 @@
   </section>
 
   <!-- Empty State -->
-  <EmptyState
-    v-if="animatedProperties === 0"
-    icon="🏠"
-    title="Let's Get Started!"
-    description="You don’t have any properties yet."
-    action-label="➕ Add Your First Property"
-    :action-link="{ name: 'AddProperty', params: { mode: 'add' } }"
-  />
+  <EmptyState v-if="animatedProperties === 0" icon="🏠" title="Let's Get Started!"
+    description="You don’t have any properties yet." action-label="➕ Add Your First Property"
+    :action-link="{ name: 'AddProperty', params: { mode: 'add' } }" />
 
 
   <!-- Stat Cards -->
   <section class="px-4 pb-4" v-else>
-    <SkeletonLoader v-if="loading" />
-    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out text-center">
-        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-md mb-2">🏠</div>
-        <p class="text-xs text-gray-400">My Properties</p>
-        <p class="text-2xl font-bold text-gray-800">{{ animatedProperties }}</p>
+  <SkeletonLoader v-if="loading" />
+  <div
+    v-else
+    class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-center items-start"
+  >
+    <!-- 🔹 Card: My Properties -->
+    <div
+      class="bg-white p-4 sm:p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out flex flex-col items-center text-center w-full"
+    >
+      <!-- Icon -->
+      <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-tr from-blue-400 to-blue-600 text-white shadow-md">
+        🏠
       </div>
-      <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out text-center">
-        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-tr from-green-400 to-green-600 text-white shadow-md mb-2">👥</div>
-        <p class="text-xs text-gray-400">My Tenants</p>
-        <p class="text-2xl font-bold text-gray-800">{{ animatedTenants }}</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 ease-in-out text-center">
-        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-tr from-yellow-400 to-yellow-600 text-white shadow-md mb-2">💸</div>
-        <p class="text-xs text-gray-400">Due Payments</p>
-        <p class="text-2xl font-bold text-gray-800">{{ animatedPendingPayments }}</p>
-      </div>
-    </div>
-  </section>
 
+      <!-- ✅ Count (always shown) -->
+      <p class="text-sm font-semibold text-gray-800 mt-1">
+        {{ animatedProperties }}
+      </p>
+
+      <!-- ❌ Label (only show on sm and above) -->
+      <p class=" sm:block text-xs font-bold text-gray-800">
+        My Properties
+      </p>
+    </div>
+
+    <!-- 🔹 Card: My Tenants -->
+    <div
+      class="bg-white p-4 sm:p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out flex flex-col items-center text-center w-full"
+    >
+      <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-tr from-green-400 to-green-600 text-white shadow-md">
+        👥
+      </div>
+      <p class="text-sm font-semibold text-gray-800 mt-1">
+        {{ animatedTenants }}
+      </p>
+      <p class=" sm:block text-xs font-bold text-gray-800">
+        My Tenants
+      </p>
+    </div>
+
+    <!-- 🔹 Card: Due Payments -->
+    <div
+      class="bg-white p-4 sm:p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 ease-in-out flex flex-col items-center text-center w-full"
+    >
+      <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-tr from-yellow-400 to-yellow-600 text-white shadow-md">
+        💸
+      </div>
+      <p class="text-sm font-semibold text-gray-800 mt-1">
+        {{ animatedPendingPayments }}
+      </p>
+      <p class=" sm:block text-xs font-bold text-gray-800">
+        Due Payments
+      </p>
+    </div>
+  </div>
+</section>
   <!-- Dues Section -->
   <section class="px-4 pb-4" v-show="dues?.total > 0">
     <h3 class="text-md font-semibold mb-2">⏰ Dues</h3>
@@ -85,9 +116,8 @@
   <!-- Recent Payments -->
   <section class="px-4 pb-6" v-show="payments?.total > 0">
     <h3 class="text-lg font-bold text-gray-800 mb-4">💳 Transactions</h3>
-    <list ref="payments" class="w-full" tmpl="custom" :data-url="'list/PaymentTransactions'"
-      :filter-toggle="false" :messages="{ empty: 'No recent transactions!' }"
-      :page-limit="2" :show-pagination="false" :search="false"
+    <list ref="payments" class="w-full" tmpl="custom" :data-url="'list/PaymentTransactions'" :filter-toggle="false"
+      :messages="{ empty: 'No recent transactions!' }" :page-limit="2" :show-pagination="false" :search="false"
       @loaded="checkPaymentsAvailable">
       <template #body="{ rows }">
         <div class="space-y-4">
@@ -184,12 +214,19 @@ onMounted(() => {
 
 <style scoped>
 @keyframes bounceOnce {
-  0%, 20%, 50%, 80%, 100% {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
     transform: translateY(-6px);
   }
+
   60% {
     transform: translateY(-4px);
   }
