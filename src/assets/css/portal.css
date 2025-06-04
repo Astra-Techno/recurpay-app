@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-size: 16px;
+    font-family: Lato, sans-serif;
+    color: var(--ui-text);
+    background-color: var(--general-text-background);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--general-text-heading);
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 25px;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  h4 {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  a {
+    @apply transition-colors;
+    color: var(--general-text-link-unvisited);
+  }
+
+  a:hover,
+  a:focus {
+    color: var(--general-text-link-hover);
+    text-decoration: underline;
+  }
+
+  a:visited {
+    color: var(--general-text-link-visited);
+  }
+
+  .accent-splash {
+    position: relative;
+    overflow: visible;
+    background: var(--accent-splash-gradient);
+    background-size: 500% 500%;
+    animation: swirl 20s ease infinite;
+  }
+
+  @keyframes swirl {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* Pagination for Maintenance List  Page Start*/
+  .bh-pagination {
+    @apply flex justify-end items-end gap-4 text-base leading-6 py-8;
+  }
+
+  .bh-flex {
+    @apply flex-row;
+  }
+
+  .bh-pagination .bh-page-item svg {
+    @apply w-[30px] h-[30px] p-1;
+  }
+
+  .bh-pagination .bh-page-item {
+    @apply rounded-sm px-2 bg-transparent border-0 text-[var(--button-secondary-text)] font-bold;
+  }
+
+  .bh-pagination .bh-page-item:hover {
+    @apply bg-[var(--button-secondary-focus-background)] text-[var(--button-secondary-focus-text)] border-[var(--button-secondary-focus-outline)];
+  }
+
+  .bh-pagination .bh-page-item.next-page,
+  .bh-pagination .bh-page-item.previous-page,
+  .bh-pagination .bh-page-item.first-page,
+  .bh-pagination .bh-page-item.last-page {
+    @apply border p-0 rounded-md mx-0 rounded;
+  }
+
+  .bh-pagination .bh-page-item.bh-active,
+  .bh-pagination .bh-page-item.bh-active:hover,
+  .bh-pagination .previous-page.disabled,
+  .bh-pagination .previous-page.disabled:hover,
+  .bh-pagination .bh-page-item.next-page.disabled,
+  .bh-pagination .bh-page-item.next-page.disabled:hover,
+  .bh-pagination .first-page.disabled,
+  .bh-pagination .first-page.disabled:hover,
+  .bh-pagination .last-page.disabled,
+  .bh-pagination .last-page.disabled:hover {
+    @apply text-[var(--button-secondary-disabled-text)] bg-[var(--button-secondary-disabled-background)] border-[var(--button-secondary-disabled-outline)] !important;
+  }
+
+  .bh-pagination-number {
+    @apply flex gap-4 py-2;
+  }
+
+
+  /* Pagination for Maintenance List  Page End*/
+
+  /* Grouped List */
+  .group-header {
+    @apply text-xl pb-2 border-b mb-4 mt-5;
+  }
+
+  .list-row {
+    @apply border rounded-[5px] p-4 mb-4;
+  }
+
+  /* Table CSS for reports pages*/
+  .t-col-before {
+    @apply inline-flex font-semibold w-1/2;
+  }
+
+  .t-col-md-before {
+    @apply content-[''] w-0;
+  }
+
+  tr.t-head {
+    @apply border-b-2 border-b-black after:mb-2;
+  }
+
+  .t-head th {
+    @apply font-bold;
+  }
+
+  .t-head {
+    @apply absolute -top-full opacity-0 md:relative md:top-0 md:opacity-100 first:border-t-2 md:last:border-t-0 bg-[#FFF];
+  }
+
+  tr.t-row {
+    @apply block border-b-[0.85rem] border-b-transparent sm:table-row;
+    border-bottom-color: white !important;
+  }
+
+  .t-col span a {
+    @apply no-underline hover:underline;
+  }
+
+  .t-col {
+    @apply p-4 text-balance block p-3 sm:table-cell border-b-white before:t-col-before md:before:t-col-md-before last:border-b-2 md:last:border-b-0 bg-[#F7F7F7];
+  }
+
+  .bg-statementShade {
+    background-color: var(--statement-shade);
+  }
+
+  .bg-statementTitle {
+    background-color: var(--statement-title);
+  }
+}
+
+.apexcharts-selected svg {
+  fill: var(--accent-text-accent) !important;
+}
+
+.apexcharts-pan-icon.apexcharts-selected svg {
+  stroke: var(--accent-text-accent) !important;
+  fill: none !important;
+}
+
+@layer components {
+
+
+  .formkit-inner input,
+  .formkit-inner input:disabled,
+  .formkit-inner input:focus {
+    border: initial;
+  }
+
+
+}

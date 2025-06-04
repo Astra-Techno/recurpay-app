@@ -957,3 +957,115 @@
 
 }
 
+[data-theme='portal'] {
+  /* General Text & Page */
+  --general-text-heading: #1f2937;
+  --general-text-paragraph: #374151;
+  --general-text-subtext: #4b5563;
+  --general-text-disclaimer: #6b7280;
+  --general-text-background: #f8fafc;
+  --general-text-modal-background: #ffffff;
+  --general-text-modal-outline: #1f2937;
+  --general-text-link-unvisited: #004aad;
+  --general-text-link-hover: #003382;
+  --general-text-link-visited: #2563eb;
+
+  /* General UI */
+  --ui-label: #1f2937;
+  --ui-text: #374151;
+  --ui-outline: #e5e7eb;
+  --ui-background: #004aad;
+  --ui-nav-controls: #004aad;
+  --ui-focus-text: #374151;
+  --ui-focus-outline: #004aad;
+  --ui-focus-background: #e2e8f0;
+  --ui-warning-text: #f59e0b;
+  --ui-warning-outline: #facc15;
+  --ui-warning-background: #fef9c3;
+  --ui-error-text: #ef4444;
+  --ui-error-outline: #dc2626;
+  --ui-error-background: #fee2e2;
+  --ui-suggested-text: #6b7280;
+  --ui-disabled-label: #6b7280;
+  --ui-disabled-text: #9ca3af;
+  --ui-disabled-outline: #cbd5e1;
+  --ui-disabled-background: #e5e7eb;
+  --ui-selected-background: #004aad;
+  --ui-star-rating-foreground: #facc15;
+  --ui-star-rating-background: #cbd5e1;
+  --ui-slider-toggle-on-text: #1f2937;
+  --ui-slider-toggle-off-background: #e5e7eb;
+  --ui-slider-toggle-off-thumb: #004aad;
+  --ui-slider-toggle-on-background: #004aad;
+  --ui-slider-toggle-on-thumb: #ffffff;
+  --ui-slider-toggle-outline: #004aad;
+  --ui-datepicker-selected-date-background: #003382;
+  --ui-datepicker-selected-date-text: #ffffff;
+
+  /* Buttons */
+  --button-primary-text: #ffffff;
+  --button-primary-background: #004aad;
+  --button-primary-outline: #003382;
+  --button-primary-focus-text: #ffffff;
+  --button-primary-focus-outline: #003382;
+  --button-primary-focus-background: #003382;
+  --button-primary-disabled-text: #ffffff;
+  --button-primary-disabled-background: #9ca3af;
+  --button-primary-disabled-outline: #cbd5e1;
+
+  --button-secondary-text: #004aad;
+  --button-secondary-background: transparent;
+  --button-secondary-outline: #004aad;
+  --button-secondary-focus-text: #003382;
+  --button-secondary-focus-outline: #003382;
+  --button-secondary-focus-background: transparent;
+  --button-secondary-disabled-text: #9ca3af;
+  --button-secondary-disabled-background: transparent;
+  --button-secondary-disabled-outline: #9ca3af;
+
+  --button-success-text: #ffffff;
+  --button-success-background: #10b981;
+  --button-success-outline: #059669;
+  --button-success-focus-text: #ffffff;
+  --button-success-focus-outline: #059669;
+  --button-success-focus-background: #059669;
+  --button-success-disabled-text: #ffffff;
+  --button-success-disabled-background: #9ca3af;
+  --button-success-disabled-outline: #cbd5e1;
+
+  --button-icon-large: #004aad;
+  --button-icon-small: #003382;
+  --button-icon-menu: #004aad;
+
+  --button-radio-outline: #004aad;
+  --button-radio-selected-fill: #004aad;
+  --button-radio-disabled-outline: #cbd5e1;
+  --button-radio-disabled-fill: #e5e7eb;
+
+  /* Notifications */
+  --notification-general-text: #1f2937;
+  --notification-general-outline: #004aad;
+  --notification-general-background: #dbeafe;
+  --notification-success-text: #059669;
+  --notification-success-outline: #10b981;
+  --notification-success-background: #dcfce7;
+  --notification-error-text: #b91c1c;
+  --notification-error-outline: #dc2626;
+  --notification-error-background: #fee2e2;
+  --notification-warning-text: #b45309;
+  --notification-warning-outline: #facc15;
+  --notification-warning-background: #fef9c3;
+
+  /* Accent / Splash */
+  --accent-large-area-splash: #4b5563;
+  --accent-small-area-splash: #004aad;
+  --accent-text-accent: #003382;
+
+  --transparent: #ffffff00;
+
+  --accent-splash-gradient: linear-gradient(
+    45deg,
+    #004aad,
+    #003382
+  );
+}
