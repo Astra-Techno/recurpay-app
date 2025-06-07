@@ -1,32 +1,32 @@
 <template>
-  <div class="flex flex-col h-screen w-full md:w-[390px] md:mx-auto bg-white dark:bg-gray-900 relative">
-    <!-- Navigation Bar -->
-    <NavigationBar>
-      <template #flex-items>
-        <MobileHeader />
-      </template>
-    </NavigationBar>
+	<div class="flex flex-col h-screen w-full md:w-[390px] md:mx-auto bg-white dark:bg-gray-900 relative">
+		<!-- Navigation Bar -->
+		<NavigationBar>
+			<template #flex-items>
+				<MobileHeader />
+			</template>
+		</NavigationBar>
 
-    <!-- Scrollable Content -->
-    <transition name="fade-slide" mode="out-in">
-      <div key="route-{{ $route.fullPath }}"
-           class="flex-1 overflow-y-scroll hide-scrollbar px-2 pb-24 w-[92%] mx-auto transition-all duration-300 ease-out"
-           :class="[isDashboard ? 'mt-0 bg-white' : 'z-20 bg-white rounded-t-2xl shadow-xl']">
-        <NotificationPanel v-if="store.showPanel" />
-        <template v-else>
-          <slot />
-        </template>
-      </div>
-    </transition>
+		<!-- Scrollable Content -->
+		<transition name="fade-slide" mode="out-in">
+			<div key="route-{{ $route.fullPath }}"
+				class="flex-1 overflow-y-scroll hide-scrollbar px-2 pb-24 w-[92%] mx-auto transition-all duration-300 ease-out"
+				:class="[isDashboard ? 'mt-0 bg-white' : 'z-20 bg-white rounded-t-2xl shadow-xl']">
+				<NotificationPanel v-if="store.showPanel" />
+				<template v-else>
+					<slot />
+				</template>
+			</div>
+		</transition>
 
-    <!-- Fixed Bottom Navigation -->
-    <transition name="blur-nav">
-      <BottomNav v-if="deviceStore.isMobile"
-                 :showBackButton="showBackButton"
-                 :toggleDrawer="toggleDrawer"
-                 class="fixed bottom-0 left-0 w-full z-50 border-t border-gray-200 bg-white/90 backdrop-blur-md" />
-    </transition>
-  </div>
+		<!-- Fixed Bottom Navigation -->
+		<transition name="blur-nav">
+			<div v-if="deviceStore.isMobile" class="fixed bottom-0 left-0 right-0 w-full flex justify-center z-50">
+				<BottomNav />
+			</div>
+		</transition>
+
+	</div>
 </template>
 
 <script setup>
@@ -57,18 +57,18 @@ const showBackButton = computed(() => route.path !== "/dashboard")
 const title = useCurrentTitle()
 
 const toggleMiniSidebar = () => {
-  isMiniSidebar.value = !isMiniSidebar.value
-  prefStore.toggleMiniSidebar()
+	isMiniSidebar.value = !isMiniSidebar.value
+	prefStore.toggleMiniSidebar()
 }
 
 const toggleDrawer = () => {
-  drawerOpen.value = !drawerOpen.value
+	drawerOpen.value = !drawerOpen.value
 }
 
 const deviceStore = useDeviceStore()
 
 watch(() => deviceStore.isMobile, (newValue, oldValue) => {
-  if (!deviceStore.isMobile) drawerOpen.value = false
+	if (!deviceStore.isMobile) drawerOpen.value = false
 })
 
 const isDashboard = computed(() => route.path === '/dashboard')
@@ -77,28 +77,28 @@ const isDropdownOpen = ref(false)
 const dropdownRef = ref(null)
 
 const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value
+	isDropdownOpen.value = !isDropdownOpen.value
 }
 
 const closeDropdown = (event) => {
-  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
-    isDropdownOpen.value = false
-  }
+	if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+		isDropdownOpen.value = false
+	}
 }
 
 onMounted(() => {
-  document.addEventListener('click', closeDropdown)
-  appStore.toggleMainLoader()
+	document.addEventListener('click', closeDropdown)
+	appStore.toggleMainLoader()
 })
 
 onUnmounted(() => {
-  document.removeEventListener('click', closeDropdown)
+	document.removeEventListener('click', closeDropdown)
 })
 
 watch(() => route.fullPath, () => {
-  if (store.showPanel) {
-    store.showPanel = false
-  }
+	if (store.showPanel) {
+		store.showPanel = false
+	}
 })
 </script>
 
@@ -106,32 +106,36 @@ watch(() => route.fullPath, () => {
 /* Navigation Slide */
 .fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
+
 .fade-slide-enter-from {
-  transform: translateY(10px);
-  opacity: 0;
+	transform: translateY(10px);
+	opacity: 0;
 }
+
 .fade-slide-leave-to {
-  transform: translateY(10px);
-  opacity: 0;
+	transform: translateY(10px);
+	opacity: 0;
 }
 
 /* Blur BottomNav */
 .blur-nav-enter-active,
 .blur-nav-leave-active {
-  transition: opacity 0.3s ease;
+	transition: opacity 0.3s ease;
 }
+
 .blur-nav-enter-from,
 .blur-nav-leave-to {
-  opacity: 0;
+	opacity: 0;
 }
 
 .hide-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
 }
+
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full relative">
     <!-- Overlay for dropdown -->
-    
+
 
     <!-- Global Sticky Header for All Pages -->
     <div v-if="deviceStore.isMobile || deviceStore.isTablet || deviceStore.isLandscape"
@@ -10,13 +10,15 @@
       <!-- Left Section -->
       <div class="flex items-center space-x-2 relative">
         <button v-if="!isDashboard" @click="goBack" class="focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24"
+
+         <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24"
             stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
+          </svg>-->
+          <ArrowLeft/>
         </button>
 
-        <div class="relative user-avatar z-50">
+        <div class="relative user-avatar z-50" v-if="isDashboard">
           <img :src="user?.avatar || avatarFallback" @click="toggleUserMenu"
             class="w-10 h-10 rounded-full  cursor-pointer" alt="Avatar" />
 
@@ -38,7 +40,7 @@
 
 
       </div>
-      <div class="flex items-center leading-tight">
+      <div class="flex items-center leading-tight" v-if="isDashboard">
         <h1 class="text-lg font-semibold">Hello, Alex 👋</h1>
       </div>
 
@@ -74,6 +76,9 @@ import { useNotificationStore } from '@/stores/notifications'
 import { useExtendedStore } from '../stores/extendedStore'
 import { storeToRefs } from 'pinia'
 import avatarFallback from '@/assets/images/avatar.png'
+import {
+ ArrowLeft 
+} from 'lucide-vue-next'
 
 const route = useRoute()
 const router = useRouter()

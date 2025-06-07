@@ -1,37 +1,42 @@
 <template>
-  <nav class="fixed bottom-0 left-0 right-0  text-white max-w-[390px] mx-auto z-50 border-t ">
-    <div class="flex justify-around items-center h-16 text-sm">
-      <router-link
-        to="/dashboard"
-        :class="[$route.path === '/dashboard' ? 'text-white font-semibold' : 'text-gray-400', 'flex flex-col items-center py-1 hover:text-white transition-colors']"
-      >
-        <Icon name="IconDashboard" class="w-6 h-6 mb-0.5" />
-        <span class="text-[11px]">Home</span>
-      </router-link>
-
-      <router-link
-        to="/properties"
-        :class="[$route.path === '/properties' ? 'text-white font-semibold' : 'text-gray-400', 'flex flex-col items-center py-1 hover:text-white transition-colors']"
-      >
-        <Icon name="IconMinimal" class="w-6 h-6 mb-0.5" />
-        <span class="text-[11px]">Services</span>
-      </router-link>
-
-      <router-link
-        to="/transactions"
-        :class="[$route.path === '/transactions' ? 'text-white font-semibold' : 'text-gray-400', 'flex flex-col items-center py-1 hover:text-white transition-colors']"
-      >
-        <Icon name="IconPayment" class="w-6 h-6 mb-0.5" />
-        <span class="text-[11px]">Payments</span>
-      </router-link>
-
-      <router-link
-        to="/settings"
-        :class="[$route.path === '/settings' ? 'text-white font-semibold' : 'text-gray-400', 'flex flex-col items-center py-1 hover:text-white transition-colors']"
-      >
-        <Icon name="IconSettings" class="w-6 h-6 mb-0.5" />
-        <span class="text-[11px]">Profile</span>
-      </router-link>
-    </div>
+  <nav class="flex justify-around items-center h-16 w-full max-w-[390px] bg-white border-t border-[#E8EBF2] shadow backdrop-blur-md ">
+    <RouterLink
+      v-for="item in navItems"
+      :key="item.label"
+      :to="item.to"
+      class="flex flex-col items-center justify-center text-xs transition-all duration-150 ease-in-out"
+      :class="[
+        isActive(item.to)
+          ? 'font-medium'
+          : ' hover:text-blue-500'
+      ]"
+    >
+      <component :is="item.icon" class="w-6 h-6 mb-1" />
+      <span>{{ item.label }}</span>
+    </RouterLink>
   </nav>
 </template>
+
+<script setup>
+import { useRoute } from 'vue-router'
+import {
+  HomeIcon,
+  CreditCard,
+  UserIcon,
+  SearchCheck,
+  MoreHorizontalIcon,
+  List
+} from 'lucide-vue-next'
+
+const route = useRoute()
+
+const navItems = [
+  { label: 'Home', to: '/dashboard', icon: HomeIcon },
+  { label: 'Services', to: '/services', icon: List },
+  { label: 'Payments', to: '/payments', icon: CreditCard },
+  { label: 'Explore', to: '/explore', icon: SearchCheck },
+  { label: 'Profile', to: '/profile', icon: UserIcon },
+]
+
+const isActive = (path) => route.path === path || route.path.startsWith(path + '/')
+</script>
