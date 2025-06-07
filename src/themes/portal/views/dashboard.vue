@@ -1,15 +1,15 @@
 <template>
-  <div class="space-y-6 bg-white min-h-screen">
+  <div class="space-y-6 py-2 bg-white min-h-screen">
    
     
 
     <!-- Search -->
-    <div class="relative">
+    <div class="relative" v-scroll-reveal>
       <input type="text" placeholder="Search services" class="w-full rounded-xl bg-gray-100 py-2 px-4" />
     </div>
 
     <!-- Balance Overview -->
-    <div class="bg-gray-50 p-4 rounded-xl">
+    <div v-scroll-reveal class="bg-gray-50 p-4 rounded-xl">
       <h2 class="font-semibold mb-2">Balance Overview</h2>
       <div class="flex justify-between items-center">
         <div>
@@ -22,7 +22,7 @@
     </div>
 
     <!-- Active Subscriptions -->
-    <div>
+    <div v-scroll-reveal>
       <h2 class="font-semibold mb-2">Active Subscriptions</h2>
       <div class="grid grid-cols-2 gap-4">
         <div class="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Due Payments -->
-    <div>
+    <div v-scroll-reveal>
       <h2 class="font-semibold mb-2">Due Payments</h2>
       <div v-for="item in duePayments" :key="item.name" class="flex items-center justify-between py-2">
         <div class="flex items-center space-x-3">
@@ -58,7 +58,7 @@
     </div>
 
     <!-- Pending Payments -->
-    <div>
+    <div v-scroll-reveal >
       <h2 class="font-semibold mb-2">Pending Payments</h2>
       <div v-for="item in pendingPayments" :key="item.name + item.service" class="flex items-center justify-between py-2">
         <div class="flex items-center space-x-3">
@@ -75,7 +75,7 @@
     </div>
 
     <!-- Quick Pay -->
-    <div>
+    <div v-scroll-reveal>
       <h2 class="font-semibold mb-2">Quick Pay</h2>
       <div class="flex space-x-4">
         <img src="@/assets/images/avatar.png" class="w-10 h-10 rounded-full" />
@@ -84,7 +84,7 @@
     </div>
 
     <!-- Quick Actions -->
-    <div>
+    <div v-scroll-reveal>
       <h2 class="font-semibold mb-2">Quick Actions</h2>
       <div class="grid grid-cols-3 gap-2">
         <button class="flex flex-col items-center justify-center p-3 bg-gray-100 rounded-xl">
@@ -103,7 +103,7 @@
     </div>
 
     <!-- Transaction History -->
-    <div>
+    <div v-scroll-reveal>
       <h2 class="font-semibold mb-2">Transaction History</h2>
       <div v-for="item in transactionHistory" :key="item.name" class="flex items-center justify-between py-2">
         <div class="flex items-center space-x-3">
@@ -117,10 +117,7 @@
       </div>
     </div>
 
-    <!-- Floating Button -->
-    <button class="fixed bottom-4 right-4 bg-violet-100 rounded-full p-4">
-      <PlusIcon class="w-6 h-6 text-violet-500" />
-    </button>
+   
   </div>
 </template>
 

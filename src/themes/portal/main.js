@@ -62,4 +62,6 @@ app.directive('default-image', defaultImage)
 import skeleton from '@/directives/skeleton'
 app.directive('skeleton', skeleton)
 
+import vScrollReveal from '@/directives/vScrollReveal'
+app.directive('scroll-reveal', vScrollReveal)
 app.mount('#app')
