@@ -1,31 +1,36 @@
 <template>
-	<div class="flex flex-col h-screen w-full md:w-3/12 md:mx-auto bg-white dark:bg-gray-900 relative">
+  <div class="flex flex-col h-screen w-full md:w-[390px] md:mx-auto bg-white dark:bg-gray-900 relative">
+    <!-- Navigation Bar -->
+    <NavigationBar>
+      <template #flex-items>
+        <MobileHeader />
+      </template>
+    </NavigationBar>
 
-		<!-- Navigation Bar -->
-		<NavigationBar>
-			<template #flex-items>
-				<MobileHeader />
-			</template>
-		</NavigationBar>
+    <!-- Scrollable Content -->
+    <transition name="fade-slide" mode="out-in">
+      <div key="route-{{ $route.fullPath }}"
+           class="flex-1 overflow-y-scroll hide-scrollbar px-2 pb-24 w-[92%] mx-auto transition-all duration-300 ease-out"
+           :class="[isDashboard ? 'mt-0 bg-white' : 'z-20 bg-white rounded-t-2xl shadow-xl']">
+        <NotificationPanel v-if="store.showPanel" />
+        <template v-else>
+          <slot />
+        </template>
+      </div>
+    </transition>
 
-		<!-- Scrollable Content -->
-		<div class="flex-1 overflow-y-scroll hide-scrollbar pb-20 w-[92%] mx-auto transition-all duration-300 ease-out"
-			:class="[isDashboard ? 'mt-0 bg-white' : '-mt-[70px] z-20 bg-white rounded-t-2xl shadow-xl']">
-			<NotificationPanel v-if="store.showPanel" />
-			<template v-else>
-				<slot />
-			</template>
-		</div>
-
-		<!-- Fixed Bottom Navigation -->
-		<BottomNav v-if="deviceStore.isMobile" :showBackButton="showBackButton" :toggleDrawer="toggleDrawer"
-			class="fixed bottom-0 left-0 w-full z-50" />
-	</div>
+    <!-- Fixed Bottom Navigation -->
+    <transition name="blur-nav">
+      <BottomNav v-if="deviceStore.isMobile"
+                 :showBackButton="showBackButton"
+                 :toggleDrawer="toggleDrawer"
+                 class="fixed bottom-0 left-0 w-full z-50 border-t border-gray-200 bg-white/90 backdrop-blur-md" />
+    </transition>
+  </div>
 </template>
 
-
 <script setup>
-import { onMounted, onUnmounted, ref, watch, computed, defineComponent, h } from 'vue'
+import { onMounted, onUnmounted, ref, watch, computed } from 'vue'
 import { useAppStore } from '@/stores/index'
 import { useExtendedStore } from '../stores/extendedStore'
 import { storeToRefs } from 'pinia'
@@ -43,7 +48,7 @@ const store = useNotificationStore()
 const route = useRoute()
 const appStore = useAppStore()
 const extendedStore = useExtendedStore()
-const { user, loading } = storeToRefs(extendedStore)
+const { user } = storeToRefs(extendedStore)
 const prefStore = useUIPreferencesStore()
 const isMiniSidebar = ref(prefStore.isMiniSidebar)
 const drawerOpen = ref(false)
@@ -52,113 +57,81 @@ const showBackButton = computed(() => route.path !== "/dashboard")
 const title = useCurrentTitle()
 
 const toggleMiniSidebar = () => {
-	isMiniSidebar.value = !isMiniSidebar.value
-	prefStore.toggleMiniSidebar()
+  isMiniSidebar.value = !isMiniSidebar.value
+  prefStore.toggleMiniSidebar()
 }
 
 const toggleDrawer = () => {
-	drawerOpen.value = !drawerOpen.value
+  drawerOpen.value = !drawerOpen.value
 }
-
 
 const deviceStore = useDeviceStore()
 
-watch(
-	() => deviceStore.isMobile,
-	(newValue, oldValue) => {
-		console.log(`isMobile changed from ${oldValue} to ${newValue}`)
-		if (!deviceStore.isMobile) {
-			drawerOpen.value = false // Close the drawer if not in mobile view
-		}
-	},
-)
+watch(() => deviceStore.isMobile, (newValue, oldValue) => {
+  if (!deviceStore.isMobile) drawerOpen.value = false
+})
 
 const isDashboard = computed(() => route.path === '/dashboard')
 const currentAccount = ref(extendedStore.currentAccount)
 const isDropdownOpen = ref(false)
-const toggleDropdown = () => {
-	isDropdownOpen.value = !isDropdownOpen.value
-}
-
 const dropdownRef = ref(null)
 
-// Close dropdown when clicking outside
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value
+}
+
 const closeDropdown = (event) => {
-	if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
-		isDropdownOpen.value = false
-	}
+  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
+    isDropdownOpen.value = false
+  }
 }
 
 onMounted(() => {
-	document.addEventListener('click', closeDropdown)
-	appStore.toggleMainLoader()
+  document.addEventListener('click', closeDropdown)
+  appStore.toggleMainLoader()
 })
 
 onUnmounted(() => {
-	document.removeEventListener('click', closeDropdown)
+  document.removeEventListener('click', closeDropdown)
 })
 
-watch(
-  () => route.fullPath,
-  () => {
-    if (store.showPanel) {
-      store.showPanel = false
-    }
+watch(() => route.fullPath, () => {
+  if (store.showPanel) {
+    store.showPanel = false
   }
-)
+})
 </script>
 
 <style scoped>
-.slide-enter-active,
-.slide-leave-active {
-	transition:
-		transform 0.3s ease-in-out,
-		opacity 0.3s ease-in-out;
-	/* Smooth transition */
+/* Navigation Slide */
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.3s ease;
+}
+.fade-slide-enter-from {
+  transform: translateY(10px);
+  opacity: 0;
+}
+.fade-slide-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
 }
 
-.slide-enter {
-	transform: translateX(-100%);
-	/* Start from left */
-	opacity: 0;
-	/* Start invisible */
+/* Blur BottomNav */
+.blur-nav-enter-active,
+.blur-nav-leave-active {
+  transition: opacity 0.3s ease;
+}
+.blur-nav-enter-from,
+.blur-nav-leave-to {
+  opacity: 0;
 }
 
-.slide-leave-active {
-	transform: translateX(-100%);
-	/* Move to left */
-	opacity: 0;
-	/* Fade out */
-}
-
-.slide-leave-to {
-	transform: translateX(-100%);
-	/* Ensure it leaves to the left */
-	opacity: 0;
-	/* Ensure it fades out */
-}
-
-nav {
-	/*box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.4);*/
-	position: sticky;
-	top: 0;
-	/*z-index: 999;*/
-}
-
-.side-bar.w-20 {
-	box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.4);
-}
-
-/* Hide scrollbar but keep scrolling */
 .hide-scrollbar {
-	scrollbar-width: none;
-	/* Firefox */
-	-ms-overflow-style: none;
-	/* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
 .hide-scrollbar::-webkit-scrollbar {
-	display: none;
-	/* Chrome, Safari and Opera */
+  display: none;
 }
 </style>
