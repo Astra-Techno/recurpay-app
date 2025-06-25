@@ -1,32 +1,51 @@
 <template>
-  <div class="flex flex-col h-screen w-full md:w-[390px] md:mx-auto bg-white dark:bg-gray-900 relative">
-    <!-- Navigation Bar -->
-    <NavigationBar>
-      <template #flex-items>
-        <MobileHeader />
-      </template>
-    </NavigationBar>
+  <div class="flex flex-col h-screen w-full bg-gray-50 dark:bg-gray-900 relative">
+    <!-- Desktop Sidebar (hidden on mobile) -->
+    <DesktopSidebar 
+      v-if="!deviceStore.isMobile" 
+      :is-mini="isMiniSidebar"
+      @toggle-mini="toggleMiniSidebar"
+    />
 
-    <!-- Scrollable Content -->
-    <transition name="fade-slide" mode="out-in">
-      <div
-        key="route-{{ $route.fullPath }}"
-        class="scroll-container flex-1 overflow-y-scroll hide-scrollbar px-2 pb-24 w-[92%] mx-auto transition-all duration-300 ease-out"
-        :class="[isDashboard ? 'mt-0 bg-white' : 'z-20 bg-white rounded-t-2xl shadow-xl']"
-      >
-        <NotificationPanel v-if="store.showPanel" />
-        <template v-else>
-          <slot />
+    <!-- Main Content Area -->
+    <div class="flex flex-col flex-1" :class="{ 'md:ml-64': !deviceStore.isMobile && !isMiniSidebar, 'md:ml-16': !deviceStore.isMobile && isMiniSidebar }">
+      
+      <!-- Top Navigation Bar -->
+      <NavigationBar>
+        <template #flex-items>
+          <MobileHeader v-if="deviceStore.isMobile" />
+          <DesktopHeader v-else />
         </template>
-      </div>
-    </transition>
+      </NavigationBar>
 
-    <!-- Fixed Bottom Navigation -->
-    <transition name="blur-nav">
-      <div v-if="deviceStore.isMobile" class="fixed bottom-0 left-0 right-0 w-full flex justify-center z-50">
-        <BottomNav />
-      </div>
-    </transition>
+      <!-- Scrollable Content -->
+      <transition name="fade-slide" mode="out-in">
+        <div
+          key="route-{{ $route.fullPath }}"
+          class="scroll-container flex-1 overflow-y-auto"
+          :class="[
+            deviceStore.isMobile 
+              ? 'px-4 pb-24' 
+              : 'px-6 py-4',
+            isDashboard && deviceStore.isMobile 
+              ? 'mt-0 bg-white' 
+              : 'bg-white rounded-t-2xl shadow-sm mx-2 mt-2'
+          ]"
+        >
+          <NotificationPanel v-if="store.showPanel" />
+          <template v-else>
+            <slot />
+          </template>
+        </div>
+      </transition>
+
+      <!-- Fixed Bottom Navigation (Mobile Only) -->
+      <transition name="blur-nav">
+        <div v-if="deviceStore.isMobile" class="fixed bottom-0 left-0 right-0 w-full flex justify-center z-50">
+          <BottomNav />
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -39,6 +58,8 @@ import { useUIPreferencesStore } from '../stores/uiPreferences'
 import { useDeviceStore } from '../stores/useDeviceStore'
 import NavigationBar from '../layouts/NavigationBar.vue'
 import BottomNav from '../layouts/BottomNav.vue'
+import DesktopSidebar from '../layouts/DesktopSidebar.vue'
+import DesktopHeader from '../layouts/DesktopHeader.vue'
 import { useRoute } from 'vue-router'
 import { useCurrentTitle } from '@/composables/use-meta'
 import MobileHeader from '../layouts/MobileHeader.vue'
@@ -52,42 +73,16 @@ const extendedStore = useExtendedStore()
 const { user } = storeToRefs(extendedStore)
 const prefStore = useUIPreferencesStore()
 const isMiniSidebar = ref(prefStore.isMiniSidebar)
-const drawerOpen = ref(false)
-const showBackButton = computed(() => route.path !== "/dashboard")
-
-const title = useCurrentTitle()
 const deviceStore = useDeviceStore()
 const isDashboard = computed(() => route.path === '/dashboard')
-const currentAccount = ref(extendedStore.currentAccount)
-const isDropdownOpen = ref(false)
-const dropdownRef = ref(null)
 
 const toggleMiniSidebar = () => {
   isMiniSidebar.value = !isMiniSidebar.value
   prefStore.toggleMiniSidebar()
 }
 
-const toggleDrawer = () => {
-  drawerOpen.value = !drawerOpen.value
-}
-
-const toggleDropdown = () => {
-  isDropdownOpen.value = !isDropdownOpen.value
-}
-
-const closeDropdown = (event) => {
-  if (dropdownRef.value && !dropdownRef.value.contains(event.target)) {
-    isDropdownOpen.value = false
-  }
-}
-
 onMounted(() => {
-  document.addEventListener('click', closeDropdown)
   appStore.toggleMainLoader()
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', closeDropdown)
 })
 
 // Close notification panel on route change
@@ -103,10 +98,6 @@ watch(() => route.fullPath, () => {
       container.scrollTo({ top: 0, behavior: 'smooth' })
     }
   })
-})
-
-watch(() => deviceStore.isMobile, (newValue) => {
-  if (!newValue) drawerOpen.value = false
 })
 </script>
 
@@ -136,11 +127,11 @@ watch(() => deviceStore.isMobile, (newValue) => {
 }
 
 /* Hide default scrollbar */
-.hide-scrollbar {
+.scroll-container {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.hide-scrollbar::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
   display: none;
 }
 </style>
